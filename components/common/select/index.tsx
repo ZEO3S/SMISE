@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { useState } from "react";
 import Image from "next/image";
 
 import Button from "../button";
@@ -9,20 +9,18 @@ import { useSelectToggle } from "@/hooks/useSelectToggle";
 
 interface Props {
   options: Array<Option>;
-  selectedOption: Option;
-  setSelectedOption: Dispatch<SetStateAction<Option>>;
+  onSelect?: (selectedOption: Option) => void;
 }
 
-export default function Select({
-  options,
-  selectedOption,
-  setSelectedOption,
-}: Props) {
+export default function Select({ options, onSelect }: Props) {
+  const [selectedOption, setSelectedOption] = useState(options[0]);
   const { isOpen, sectionRef, closeSelect, toggleSelect } = useSelectToggle();
 
   const handleSelectOption = (option: Option) => {
     setSelectedOption(option);
     closeSelect();
+
+    if (onSelect) onSelect(option);
   };
 
   return (

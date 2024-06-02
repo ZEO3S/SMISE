@@ -1,10 +1,37 @@
-import { useRecruitment } from "@/hooks/useRecruitment";
 import Link from "next/link";
+
 import Badge from "../common/badge";
 import Text from "../common/text";
 
-export default function RecruitmentList() {
-  const { recruitment, isLoading, error } = useRecruitment();
+import { RequestRecruitmentParams } from "@/types/api/recruitment";
+import { useRecruitment } from "@/hooks/useRecruitment";
+
+export default function RecruitmentList({
+  serviceTypes,
+  serviceStatus,
+  jobs,
+  detailedJobs,
+  locations,
+  experienceLevel,
+  educationLevel,
+  sort,
+  limit,
+  cursor,
+  keyword,
+}: RequestRecruitmentParams) {
+  const { recruitment, isLoading, error } = useRecruitment({
+    serviceTypes,
+    serviceStatus,
+    jobs,
+    detailedJobs,
+    locations,
+    experienceLevel,
+    educationLevel,
+    sort,
+    limit,
+    cursor,
+    keyword,
+  });
 
   if (isLoading) return <div>로딩 중...</div>;
 

@@ -129,6 +129,30 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
 
   const serviceType = searchParams.get("service_type");
+  const serviceStatus = searchParams.get("serviceStatus");
+  const jobs = searchParams.get("jobs");
+  const detailedJobs = searchParams.get("detailedJobs");
+  const locations = searchParams.get("locations");
+  const experienceLevel = searchParams.get("experienceLevel");
+  const educationLevel = searchParams.get("educationLevel");
+  const sort = searchParams.get("sort");
+  const limit = searchParams.get("limit");
+  const cursor = searchParams.get("cursor");
+  const keyword = searchParams.get("keyword");
+
+  console.log(
+    serviceType,
+    serviceStatus,
+    jobs,
+    detailedJobs,
+    locations,
+    experienceLevel,
+    educationLevel,
+    sort,
+    limit,
+    cursor,
+    keyword
+  );
 
   return Response.json(RECRUITMENT);
 }
