@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 
-import RecruitmentList from "@/components/recruitmentList";
+import SearchBar from "@/components/searchBar";
 import SortTypeSelect from "@/components/sortTypeSelect";
+import RecruitmentList from "@/components/recruitmentList";
 
-import { DefaultRequestRecruitmentParams, Sort } from "@/types/api/recruitment";
+import { DefaultRequestRecruitmentParams } from "@/types/api/recruitment";
 
 const DEFAULT_PARAMS: DefaultRequestRecruitmentParams = {
   SERVICE_TYPES: null,
@@ -22,13 +23,16 @@ const DEFAULT_PARAMS: DefaultRequestRecruitmentParams = {
 };
 
 export default function Home() {
-  const [sort, setSort] = useState<Sort>(DEFAULT_PARAMS.SORT);
+  const [keyword, setKeyword] = useState(DEFAULT_PARAMS.KEYWORD);
+  const [sort, setSort] = useState(DEFAULT_PARAMS.SORT);
 
   return (
     <div className='flex gap-6 flex-1'>
       <div className='w-80'>필터</div>
       <div className='flex-1'>
-        <div className='mb-6'>검색</div>
+        <div className='flex mb-6'>
+          <SearchBar setKeyword={setKeyword} />
+        </div>
         <div className='flex justify-end mb-2'>
           <SortTypeSelect setSort={setSort} />
         </div>
@@ -43,7 +47,7 @@ export default function Home() {
           sort={sort}
           limit={null}
           cursor={null}
-          keyword={null}
+          keyword={keyword}
         />
       </div>
     </div>

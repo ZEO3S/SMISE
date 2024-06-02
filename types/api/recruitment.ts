@@ -26,7 +26,7 @@ type EducationLevel = string | null;
 export type Sort = "최신순" | "마감순" | null;
 type Limit = string | null;
 type Cursor = string | null;
-type Keyword = string | null;
+export type Keyword = string | null;
 
 export interface RequestRecruitmentParams {
   serviceTypes: ServiceTypes;
