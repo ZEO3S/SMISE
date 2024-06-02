@@ -1,5 +1,3 @@
-"use client";
-
 import { useRecruitment } from "@/hooks/useRecruitment";
 import Link from "next/link";
 import Badge from "../common/badge";
