@@ -12,7 +12,7 @@ export interface Recruitment {
 }
 
 export type ServiceType = "산업기능요원" | "전문연구요원" | "승선근무예비역";
-type ServiceStatus = "보충역" | "현역" | null;
+export type ServiceStatus = "보충역" | "현역";
 type Jobs = Array<string> | null;
 type DetailedJobs = Array<string> | null;
 type Locations = Array<string> | null;
@@ -28,7 +28,7 @@ export type Keyword = string | null;
 
 export interface RequestRecruitmentParams {
   serviceTypes: Array<ServiceType> | null;
-  serviceStatus: ServiceStatus;
+  serviceStatus: ServiceStatus | null;
   jobs: Jobs;
   detailedJobs: DetailedJobs;
   locations: Locations;
@@ -42,7 +42,7 @@ export interface RequestRecruitmentParams {
 
 export interface DefaultRequestRecruitmentParams {
   SERVICE_TYPES: Array<ServiceType> | null;
-  SERVICE_STATUS: ServiceStatus;
+  SERVICE_STATUS: ServiceStatus | null;
   JOBS: Jobs;
   DETAILED_JOBS: DetailedJobs;
   LOCATIONS: Locations;

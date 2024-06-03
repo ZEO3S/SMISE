@@ -31,13 +31,13 @@ export default function Select({ selectedOption, children }: Props) {
           />
         </Button>
         {isOpen && (
-          <ul
+          <div
             className='absolute w-full bg-white'
             role='listbox'
             onClick={closeSelect}
           >
             {children}
-          </ul>
+          </div>
         )}
       </section>
     </SelectContext.Provider>

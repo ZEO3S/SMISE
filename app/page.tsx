@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 
+import Filter from "@/components/filter";
 import SearchBar from "@/components/searchBar";
 import SortTypeSelect from "@/components/sortTypeSelect";
 import RecruitmentList from "@/components/recruitmentList";
 
 import { DefaultRequestRecruitmentParams } from "@/types/api/recruitment";
-import Filter from "@/components/filter";
 
 const DEFAULT_PARAMS: DefaultRequestRecruitmentParams = {
   SERVICE_TYPES: null,
@@ -27,13 +27,19 @@ export default function Home() {
   const [serviceTypes, setServiceTypes] = useState(
     DEFAULT_PARAMS.SERVICE_TYPES
   );
+  const [serviceStatus, setServiceStatus] = useState(
+    DEFAULT_PARAMS.SERVICE_STATUS
+  );
   const [keyword, setKeyword] = useState(DEFAULT_PARAMS.KEYWORD);
   const [sort, setSort] = useState(DEFAULT_PARAMS.SORT);
 
   return (
     <div className='flex gap-6 flex-1'>
       <div className='w-80'>
-        <Filter setServiceTypes={setServiceTypes} />
+        <Filter
+          setServiceTypes={setServiceTypes}
+          setServiceStatus={setServiceStatus}
+        />
       </div>
       <div className='flex-1'>
         <div className='flex mb-6'>
@@ -44,7 +50,7 @@ export default function Home() {
         </div>
         <RecruitmentList
           serviceTypes={serviceTypes}
-          serviceStatus={null}
+          serviceStatus={serviceStatus}
           jobs={null}
           detailedJobs={null}
           locations={null}

@@ -18,7 +18,7 @@ export default function Option({
   const selectedOption = useContext(SelectContext);
 
   return (
-    <li className='w-full first:border-b-0' key={value} role='option'>
+    <div className='w-full first:border-b-0' role='option'>
       <button
         className='w-full p-2 border border-default-color border-opacity-10 text-start disabled:bg-default-color disabled:bg-opacity-10 disabled:text-default-color disabled:text-opacity-20'
         value={value}
@@ -27,6 +27,6 @@ export default function Option({
       >
         {label}
       </button>
-    </li>
+    </div>
   );
 }

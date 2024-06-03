@@ -6,21 +6,31 @@ import Text from "../common/text";
 import Select from "../common/select";
 import ServiceTypesFilter from "./serviceTypesFilter";
 
-import { ServiceType } from "@/types/api/recruitment";
+import { ServiceStatus, ServiceType } from "@/types/api/recruitment";
+import { SelectOption } from "@/types/components/select";
+import ServiceStatusFilter from "./serviceStatusFilter";
+
+const EDUCATION_LEVELS: Array<SelectOption> = [
+  {
+    value: "학력 무관",
+    label: "학력 무관",
+  },
+  {
+    value: "고교 졸업",
+    label: "고교 졸업",
+  },
+];
 
 interface Props {
   setServiceTypes: Dispatch<SetStateAction<Array<ServiceType> | null>>;
+  setServiceStatus: Dispatch<SetStateAction<ServiceStatus | null>>;
 }
 
-export default function Filter({ setServiceTypes }: Props) {
+export default function Filter({ setServiceTypes, setServiceStatus }: Props) {
   return (
     <div>
       <ServiceTypesFilter setServiceTypes={setServiceTypes} />
-      <div>
-        <Text variant='semi-title' content='역종' />
-        <Text content='보충역' />
-        <Text content='현역' />
-      </div>
+      <ServiceStatusFilter setServiceStatus={setServiceStatus} />
       <div>
         <Text variant='semi-title' content='직군' />
         <Text content='개발' />
@@ -39,18 +49,21 @@ export default function Filter({ setServiceTypes }: Props) {
       </div>
       <div>
         <Text variant='semi-title' content='학력' />
-        <Select
-          options={[
-            {
-              value: "학력 무관",
-              label: "학력 무관",
-            },
-            {
-              value: "고교 졸업",
-              label: "고교 졸업",
-            },
-          ]}
-        />
+        <Select selectedOption={EDUCATION_LEVELS[0]}>
+          <ul>
+            {EDUCATION_LEVELS.map((educationLevel) => {
+              return (
+                <li key={educationLevel.value}>
+                  <Select.Option
+                    value={educationLevel.value}
+                    label={educationLevel.label}
+                    onSelect={() => {}}
+                  />
+                </li>
+              );
+            })}
+          </ul>
+        </Select>
       </div>
       <div>
         <Text variant='semi-title' content='경력' />
