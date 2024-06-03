@@ -15,15 +15,19 @@ export default function SortTypeSelect({ setSort }: Props) {
 
   return (
     <Select selectedOption={selectedSortOption}>
-      {SORT_TYPES.map((sortType) => {
-        return (
-          <Select.Option
-            value={sortType.value}
-            label={sortType.label}
-            onSelect={() => updateSort(sortType)}
-          />
-        );
-      })}
+      <ul>
+        {SORT_TYPES.map((sortType) => {
+          return (
+            <li key={sortType.value}>
+              <Select.Option
+                value={sortType.value}
+                label={sortType.label}
+                onSelect={() => updateSort(sortType)}
+              />
+            </li>
+          );
+        })}
+      </ul>
     </Select>
   );
 }
