@@ -22,16 +22,19 @@ export default function ServiceTypesFilter({ setServiceTypes }: Props) {
   return (
     <div>
       <Text variant='semi-title' content='복무형태' />
-      {SERVICE_TYPES!.map((serviceType) => {
-        return (
-          <Checkbox
-            key={serviceType}
-            value={serviceType}
-            label={serviceType}
-            onToggle={() => updateServiceTypes(serviceType)}
-          />
-        );
-      })}
+      <ul>
+        {SERVICE_TYPES.map((serviceType) => {
+          return (
+            <li key={serviceType}>
+              <Checkbox
+                value={serviceType}
+                label={serviceType}
+                onToggle={() => updateServiceTypes(serviceType)}
+              />
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }
