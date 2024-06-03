@@ -2,4 +2,6 @@ import { createContext } from "react";
 
 import { SelectOption } from "@/types/components/select";
 
-export const SelectContext = createContext<SelectOption | null>(null);
+export type SelectContextValue = SelectOption;
+
+export const SelectContext = createContext<SelectContextValue | null>(null);

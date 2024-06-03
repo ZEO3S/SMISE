@@ -1,18 +1,12 @@
-import {
-  ChangeEventHandler,
-  PropsWithChildren,
-  createContext,
-  useState,
-} from "react";
+import { ChangeEventHandler, PropsWithChildren, useState } from "react";
 
-interface RadioContextValue {
-  selectedValue: string;
-  onChange: ChangeEventHandler<HTMLInputElement>;
+import { RadioContext, RadioContextValue } from "./RadioContext";
+
+interface Props extends PropsWithChildren {
+  value?: RadioContextValue;
 }
 
-export const RadioContext = createContext<RadioContextValue | null>(null);
-
-export default function RadioContextProvider({ children }: PropsWithChildren) {
+export default function RadioContextProvider({ children }: Props) {
   const [selectedValue, setSelectedValue] = useState("");
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (event) => {

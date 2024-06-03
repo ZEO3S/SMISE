@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 export const useSelectToggle = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLFieldSetElement>(null);
 
   const closeSelect = () => setIsOpen(false);
 

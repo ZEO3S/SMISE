@@ -4,7 +4,7 @@ import { ChangeEventHandler, useContext } from "react";
 import WhiteCheckSVG from "@/assets/svgs/white_check.svg";
 import Text from "../../text";
 
-import { RadioContext } from "../context";
+import { RadioContext } from "../context/RadioContext";
 
 interface Props {
   value: string;
