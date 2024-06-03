@@ -7,6 +7,7 @@ import SortTypeSelect from "@/components/sortTypeSelect";
 import RecruitmentList from "@/components/recruitmentList";
 
 import { DefaultRequestRecruitmentParams } from "@/types/api/recruitment";
+import Filter from "@/components/filter";
 
 const DEFAULT_PARAMS: DefaultRequestRecruitmentParams = {
   SERVICE_TYPES: null,
@@ -23,12 +24,17 @@ const DEFAULT_PARAMS: DefaultRequestRecruitmentParams = {
 };
 
 export default function Home() {
+  const [serviceTypes, setServiceTypes] = useState(
+    DEFAULT_PARAMS.SERVICE_TYPES
+  );
   const [keyword, setKeyword] = useState(DEFAULT_PARAMS.KEYWORD);
   const [sort, setSort] = useState(DEFAULT_PARAMS.SORT);
 
   return (
     <div className='flex gap-6 flex-1'>
-      <div className='w-80'>필터</div>
+      <div className='w-80'>
+        <Filter setServiceTypes={setServiceTypes} />
+      </div>
       <div className='flex-1'>
         <div className='flex mb-6'>
           <SearchBar setKeyword={setKeyword} />
@@ -37,7 +43,7 @@ export default function Home() {
           <SortTypeSelect setSort={setSort} />
         </div>
         <RecruitmentList
-          serviceTypes={null}
+          serviceTypes={serviceTypes}
           serviceStatus={null}
           jobs={null}
           detailedJobs={null}

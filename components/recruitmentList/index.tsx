@@ -72,7 +72,7 @@ export default function RecruitmentList({
                   </div>
                   <Text content={expirationDate} />
                 </div>
-                <p className='text-xl font-bold'>{title}</p>
+                <Text variant='title' content={title} />
                 <div className='flex gap-3'>
                   <Text content={company} />
                   <Text content={location} />
