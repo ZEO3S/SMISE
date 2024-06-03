@@ -19,7 +19,7 @@ export default function Select({ selectedOption, children }: Props) {
   return (
     <fieldset className='relative' ref={sectionRef} role='combobox'>
       <Button
-        className='flex gap-1 p-2 border border-default-color border-opacity-10'
+        className='flex justify-between gap-1 w-full p-2 border border-default-color border-opacity-10'
         onClick={toggleSelect}
       >
         {selectedOption?.label}
