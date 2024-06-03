@@ -8,7 +8,7 @@ import { useControlledInput } from "@/hooks/useControlledInput";
 import { useUpdateKeyword } from "@/hooks/useUpdateKeyword";
 
 interface Props {
-  setKeyword: Dispatch<SetStateAction<Keyword>>;
+  setKeyword: Dispatch<SetStateAction<Keyword | null>>;
 }
 
 export default function SearchBar({ setKeyword }: Props) {

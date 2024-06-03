@@ -3,32 +3,29 @@ import { Dispatch, SetStateAction } from "react";
 
 import ArrowSVG from "@/assets/svgs/arrow.svg";
 import Text from "../common/text";
-import Select from "../common/select";
 import ServiceTypesFilter from "./serviceTypesFilter";
-
-import { ServiceStatus, ServiceType } from "@/types/api/recruitment";
-import { SelectOption } from "@/types/components/select";
 import ServiceStatusFilter from "./serviceStatusFilter";
+import EducationLevelFilter from "./EducationLevelFilter";
 
-const EDUCATION_LEVELS: Array<SelectOption> = [
-  {
-    value: "학력 무관",
-    label: "학력 무관",
-  },
-  {
-    value: "고교 졸업",
-    label: "고교 졸업",
-  },
-];
+import {
+  EducationLevel,
+  ServiceStatus,
+  ServiceType,
+} from "@/types/api/recruitment";
 
 interface Props {
   setServiceTypes: Dispatch<SetStateAction<Array<ServiceType> | null>>;
   setServiceStatus: Dispatch<SetStateAction<ServiceStatus | null>>;
+  setEducationLevel: Dispatch<SetStateAction<EducationLevel | null>>;
 }
 
-export default function Filter({ setServiceTypes, setServiceStatus }: Props) {
+export default function Filter({
+  setServiceTypes,
+  setServiceStatus,
+  setEducationLevel,
+}: Props) {
   return (
-    <div>
+    <div className='flex flex-col'>
       <ServiceTypesFilter setServiceTypes={setServiceTypes} />
       <ServiceStatusFilter setServiceStatus={setServiceStatus} />
       <div>
@@ -47,24 +44,7 @@ export default function Filter({ setServiceTypes, setServiceStatus }: Props) {
         <Text content='외 1' />
         <Image className='-rotate-90' src={ArrowSVG} alt='모달 열기 버튼' />
       </div>
-      <div>
-        <Text variant='semi-title' content='학력' />
-        <Select selectedOption={EDUCATION_LEVELS[0]}>
-          <ul>
-            {EDUCATION_LEVELS.map((educationLevel) => {
-              return (
-                <li key={educationLevel.value}>
-                  <Select.Option
-                    value={educationLevel.value}
-                    label={educationLevel.label}
-                    onSelect={() => {}}
-                  />
-                </li>
-              );
-            })}
-          </ul>
-        </Select>
-      </div>
+      <EducationLevelFilter setEducationLevel={setEducationLevel} />
       <div>
         <Text variant='semi-title' content='경력' />
         <Text content='신입' />

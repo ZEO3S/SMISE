@@ -30,8 +30,11 @@ export default function Home() {
   const [serviceStatus, setServiceStatus] = useState(
     DEFAULT_PARAMS.SERVICE_STATUS
   );
-  const [keyword, setKeyword] = useState(DEFAULT_PARAMS.KEYWORD);
+  const [educationLevel, setEducationLevel] = useState(
+    DEFAULT_PARAMS.EDUCATION_LEVEL
+  );
   const [sort, setSort] = useState(DEFAULT_PARAMS.SORT);
+  const [keyword, setKeyword] = useState(DEFAULT_PARAMS.KEYWORD);
 
   return (
     <div className='flex gap-6 flex-1'>
@@ -39,6 +42,7 @@ export default function Home() {
         <Filter
           setServiceTypes={setServiceTypes}
           setServiceStatus={setServiceStatus}
+          setEducationLevel={setEducationLevel}
         />
       </div>
       <div className='flex-1'>
@@ -55,7 +59,7 @@ export default function Home() {
           detailedJobs={null}
           locations={null}
           experienceLevel={null}
-          educationLevel={null}
+          educationLevel={educationLevel}
           sort={sort}
           limit={null}
           cursor={null}
