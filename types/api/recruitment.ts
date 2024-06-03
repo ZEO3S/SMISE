@@ -21,7 +21,7 @@ type ExperienceLevel = {
   end: "신입" | "1년" | "2년" | "3년" | "4년" | "5년";
 } | null;
 type EducationLevel = string | null;
-export type Sort = "최신순" | "마감순" | null;
+export type Sort = "최신순" | "마감순";
 type Limit = string | null;
 type Cursor = string | null;
 export type Keyword = string | null;
@@ -34,7 +34,7 @@ export interface RequestRecruitmentParams {
   locations: Locations;
   experienceLevel: ExperienceLevel;
   educationLevel: EducationLevel;
-  sort: Sort;
+  sort: Sort | null;
   limit: Limit;
   cursor: Cursor;
   keyword: Keyword;
@@ -48,7 +48,7 @@ export interface DefaultRequestRecruitmentParams {
   LOCATIONS: Locations;
   EXPERIENCE_LEVEL: ExperienceLevel;
   EDUCATION_LEVEL: EducationLevel;
-  SORT: Sort;
+  SORT: Sort | null;
   LIMIT: Limit;
   CURSOR: Cursor;
   KEYWORD: Keyword;

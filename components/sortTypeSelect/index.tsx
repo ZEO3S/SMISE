@@ -2,30 +2,28 @@ import { Dispatch, SetStateAction } from "react";
 
 import Select from "../common/select";
 
-import { Option } from "@/types/components/select";
 import { Sort } from "@/types/api/recruitment";
-
-const SORT_TYPES = [
-  { value: "최신순", label: "최신순" },
-  { value: "마감순", label: "마감순" },
-];
+import { SORT_TYPES } from "@/constants/components/sort";
+import { useUpdateSort } from "@/hooks/useUpdateSort";
 
 interface Props {
-  setSort: Dispatch<SetStateAction<Sort>>;
+  setSort: Dispatch<SetStateAction<Sort | null>>;
 }
 
 export default function SortTypeSelect({ setSort }: Props) {
-  const updateSort = (option: Option) => {
-    const selectedValue = option.value;
+  const { selectedSortOption, updateSort } = useUpdateSort(setSort);
 
-    const isSortType = (value: string | null): value is Sort => {
-      return Object.values(SORT_TYPES).some(
-        (sortType) => sortType.value === value
-      );
-    };
-
-    if (isSortType(selectedValue)) setSort(selectedValue);
-  };
-
-  return <Select options={SORT_TYPES} onSelect={updateSort} />;
+  return (
+    <Select selectedOption={selectedSortOption}>
+      {SORT_TYPES.map((sortType) => {
+        return (
+          <Select.Option
+            value={sortType.value}
+            label={sortType.label}
+            onSelect={() => updateSort(sortType)}
+          />
+        );
+      })}
+    </Select>
+  );
 }
