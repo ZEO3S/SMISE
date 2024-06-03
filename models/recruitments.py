@@ -1,8 +1,9 @@
 from typing import Optional
 from pydantic import BaseModel
+from sqlmodel import JSON, SQLModel, Field, Column
 
-class Recruitment(BaseModel):
-    id: Optional[int] = None
+class Recruitment(SQLModel, table=True):
+    id: int = Field(default=None, primary_key=True)
     service_type: str
     experience_level: str
     education_level: str
@@ -14,6 +15,7 @@ class Recruitment(BaseModel):
     href: str
     
     class Config:
+        arbitrary_types_allowd = True
         schema_extra = {
             "example": {
                 "id": 1,

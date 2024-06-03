@@ -1,7 +1,9 @@
 import requests
 import xmltodict
 import asyncio
+from fastapi import Depends
 from models.recruitments import Recruitment
+from datas.connection import get_session
 
 from fastapi import APIRouter
 
@@ -25,9 +27,8 @@ def recruitment_name_casting(recruitment: dict) -> dict:
     temp['href'] = f'https://work.mma.go.kr/caisBYIS/search/cygonggogeomsaekView.do?cygonggo_no={recruitment["cygonggoNo"]}'
     
     return temp
-
-async def fetch_and_cache_events():
-    global cached_recruitments
+        
+async def fetch_recruitments():
     url = 'http://apis.data.go.kr/1300000/CyJeongBo/list'
     serviceKey = 'TSsi+1lSPXcNb2RRu7KtdUKDFp+sHWoUxRXMsinxZNAxR8pk9xCHD4CRTyprMl2Y3hZhqHMq7YI9MQiFkva3Rg=='
     params = {'serviceKey': serviceKey, 'numOfRows': '1000', 'pageNo': '1'}
@@ -36,10 +37,14 @@ async def fetch_and_cache_events():
     
     if response.status_code == 200:
         try:
-            print("Hello")
             data = xmltodict.parse(response.content)  # Convert XML to JSON
             recruitments_data = data['response']['body']['items']['item']
-            cached_recruitments.extend([Recruitment(**recruitment_name_casting(recruitment)) for recruitment in recruitments_data])
+            session = next(get_session())
+            for recruitment in recruitments_data:
+                r = Recruitment(**recruitment_name_casting(recruitment))
+                session.add(r)
+                session.commit()
+                session.refresh(r)
         except KeyError:
             print("Unexpected response structure from API")
         except Exception as e:
@@ -51,7 +56,7 @@ async def fetch_and_cache_events():
 # 1시간 간격으로 데이터 받아옴
 async def periodic_event_fetcher():
     while True:
-        await fetch_and_cache_events()
+        await fetch_recruitments()
         await asyncio.sleep(3600)
 
 
