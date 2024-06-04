@@ -14,3 +14,5 @@ async def retrieve_all_recruitments(session=Depends(get_session)) -> List[Recrui
     statement = select(Recruitment)
     recruitments = session.exec(statement).all()
     return recruitments
+
+

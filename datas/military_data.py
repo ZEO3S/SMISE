@@ -40,8 +40,13 @@ async def fetch_recruitments():
             data = xmltodict.parse(response.content)  # Convert XML to JSON
             recruitments_data = data['response']['body']['items']['item']
             session = next(get_session())
+            
             for recruitment in recruitments_data:
                 r = Recruitment(**recruitment_name_casting(recruitment))
+                if session.get(Recruitment, r.id):
+                    # 이미 데이터베이스에 존재하면 건너뛰기
+                    continue
+                print(r)
                 session.add(r)
                 session.commit()
                 session.refresh(r)
