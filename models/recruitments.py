@@ -5,9 +5,13 @@ from sqlmodel import JSON, SQLModel, Field, Column
 class Recruitment(SQLModel, table=True):
     id: int = Field(default=None, primary_key=True)
     service_type: str
+    service_status: str
+    job: str
+    job_skill: str
     experience_level: str
     education_level: str
     expiration_date: str
+    updated_date: str
     title: str
     company: str
     location: str
@@ -20,7 +24,11 @@ class Recruitment(SQLModel, table=True):
             "example": {
                 "id": 1,
                 "serviceType": "산업기능요원",
+                "serviceStatus": "현역",
+                "job": "정보처리",
+                "jobSkill": "머신러닝, 데이터분석",
                 "experienceLevel": "경력무관",
+                "updatedDate": "04/06/2024",
                 "educationLevel": "대학졸업",
                 "expirationDate": "채용시 마감",
                 "title": "머신러닝 엔지니어 채용",

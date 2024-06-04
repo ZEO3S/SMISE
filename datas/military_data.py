@@ -16,10 +16,14 @@ cached_recruitments = []
 def recruitment_name_casting(recruitment: dict) -> dict:
     temp = dict()
     temp['id'] = recruitment["cygonggoNo"]
+    temp['service_status'] = recruitment['yeokjongBrcdNm']
     temp['service_type'] = recruitment['yowonGbcdNm']
+    temp["job"] = recruitment['eopjongGbcdNm']
+    temp["job_skill"] = recruitment['ddeopmuNm']
     temp['experience_level'] = recruitment['gyeongryeokGbcdNm']
     temp['education_level'] = recruitment['cjhakryeok']
     temp['expiration_date'] = recruitment['magamDt']
+    temp['updated_date'] = recruitment['cjdatabyeongyeongDtm']
     temp['title'] = recruitment['cyjemokNm']
     temp['company'] = recruitment['eopcheNm']
     temp['location'] = recruitment['geunmujy']
@@ -46,7 +50,6 @@ async def fetch_recruitments():
                 if session.get(Recruitment, r.id):
                     # 이미 데이터베이스에 존재하면 건너뛰기
                     continue
-                print(r)
                 session.add(r)
                 session.commit()
                 session.refresh(r)
