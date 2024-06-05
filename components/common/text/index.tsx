@@ -1,6 +1,8 @@
+import { ComponentPropsWithoutRef } from "react";
+
 type Variant = "title" | "semi-title" | "base";
 
-interface Props {
+interface Props extends ComponentPropsWithoutRef<"p"> {
   content: string;
   variant?: Variant;
 }
@@ -19,6 +21,8 @@ const SIZE = {
 
 export default function Text({ variant = "base", content }: Props) {
   return (
-    <p className={`text-${SIZE[variant]} font-${WEIGHT[variant]}`}>{content}</p>
+    <p className={`text-${SIZE[variant]} font-${WEIGHT[variant]} select-none`}>
+      {content}
+    </p>
   );
 }

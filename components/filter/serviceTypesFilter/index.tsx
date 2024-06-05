@@ -23,7 +23,7 @@ export default function ServiceTypesFilter({ setServiceTypes }: Props) {
     <div>
       <Text variant='semi-title' content='복무형태' />
       <ul>
-        {SERVICE_TYPES.map((serviceType) => {
+        {SERVICE_TYPES!.map((serviceType) => {
           return (
             <li key={serviceType}>
               <Checkbox

@@ -9,20 +9,24 @@ import EducationLevelFilter from "./EducationLevelFilter";
 
 import {
   EducationLevel,
+  ExperienceLevel,
   ServiceStatus,
   ServiceType,
 } from "@/types/api/recruitment";
+import ExperienceLevelFilter from "./ExperienceLevelFilter";
 
 interface Props {
   setServiceTypes: Dispatch<SetStateAction<Array<ServiceType> | null>>;
   setServiceStatus: Dispatch<SetStateAction<ServiceStatus | null>>;
   setEducationLevel: Dispatch<SetStateAction<EducationLevel | null>>;
+  setExperienceLevel: Dispatch<SetStateAction<ExperienceLevel | null>>;
 }
 
 export default function Filter({
   setServiceTypes,
   setServiceStatus,
   setEducationLevel,
+  setExperienceLevel,
 }: Props) {
   return (
     <div className='flex flex-col'>
@@ -45,13 +49,7 @@ export default function Filter({
         <Image className='-rotate-90' src={ArrowSVG} alt='모달 열기 버튼' />
       </div>
       <EducationLevelFilter setEducationLevel={setEducationLevel} />
-      <div>
-        <Text variant='semi-title' content='경력' />
-        <Text content='신입' />
-        <Text content='~' />
-        <Text content='5년' />
-        <Text content='이상' />
-      </div>
+      <ExperienceLevelFilter setExperienceLevel={setExperienceLevel} />
     </div>
   );
 }

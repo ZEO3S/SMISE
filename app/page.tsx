@@ -15,8 +15,8 @@ const DEFAULT_PARAMS: DefaultRequestRecruitmentParams = {
   JOBS: null,
   DETAILED_JOBS: null,
   LOCATIONS: null,
-  EXPERIENCE_LEVEL: null,
   EDUCATION_LEVEL: null,
+  EXPERIENCE_LEVEL: null,
   SORT: "최신순",
   LIMIT: null,
   CURSOR: null,
@@ -33,6 +33,9 @@ export default function Home() {
   const [educationLevel, setEducationLevel] = useState(
     DEFAULT_PARAMS.EDUCATION_LEVEL
   );
+  const [experienceLevel, setExperienceLevel] = useState(
+    DEFAULT_PARAMS.EXPERIENCE_LEVEL
+  );
   const [sort, setSort] = useState(DEFAULT_PARAMS.SORT);
   const [keyword, setKeyword] = useState(DEFAULT_PARAMS.KEYWORD);
 
@@ -43,6 +46,7 @@ export default function Home() {
           setServiceTypes={setServiceTypes}
           setServiceStatus={setServiceStatus}
           setEducationLevel={setEducationLevel}
+          setExperienceLevel={setExperienceLevel}
         />
       </div>
       <div className='flex-1'>
@@ -58,7 +62,7 @@ export default function Home() {
           jobs={null}
           detailedJobs={null}
           locations={null}
-          experienceLevel={null}
+          experienceLevel={experienceLevel}
           educationLevel={educationLevel}
           sort={sort}
           limit={null}
