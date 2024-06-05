@@ -30,6 +30,7 @@ export default function Home() {
   const [serviceStatus, setServiceStatus] = useState(
     DEFAULT_PARAMS.SERVICE_STATUS
   );
+  const [locations, setLocations] = useState(DEFAULT_PARAMS.LOCATIONS);
   const [educationLevel, setEducationLevel] = useState(
     DEFAULT_PARAMS.EDUCATION_LEVEL
   );
@@ -45,6 +46,7 @@ export default function Home() {
         <Filter
           setServiceTypes={setServiceTypes}
           setServiceStatus={setServiceStatus}
+          setLocations={setLocations}
           setEducationLevel={setEducationLevel}
           setExperienceLevel={setExperienceLevel}
         />
@@ -61,9 +63,9 @@ export default function Home() {
           serviceStatus={serviceStatus}
           jobs={null}
           detailedJobs={null}
-          locations={null}
-          experienceLevel={experienceLevel}
+          locations={locations}
           educationLevel={educationLevel}
+          experienceLevel={experienceLevel}
           sort={sort}
           limit={null}
           cursor={null}

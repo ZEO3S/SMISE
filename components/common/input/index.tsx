@@ -42,14 +42,14 @@ export default function Input({
     <label className='flex flex-1 justify-between px-6 py-3 rounded-full bg-default-color bg-opacity-10'>
       {label && <Text content={label} />}
       <input
-        className='flex-1 bg-default-color bg-opacity-0 placeholder:text-default-color placeholder:text-opacity-50 outline-none'
+        className='flex-1 bg-default-color bg-opacity-0 placeholder:text-default-color placeholder:text-opacity-50 outline-none select-none'
         value={value}
         onChange={onChange}
         onKeyDown={handleKeyDownEnter}
         {...rest}
       />
       {hasButton && (
-        <Button onClick={handleClickButton}>
+        <Button className='select-none' onClick={handleClickButton}>
           <Image src={buttonImage} alt='검색 버튼' />
         </Button>
       )}

@@ -1,3 +1,5 @@
+import Text from "../text";
+
 interface Props {
   content: string;
 }
@@ -5,9 +7,7 @@ interface Props {
 export default function Badge({ content }: Props) {
   return (
     <div className='px-3 py-1 rounded-xl bg-default-color bg-opacity-10'>
-      <p className='text-sm font-medium text-default-color text-opacity-70'>
-        {content}
-      </p>
+      <Text variant='semi-base' content={content} />
     </div>
   );
 }

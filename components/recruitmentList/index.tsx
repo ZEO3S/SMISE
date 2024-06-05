@@ -12,8 +12,8 @@ export default function RecruitmentList({
   jobs,
   detailedJobs,
   locations,
-  experienceLevel,
   educationLevel,
+  experienceLevel,
   sort,
   limit,
   cursor,
@@ -25,8 +25,8 @@ export default function RecruitmentList({
     jobs,
     detailedJobs,
     locations,
-    experienceLevel,
     educationLevel,
+    experienceLevel,
     sort,
     limit,
     cursor,
@@ -72,7 +72,7 @@ export default function RecruitmentList({
                   </div>
                   <Text content={expirationDate} />
                 </div>
-                <Text variant='title' content={title} />
+                <Text variant='middle-title' content={title} />
                 <div className='flex gap-3'>
                   <Text content={company} />
                   <Text content={location} />
