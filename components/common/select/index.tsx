@@ -32,7 +32,7 @@ export default function Select({ selectedOption, children }: Props) {
       <SelectContextProvider value={selectedOption}>
         {isOpen && (
           <legend
-            className='absolute w-full bg-white'
+            className='absolute w-full bg-white z-10'
             role='listbox'
             onClick={closeSelect}
           >
