@@ -2,7 +2,6 @@ import { Dispatch, SetStateAction, useState } from "react";
 
 import Text from "@/components/common/text";
 import Slider from "@/components/common/slider";
-
 import { ExperienceLevel } from "@/types/api/recruitment";
 import { useUpdateExperienceLevel } from "@/hooks/useUpdateExperienceLevel";
 import {
