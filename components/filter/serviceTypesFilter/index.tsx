@@ -13,11 +13,11 @@ const SERVICE_TYPES: Array<ServiceType> = [
 ];
 
 interface Props {
-  setServiceTypes: Dispatch<SetStateAction<Array<ServiceType> | null>>;
+  setServiceType: Dispatch<SetStateAction<Array<ServiceType> | null>>;
 }
 
-export default function ServiceTypesFilter({ setServiceTypes }: Props) {
-  const updateServiceTypes = useUpdateServiceTypes(setServiceTypes);
+export default function ServiceTypesFilter({ setServiceType }: Props) {
+  const updateServiceTypes = useUpdateServiceTypes(setServiceType);
 
   return (
     <div className='pb-2'>

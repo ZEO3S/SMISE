@@ -16,7 +16,7 @@ import {
 } from "@/types/api/recruitment";
 
 interface Props {
-  setServiceTypes: Dispatch<SetStateAction<Array<ServiceType> | null>>;
+  setServiceType: Dispatch<SetStateAction<Array<ServiceType> | null>>;
   setServiceStatus: Dispatch<SetStateAction<ServiceStatus | null>>;
   setLocations: Dispatch<SetStateAction<Locations | null>>;
   setEducationLevel: Dispatch<SetStateAction<EducationLevel | null>>;
@@ -24,7 +24,7 @@ interface Props {
 }
 
 export default function Filter({
-  setServiceTypes,
+  setServiceType,
   setServiceStatus,
   setLocations,
   setEducationLevel,
@@ -32,7 +32,7 @@ export default function Filter({
 }: Props) {
   return (
     <div className='flex flex-col [&>*]:border-b [&>*]:border-default-color [&>*]:border-opacity-10'>
-      <ServiceTypesFilter setServiceTypes={setServiceTypes} />
+      <ServiceTypesFilter setServiceType={setServiceType} />
       <ServiceStatusFilter setServiceStatus={setServiceStatus} />
       <JobFilter />
       <LocationFilter setLocations={setLocations} />

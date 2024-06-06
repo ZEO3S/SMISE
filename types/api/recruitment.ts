@@ -13,8 +13,7 @@ export interface Recruitment {
 
 export type ServiceType = "산업기능요원" | "전문연구요원" | "승선근무예비역";
 export type ServiceStatus = "보충역" | "현역";
-type Jobs = Array<string> | null;
-type DetailedJobs = Array<string> | null;
+type Jobs = Array<string>;
 export type Locations = Array<string>;
 export interface ExperienceLevel {
   start: "신입" | "1년" | "2년" | "3년" | "4년" | "5년";
@@ -22,35 +21,27 @@ export interface ExperienceLevel {
 }
 export type EducationLevel = string;
 export type Sort = "최신순" | "마감순";
-type Limit = string | null;
-type Cursor = string | null;
 export type Keyword = string;
 
 export interface RequestRecruitmentParams {
-  serviceTypes: Array<ServiceType> | null;
+  serviceType: Array<ServiceType> | null;
   serviceStatus: ServiceStatus | null;
-  jobs: Jobs;
-  detailedJobs: DetailedJobs;
+  jobs: Jobs | null;
   locations: Locations | null;
   experienceLevel: ExperienceLevel | null;
   educationLevel: EducationLevel | null;
   sort: Sort | null;
-  limit: Limit;
-  cursor: Cursor;
   keyword: Keyword | null;
 }
 
 export interface DefaultRequestRecruitmentParams {
-  SERVICE_TYPES: Array<ServiceType> | null;
+  SERVICE_TYPE: Array<ServiceType> | null;
   SERVICE_STATUS: ServiceStatus | null;
-  JOBS: Jobs;
-  DETAILED_JOBS: DetailedJobs;
+  JOBS: Jobs | null;
   LOCATIONS: Locations | null;
   EXPERIENCE_LEVEL: ExperienceLevel | null;
   EDUCATION_LEVEL: EducationLevel | null;
   SORT: Sort | null;
-  LIMIT: Limit;
-  CURSOR: Cursor;
   KEYWORD: Keyword | null;
 }
 

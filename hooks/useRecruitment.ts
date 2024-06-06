@@ -9,16 +9,13 @@ import {
 } from "@/types/api/recruitment";
 
 export const useRecruitment = ({
-  serviceTypes,
+  serviceType,
   serviceStatus,
   jobs,
-  detailedJobs,
   locations,
   experienceLevel,
   educationLevel,
   sort,
-  limit,
-  cursor,
   keyword,
 }: RequestRecruitmentParams) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -29,7 +26,7 @@ export const useRecruitment = ({
     const fetch = async () => {
       try {
         setIsLoading(true);
-        const serviceTypesParam = serviceTypes
+        const serviceTypeParam = serviceType
           ?.map((serviceType) => `service_types=${serviceType}`)
           .join("&");
         const serviceStatusParam = `service_status=${serviceStatus}`;
@@ -43,7 +40,7 @@ export const useRecruitment = ({
         const keywordParam = `keyword=${keyword}`;
 
         console.log(
-          serviceTypesParam,
+          serviceTypeParam,
           serviceStatusParam,
           educationLevelParam,
           experienceLevelParam,
@@ -51,7 +48,7 @@ export const useRecruitment = ({
           keywordParam
         );
         const response = await https.get(
-          `${RECRUITMENT_URL}?${serviceTypesParam}&${serviceStatusParam}&jobs=${jobs}&detailed_jobs=${detailedJobs}&locations=${locations}&${educationLevelParam}&${experienceLevelParam}&${sortParam}&limit=${limit}&cursor=${cursor}&${keywordParam}`
+          `${RECRUITMENT_URL}?${serviceTypeParam}&${serviceStatusParam}&jobs=${jobs}&locations=${locations}&${educationLevelParam}&${experienceLevelParam}&${sortParam}&${keywordParam}`
         );
 
         if (!response.ok) {
@@ -69,16 +66,13 @@ export const useRecruitment = ({
 
     fetch();
   }, [
-    serviceTypes,
+    serviceType,
     serviceStatus,
     jobs,
-    detailedJobs,
     locations,
     experienceLevel,
     educationLevel,
     sort,
-    limit,
-    cursor,
     keyword,
   ]);
 

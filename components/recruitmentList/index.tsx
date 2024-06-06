@@ -7,29 +7,23 @@ import { RequestRecruitmentParams } from "@/types/api/recruitment";
 import { useRecruitment } from "@/hooks/useRecruitment";
 
 export default function RecruitmentList({
-  serviceTypes,
+  serviceType,
   serviceStatus,
   jobs,
-  detailedJobs,
   locations,
   educationLevel,
   experienceLevel,
   sort,
-  limit,
-  cursor,
   keyword,
 }: RequestRecruitmentParams) {
   const { recruitment, isLoading, error } = useRecruitment({
-    serviceTypes,
+    serviceType,
     serviceStatus,
     jobs,
-    detailedJobs,
     locations,
     educationLevel,
     experienceLevel,
     sort,
-    limit,
-    cursor,
     keyword,
   });
 

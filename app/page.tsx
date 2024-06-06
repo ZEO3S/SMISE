@@ -10,23 +10,18 @@ import RecruitmentList from "@/components/recruitmentList";
 import { DefaultRequestRecruitmentParams } from "@/types/api/recruitment";
 
 const DEFAULT_PARAMS: DefaultRequestRecruitmentParams = {
-  SERVICE_TYPES: null,
+  SERVICE_TYPE: null,
   SERVICE_STATUS: null,
   JOBS: null,
-  DETAILED_JOBS: null,
   LOCATIONS: null,
   EDUCATION_LEVEL: null,
   EXPERIENCE_LEVEL: null,
   SORT: "최신순",
-  LIMIT: null,
-  CURSOR: null,
   KEYWORD: null,
 };
 
 export default function Home() {
-  const [serviceTypes, setServiceTypes] = useState(
-    DEFAULT_PARAMS.SERVICE_TYPES
-  );
+  const [serviceType, setServiceType] = useState(DEFAULT_PARAMS.SERVICE_TYPE);
   const [serviceStatus, setServiceStatus] = useState(
     DEFAULT_PARAMS.SERVICE_STATUS
   );
@@ -44,7 +39,7 @@ export default function Home() {
     <div className='flex gap-10 flex-1'>
       <div className='w-80'>
         <Filter
-          setServiceTypes={setServiceTypes}
+          setServiceType={setServiceType}
           setServiceStatus={setServiceStatus}
           setLocations={setLocations}
           setEducationLevel={setEducationLevel}
@@ -60,16 +55,13 @@ export default function Home() {
         </div>
         <div className='flex-1 overflow-y-scroll'>
           <RecruitmentList
-            serviceTypes={serviceTypes}
+            serviceType={serviceType}
             serviceStatus={serviceStatus}
             jobs={null}
-            detailedJobs={null}
             locations={locations}
             educationLevel={educationLevel}
             experienceLevel={experienceLevel}
             sort={sort}
-            limit={null}
-            cursor={null}
             keyword={keyword}
           />
         </div>
