@@ -113,7 +113,7 @@ export default function Slider({
           }}
           onMouseDown={(event) => handleMouseDown(event, "max")}
         >
-          <div className='w-5 h-5 rounded-full bg-green-700 border-2 border-white' />
+          <div className='w-5 h-5 rounded-full bg-green-800 border-2 border-white' />
           {maxValue !== min && <Text content={`${maxValue}년`} />}
         </div>
       </div>
