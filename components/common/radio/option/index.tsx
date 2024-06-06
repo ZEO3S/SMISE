@@ -21,9 +21,9 @@ export default function Option({ value, label, onChecked }: Props) {
   };
 
   return (
-    <label className='flex gap-2 relative py-2'>
+    <label className='flex flex-1 gap-2 relative py-2 cursor-pointer'>
       <input
-        className='w-5 h-5 border border-default-color rounded-full appearance-none'
+        className='w-5 h-5 border border-default-color rounded-full cursor-pointer'
         type='radio'
         value={value}
         checked={group?.selectedValue === value}

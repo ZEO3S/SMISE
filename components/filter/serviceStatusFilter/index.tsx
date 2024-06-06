@@ -15,8 +15,10 @@ export default function ServiceStatusFilter({ setServiceStatus }: Props) {
   const updateServiceStatus = useUpdateServiceStatus(setServiceStatus);
 
   return (
-    <div>
-      <Text variant='semi-title' content='역종' />
+    <div className='py-2'>
+      <div className='py-2'>
+        <Text variant='semi-title' content='역종' />
+      </div>
       <Radio>
         <ul>
           {SERVICE_STATUSES.map((serviceStatus) => {

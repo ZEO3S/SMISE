@@ -20,9 +20,9 @@ export default function Checkbox({ value = "", label = "", onToggle }: Props) {
   };
 
   return (
-    <label className='flex gap-2 relative py-2'>
+    <label className='flex gap-2 relative py-2 cursor-pointer'>
       <input
-        className='w-5 h-5 border-default-color border rounded appearance-none'
+        className='w-5 h-5 border-default-color border rounded cursor-pointer'
         type='checkbox'
         checked={checked}
         onChange={handleChangeChecked}

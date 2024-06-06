@@ -20,8 +20,10 @@ export default function ServiceTypesFilter({ setServiceTypes }: Props) {
   const updateServiceTypes = useUpdateServiceTypes(setServiceTypes);
 
   return (
-    <div>
-      <Text variant='semi-title' content='복무형태' />
+    <div className='pb-2'>
+      <div className='pb-2'>
+        <Text variant='semi-title' content='복무형태' />
+      </div>
       <ul>
         {SERVICE_TYPES!.map((serviceType) => {
           return (

@@ -1,13 +1,11 @@
-import Image from "next/image";
 import { Dispatch, SetStateAction } from "react";
 
-import ArrowSVG from "@/assets/svgs/arrow.svg";
-import Text from "../common/text";
 import ServiceTypesFilter from "./serviceTypesFilter";
 import ServiceStatusFilter from "./serviceStatusFilter";
+import JobFilter from "./jobFilter";
 import LocationFilter from "./locationFilter";
-import EducationLevelFilter from "./EducationLevelFilter";
-import ExperienceLevelFilter from "./ExperienceLevelFilter";
+import EducationLevelFilter from "./educationLevelFilter";
+import ExperienceLevelFilter from "./experienceLevelFilter";
 
 import {
   EducationLevel,
@@ -33,23 +31,10 @@ export default function Filter({
   setExperienceLevel,
 }: Props) {
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col [&>*]:border-b [&>*]:border-default-color [&>*]:border-opacity-10'>
       <ServiceTypesFilter setServiceTypes={setServiceTypes} />
       <ServiceStatusFilter setServiceStatus={setServiceStatus} />
-      <div>
-        <Text variant='semi-title' content='직군' />
-        <div className='flex gap-1'>
-          <Text content='개발' />
-          <Text content='·' />
-          <Text content='머신러닝 엔지니어' />
-          <Text content='외 1' />
-          <Image
-            className='-rotate-90 select-none'
-            src={ArrowSVG}
-            alt='모달 열기 버튼'
-          />
-        </div>
-      </div>
+      <JobFilter />
       <LocationFilter setLocations={setLocations} />
       <EducationLevelFilter setEducationLevel={setEducationLevel} />
       <ExperienceLevelFilter setExperienceLevel={setExperienceLevel} />

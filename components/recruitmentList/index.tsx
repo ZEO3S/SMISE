@@ -58,7 +58,7 @@ export default function RecruitmentList({
               className='border-default-color border-b border-opacity-10 last:border-b-0'
             >
               <Link
-                className='flex flex-col gap-3 px-2 py-5 hover:bg-default-color hover:bg-opacity-10'
+                className='flex flex-col gap-3 px-4 py-5 hover:bg-default-color hover:bg-opacity-10'
                 href={href}
                 target='_blank'
                 rel='noopener noreferrer'

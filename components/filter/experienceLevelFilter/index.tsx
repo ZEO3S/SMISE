@@ -26,8 +26,10 @@ export default function ExperienceLevelFilter({ setExperienceLevel }: Props) {
   const isRenderOverText = maxValue === EXPERIENCE_LEVEL_RANGE.MAX;
 
   return (
-    <div className='flex flex-col flex-1'>
-      <Text variant='semi-title' content='경력' />
+    <div className='flex flex-col flex-1 py-2'>
+      <div className='py-2'>
+        <Text variant='semi-title' content='경력' />
+      </div>
       <div className='flex gap-1'>
         {isRenderMinText && <Text content={generateMinText(minValue)} />}
         {isRenderTildeText && <Text content='~' />}
