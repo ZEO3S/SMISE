@@ -71,7 +71,18 @@ async def retrieve_all_recruitments(
         query = query.where(or_(*conditions))
         
     if experience_level:
-        query = query.where(Recruitment.experience_level == experience_level)
+        conditions = []
+        start_level, end_level = map(int, experience_level.split(','))
+        
+        conditions.append(Recruitment.experience_level == "신입/경력")
+        if start_level == 0:
+            conditions.append(Recruitment.experience_level == "신입")
+        if start_level < 3 and end_level >= 1:
+            conditions.append(Recruitment.experience_level == "경력 (1년이상)")
+        if end_level >= 3:
+            conditions.append(Recruitment.experience_level == "경력 (3년이상)")
+        query = query.where(or_(*conditions))
+        
     if education_level:
         query = query.where(Recruitment.education_level == education_level)
         
