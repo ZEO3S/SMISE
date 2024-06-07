@@ -4,111 +4,111 @@ import { Dispatch, SetStateAction } from "react";
 import CloseSVG from "@/assets/svgs/close.svg";
 import ArrowSVG from "@/assets/svgs/arrow.svg";
 import Text from "@/components/common/text";
-import Modal from "@/components/common/modal";
 import Button from "@/components/common/button";
+import Modal from "@/components/common/modal";
 import Checkbox from "@/components/common/checkbox";
 
-import { District, Location } from "@/types/api/recruitment";
-import { LOCATIONS } from "@/constants/components/location";
+import { Job } from "@/types/api/recruitment";
 import { useModal } from "@/hooks/useModal";
-import { useSelectedDistrict } from "@/hooks/useSelectedDistrict";
-import { useSelectedLocations } from "@/hooks/useSelectedLocations";
-import { useCheckedCities } from "@/hooks/useCheckedCities";
+import { useSelectedCategory } from "@/hooks/useSelectedCategory";
+import { useSelectedJobs } from "@/hooks/useSelectedJobs";
+import { useCheckedDetails } from "@/hooks/useCheckedDetails";
+
+const FETCHED_JOBS = [
+  {
+    category: "개발",
+    details: ["프론트엔드", "백엔드", "데이터분석"],
+  },
+  {
+    category: "디자인",
+    details: ["시각디자인", "인테리어디자인", "캐릭터디자인"],
+  },
+];
 
 interface Props {
-  locations: Array<Location> | null;
-  setLocations: Dispatch<SetStateAction<Array<Location> | null>>;
+  jobs: Array<Job> | null;
+  setJobs: Dispatch<SetStateAction<Array<Job> | null>>;
 }
 
-export default function LocationFilter({ locations, setLocations }: Props) {
+export default function JobsFilter({ jobs, setJobs }: Props) {
   const { isOpen, openModal, closeModal } = useModal();
+  const { selectedCategory, updateSelectedCategory, clearSelectedCategory } =
+    useSelectedCategory();
   const {
-    selectedDistrict,
-    isDistrict,
-    updateSelectedDistrict,
-    clearSelectedDistrict,
-  } = useSelectedDistrict();
+    selectedJobs,
+    addSelectedJobs,
+    deleteSelectedJobs,
+    clearSelectedJobs,
+    initializeSelectedJobs,
+  } = useSelectedJobs(jobs);
   const {
-    selectedLocations,
-    addSelectedLocation,
-    deleteSelectedLocation,
-    clearSelectedLocation,
-    initializeSelectedLocation,
-  } = useSelectedLocations(locations);
-  const {
-    checkedCities,
-    generateCityKey,
-    addCheckedCity,
-    deleteCheckedCity,
-    clearCheckedCities,
-    initializeCheckedCities,
-  } = useCheckedCities(locations);
+    checkedDetails,
+    generateDetailKey,
+    addCheckedDetail,
+    deleteCheckedDetail,
+    clearCheckedDetails,
+    initializeCheckedDetails,
+  } = useCheckedDetails(jobs);
 
-  const citiesLength = locations
-    ? locations.reduce((acc, cur) => {
-        return acc + cur.cities.length;
+  const citiesLength = jobs
+    ? jobs.reduce((acc, cur) => {
+        return acc + cur.details.length;
       }, 0)
     : 0;
 
   const handleClick전체 = () => {
-    clearSelectedDistrict();
+    clearSelectedCategory();
   };
 
-  const handleClickButton = (district: string) => {
-    if (!isDistrict(district)) return;
-
-    updateSelectedDistrict(district);
+  const handleClickButton = (category: string) => {
+    updateSelectedCategory(category);
   };
 
-  const addCity = (city: string, checkedCity: string) => {
-    addCheckedCity(checkedCity);
-    addSelectedLocation(selectedDistrict, city);
+  const addDetail = (job: string, checkedJob: string) => {
+    addCheckedDetail(checkedJob);
+    addSelectedJobs(selectedCategory, job);
   };
 
-  const deleteCity = (selectedDistrict: District, city: string) => {
-    const targetCheckedCity = generateCityKey(selectedDistrict, city);
-    deleteCheckedCity(targetCheckedCity);
+  const deleteJob = (selectedCategory: string, job: string) => {
+    const targetCheckedJob = generateDetailKey(selectedCategory, job);
+    deleteCheckedDetail(targetCheckedJob);
 
-    deleteSelectedLocation(selectedDistrict, city);
+    deleteSelectedJobs(selectedCategory, job);
   };
 
-  const resetLocation = () => {
-    clearSelectedDistrict();
-    clearSelectedLocation();
-    clearCheckedCities();
+  const resetJob = () => {
+    clearSelectedCategory();
+    clearSelectedJobs();
+    clearCheckedDetails();
   };
 
-  const applyLocation = () => {
-    clearSelectedDistrict();
-    setLocations(selectedLocations);
+  const applyKob = () => {
+    clearSelectedCategory();
+    setJobs(selectedJobs);
     closeModal();
   };
 
   const onCloseModal = () => {
-    clearSelectedDistrict();
-    initializeSelectedLocation();
-    initializeCheckedCities();
+    clearSelectedCategory();
+    initializeSelectedJobs();
+    initializeCheckedDetails();
     closeModal();
   };
 
   return (
     <div className='py-2'>
       <div className='py-2'>
-        <Text variant='semi-title' content='지역' />
+        <Text variant='semi-title' content='직무' />
       </div>
       <Button onClick={openModal}>
         <div className='flex gap-1 py-2 cursor-pointer'>
           <Text
-            content={
-              locations && Boolean(locations.length)
-                ? locations[0].district
-                : "전체"
-            }
+            content={jobs && Boolean(jobs.length) ? jobs[0].category : "전체"}
           />
-          {locations && Boolean(locations.length) && (
+          {jobs && Boolean(jobs.length) && (
             <>
               <Text content='·' />
-              <Text content={locations[0].cities[0]} />
+              <Text content={jobs[0].details[0]} />
               {Boolean(citiesLength - 1) && (
                 <Text content={`외 ${citiesLength - 1}`} />
               )}
@@ -143,39 +143,41 @@ export default function LocationFilter({ locations, setLocations }: Props) {
                   <Text variant='full-base' content='전체' />
                 </Button>
               </li>
-              {Object.keys(LOCATIONS).map((location) => {
+              {FETCHED_JOBS.map(({ category }) => {
                 return (
-                  <li key={location}>
+                  <li key={category}>
                     <Button
                       className='flex justify-between w-60 p-4 cursor-pointer rounded hover:bg-default-color hover:bg-opacity-10'
-                      onClick={() => handleClickButton(location)}
+                      onClick={() => handleClickButton(category)}
                     >
-                      <Text variant='full-base' content={location} />
+                      <Text variant='full-base' content={category} />
                       <Image
                         className='ml-1 -rotate-90 select-none'
                         src={ArrowSVG}
-                        alt='상세 행정구역 열기 버튼'
+                        alt='상세 직무 열기 버튼'
                       />
                     </Button>
                   </li>
                 );
               })}
             </ul>
-            {selectedDistrict ? (
+            {selectedCategory ? (
               <ul className='flex-1 overflow-y-scroll'>
-                {LOCATIONS[selectedDistrict].map((city) => {
-                  const key = generateCityKey(selectedDistrict, city);
+                {FETCHED_JOBS.find(
+                  (job) => job.category === selectedCategory
+                )?.details.map((job) => {
+                  const key = generateDetailKey(selectedCategory, job);
 
                   return (
                     <li key={key}>
                       <Checkbox
-                        value={city}
-                        label={city}
-                        defaultChecked={checkedCities?.includes(key)}
+                        value={job}
+                        label={job}
+                        defaultChecked={checkedDetails?.includes(key)}
                         boxPosition='right'
                         textVariant='full-base'
-                        onCheck={() => addCity(city, key)}
-                        onUnCheck={() => deleteCity(selectedDistrict, city)}
+                        onCheck={() => addDetail(job, key)}
+                        onUnCheck={() => deleteJob(selectedCategory, job)}
                         padding
                         hover
                         rounded
@@ -189,7 +191,7 @@ export default function LocationFilter({ locations, setLocations }: Props) {
                 <Text
                   variant='full-base'
                   opacity={70}
-                  content='원하는 지역을 선택하고 적용을 눌러 확인하세요'
+                  content='원하는 직무를 선택하고 적용을 눌러 확인하세요'
                 />
               </div>
             )}
@@ -197,13 +199,13 @@ export default function LocationFilter({ locations, setLocations }: Props) {
           <div className='flex justify-between'>
             <Button
               className='py-1 px-4 rounded border border-default-color border-opacity-30'
-              onClick={resetLocation}
+              onClick={resetJob}
             >
               <Text variant='middle-title' opacity={70} content='초기화' />
             </Button>
             <Button
               className='bg-green-800 py-1 px-4 rounded'
-              onClick={applyLocation}
+              onClick={applyKob}
             >
               <Text variant='middle-title' color='white' content='적용' />
             </Button>

@@ -15,7 +15,10 @@ export interface Recruitment {
 
 export type ServiceType = "산업기능요원" | "전문연구요원" | "승선근무예비역";
 export type ServiceStatus = "보충역" | "현역";
-type Jobs = Array<string>;
+export interface Job {
+  category: string;
+  details: Array<string>;
+}
 export type District = keyof typeof LOCATIONS;
 export interface Location {
   district: District;
@@ -32,7 +35,7 @@ export type Keyword = string;
 export interface RequestRecruitmentParams {
   serviceType: Array<ServiceType> | null;
   serviceStatus: ServiceStatus | null;
-  jobs: Jobs | null;
+  jobs: Array<Job> | null;
   locations: Array<Location> | null;
   experienceLevel: ExperienceLevel | null;
   educationLevel: EducationLevel | null;
@@ -43,7 +46,7 @@ export interface RequestRecruitmentParams {
 export interface DefaultRequestRecruitmentParams {
   SERVICE_TYPE: Array<ServiceType> | null;
   SERVICE_STATUS: ServiceStatus | null;
-  JOBS: Jobs | null;
+  JOBS: Array<Job> | null;
   LOCATIONS: Array<Location> | null;
   EXPERIENCE_LEVEL: ExperienceLevel | null;
   EDUCATION_LEVEL: EducationLevel | null;

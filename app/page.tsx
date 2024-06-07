@@ -25,6 +25,7 @@ export default function Home() {
   const [serviceStatus, setServiceStatus] = useState(
     DEFAULT_PARAMS.SERVICE_STATUS
   );
+  const [jobs, setJobs] = useState(DEFAULT_PARAMS.JOBS);
   const [locations, setLocations] = useState(DEFAULT_PARAMS.LOCATIONS);
   const [educationLevel, setEducationLevel] = useState(
     DEFAULT_PARAMS.EDUCATION_LEVEL
@@ -39,9 +40,11 @@ export default function Home() {
     <div className='flex gap-10 flex-1'>
       <div className='w-80'>
         <Filter
+          jobs={jobs}
           locations={locations}
           setServiceType={setServiceType}
           setServiceStatus={setServiceStatus}
+          setJobs={setJobs}
           setLocations={setLocations}
           setEducationLevel={setEducationLevel}
           setExperienceLevel={setExperienceLevel}
@@ -58,7 +61,7 @@ export default function Home() {
           <RecruitmentList
             serviceType={serviceType}
             serviceStatus={serviceStatus}
-            jobs={null}
+            jobs={jobs}
             locations={locations}
             educationLevel={educationLevel}
             experienceLevel={experienceLevel}

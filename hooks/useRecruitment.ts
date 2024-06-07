@@ -34,7 +34,13 @@ export const useRecruitment = ({
         const serviceStatusParam = serviceStatus
           ? `service_status=${serviceStatus}`
           : null;
-        const jobsParam = jobs ? `jobs=${jobs}` : null;
+        const jobsParam = jobs
+          ? jobs
+              .map((job) => {
+                return `jobs=${job.category},${job.details.join(",")}`;
+              })
+              .join("&")
+          : null;
         const locationsParam = locations
           ? locations
               .map((location) => {
@@ -47,12 +53,12 @@ export const useRecruitment = ({
         const educationLevelParam = educationLevel
           ? `education_level=${educationLevel}`
           : null;
-        const experienceLevelParam = experienceLevel
-          ? experienceLevel
-            ? Object.values(experienceLevel)
-                .map((experienceLevel) => `experience_level=${experienceLevel}`)
-                .join("&")
-            : "experience_level="
+
+        const experienceLevels = experienceLevel
+          ? Object.values(experienceLevel)
+          : null;
+        const experienceLevelParam = experienceLevels
+          ? `experience_level=${experienceLevels.join(",")}`
           : null;
         const sortParam = sort !== "최신순" ? `sort=${sort}` : null;
         const keywordParam = keyword ? `keyword=${keyword}` : null;
@@ -72,8 +78,6 @@ export const useRecruitment = ({
         const requestUrl = queryParams
           ? `${RECRUITMENT_URL}?${queryParams}`
           : RECRUITMENT_URL;
-
-        console.log(requestUrl);
 
         const response = await https.get(requestUrl);
 
