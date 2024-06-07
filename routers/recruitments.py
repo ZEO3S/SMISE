@@ -121,5 +121,5 @@ async def retrieve_all_recruitments(
     return {"recruitment": recruitments, 
             "page": page,
             "size": size,
-            "totalElements": total_elements,
-            "totalPages": total_pages}
+            "total_elements": total_elements,
+            "total_pages": total_pages}
