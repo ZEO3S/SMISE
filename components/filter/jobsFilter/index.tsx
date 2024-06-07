@@ -198,7 +198,7 @@ export default function JobsFilter({ jobs, setJobs }: Props) {
           </div>
           <div className='flex justify-between'>
             <Button
-              className='py-1 px-4 rounded border border-default-color border-opacity-30'
+              className='py-1 px-4 rounded border border-default-color border-opacity-30 hover:bg-default-color hover:bg-opacity-10'
               onClick={resetJob}
             >
               <Text variant='middle-title' opacity={70} content='초기화' />
