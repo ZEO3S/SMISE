@@ -11,10 +11,9 @@ recruitment_router = APIRouter(
     tags=["Recruitment"]
 )
 
-@recruitment_router.get("/", response_model=List[Recruitment])
+@recruitment_router.get("/")
 async def retrieve_all_recruitments(
     session=Depends(get_session),
-    # service_types: Annotated[Union[List[str], None], Query()] = None,
     service_type: Union[str, None] =  Query(default=None),
     service_status: Union[str, None] = Query(default=None),
     job: Annotated[Union[List[str], None], Query()] = None,
@@ -23,18 +22,19 @@ async def retrieve_all_recruitments(
     experience_level: Union[str, None] = Query(default=None),
     sort: Union[str, None] = Query(default=None),
     keyword: Union[str, None] = Query(default=None),
-    cursor: int = Query(1, description="Page number", ge=1),
-    limit: int = Query(5, description="Page number", ge=1),
-    ) -> List[Recruitment]:
+    page: int = Query(0, description="Page number", ge=0),
+    size: int = Query(5, description="Page size", ge=1),
+    ):
     
     query = select(Recruitment)
     
     # 필터 조건 추가
     if service_type:
-        # query = query.where(Recruitment.service_type.in_(service_types))
         query = query.where(Recruitment.service_type == service_type)
+
     if service_status:
         query = query.where(Recruitment.service_status == service_status)
+
     if job:
         conditions = []
         for j in job:
@@ -107,13 +107,19 @@ async def retrieve_all_recruitments(
             Recruitment.title.contains(keyword) |
             Recruitment.company.contains(keyword)
             )
-        
+
     if sort:
         if sort == "deadline":
             query = query.order_by(Recruitment.expiration_date.asc())
         elif sort == "latest":
             query = query.order_by(Recruitment.updated_date.desc())
-    
-    query = query.limit(limit).offset((cursor - 1) * limit)
+
+    total_elements = len(session.exec(query).all())
+    query = query.limit(size).offset(page * size)
     recruitments = session.exec(query).all()
-    return recruitments
+    total_pages = total_elements // size  if total_elements % size == 0 else total_elements // size + 1
+    return {"recruitment": recruitments, 
+            "page": page,
+            "size": size,
+            "totalElements": total_elements,
+            "totalPages": total_pages}

@@ -6,7 +6,6 @@ from models.recruitments import Recruitment
 from datas.connection import get_session
 from routers.job import detail_to_job
 
-
 from fastapi import APIRouter
 
 military_router = APIRouter(
@@ -29,6 +28,7 @@ def education_name_trans(education: str):
 
 def recruitment_name_casting(recruitment: dict) -> dict:
     temp = dict()
+    
     temp['id'] = recruitment["cygonggoNo"]
     temp['service_status'] = recruitment['yeokjongBrcdNm']
     temp['service_type'] = recruitment['yowonGbcdNm']
@@ -58,7 +58,6 @@ async def fetch_recruitments():
         try:
             data = xmltodict.parse(response.content)  # Convert XML to JSON
             recruitments_data = data['response']['body']['items']['item']
-            print(len(recruitments_data))
             session = next(get_session())
             
             for recruitment in recruitments_data:
@@ -70,7 +69,6 @@ async def fetch_recruitments():
                 session.commit()
                 session.refresh(r)
         except KeyError as k:
-            print(k)
             print("Unexpected response structure from API")
         except Exception as e:
             print(f"Error parsing XML: {e}")
@@ -78,11 +76,11 @@ async def fetch_recruitments():
         print("Failed to fetch data from the API")
 
 
-# 1시간 간격으로 데이터 받아옴
+# 5분 간격으로 데이터 받아옴
 async def periodic_event_fetcher():
     while True:
         await fetch_recruitments()
-        await asyncio.sleep(3600)
+        await asyncio.sleep(300)
 
 
 @military_router.on_event("startup")
