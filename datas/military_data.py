@@ -18,6 +18,15 @@ cached_recruitments = []
 def get_job(job_detail: str):
     return detail_to_job[job_detail]
 
+def education_name_trans(education: str):
+    education_name = {
+        "고등학교중퇴": "고등학교 중퇴",
+        "고등학교졸업": "고등학교 졸업",
+        "대학교 휴학": "대학 휴학",
+        "대학교 졸업예정": "대학 졸업예정"
+    }
+    return education_name[education] if education in education_name else education
+
 def recruitment_name_casting(recruitment: dict) -> dict:
     temp = dict()
     temp['id'] = recruitment["cygonggoNo"]
@@ -26,7 +35,7 @@ def recruitment_name_casting(recruitment: dict) -> dict:
     temp["job"] = get_job(recruitment['eopjongGbcdNm'])
     temp["job_detail"] = recruitment['eopjongGbcdNm']
     temp['experience_level'] = recruitment['gyeongryeokGbcdNm']
-    temp['education_level'] = recruitment['cjhakryeok']
+    temp['education_level'] = education_name_trans(recruitment['cjhakryeok'])
     temp['expiration_date'] = recruitment['magamDt']
     temp['updated_date'] = recruitment['cjdatabyeongyeongDtm']
     temp['title'] = recruitment['cyjemokNm']

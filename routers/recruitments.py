@@ -84,7 +84,23 @@ async def retrieve_all_recruitments(
         query = query.where(or_(*conditions))
         
     if education_level:
-        query = query.where(Recruitment.education_level == education_level)
+        educations = {
+            0: "고등학교 중퇴",
+            1: "고등학교 졸업",
+            2: "대학 중퇴",
+            3: "대학 휴학",
+            4: "대학 졸업예정",
+            5: "대학 졸업(2, 3년)",
+            6: "대학 졸업(4년)",
+            7: "석사",
+            8: "박사"
+        }
+        conditions = []
+        for i in range(9):
+            conditions.append(Recruitment.education_level == educations[i])
+            if education_level == educations[i]:
+                break
+        query = query.where(or_(*conditions))
         
     if keyword:
         query = query.where(
