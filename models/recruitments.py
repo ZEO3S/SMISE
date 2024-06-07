@@ -7,7 +7,7 @@ class Recruitment(SQLModel, table=True):
     service_type: str
     service_status: str
     job: str
-    job_skill: str
+    job_detail: str
     experience_level: str
     education_level: str
     expiration_date: str
@@ -25,8 +25,8 @@ class Recruitment(SQLModel, table=True):
                 "id": 1,
                 "serviceType": "산업기능요원",
                 "serviceStatus": "현역",
-                "job": "정보처리",
-                "jobSkill": "머신러닝, 데이터분석",
+                "job": "정보처리업종",
+                "jobDetail": "정보처리",
                 "experienceLevel": "경력무관",
                 "updatedDate": "04/06/2024",
                 "educationLevel": "대학졸업",

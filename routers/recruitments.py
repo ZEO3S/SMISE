@@ -4,6 +4,7 @@ from models.recruitments import Recruitment
 from datas.military_data import cached_recruitments
 from datas.connection import get_session
 from sqlmodel import select
+from typing_extensions import Annotated
 
 recruitment_router = APIRouter(
     tags=["Recruitment"]
@@ -12,7 +13,7 @@ recruitment_router = APIRouter(
 @recruitment_router.get("/", response_model=List[Recruitment])
 async def retrieve_all_recruitments(
     session=Depends(get_session),
-    service_type: Union[str, None] = Query(default=None),
+    service_types: Annotated[Union[List[str], None], Query()] = None,
     service_status: Union[str, None] = Query(default=None),
     job: Union[str, None] = Query(default=None),
     detailed_jobs: Union[str, None] = Query(default=None),
@@ -28,8 +29,8 @@ async def retrieve_all_recruitments(
     query = select(Recruitment)
     
     # 필터 조건 추가
-    if service_type:
-        query = query.where(Recruitment.service_type == service_type)
+    if service_types:
+        query = query.where(Recruitment.service_type.in_(service_types))
     if service_status:
         query = query.where(Recruitment.service_status == service_status)
     if job:
@@ -45,7 +46,7 @@ async def retrieve_all_recruitments(
         
     if keyword:
         query = query.where(
-            Recruitment.job_skill.contains(keyword) |
+            # Recruitment.job_skill.contains(keyword) |
             Recruitment.title.contains(keyword) |
             Recruitment.company.contains(keyword)
             )
@@ -57,7 +58,5 @@ async def retrieve_all_recruitments(
             query = query.order_by(Recruitment.updated_date.desc())
     
     query = query.limit(limit).offset((cursor - 1) * limit)
-            
     recruitments = session.exec(query).all()
     return recruitments
-
