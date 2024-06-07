@@ -27,29 +27,55 @@ export const useRecruitment = ({
       try {
         setIsLoading(true);
         const serviceTypeParam = serviceType
-          ?.map((serviceType) => `service_types=${serviceType}`)
-          .join("&");
-        const serviceStatusParam = `service_status=${serviceStatus}`;
-        const educationLevelParam = `education_level=${educationLevel}`;
-        const experienceLevelParam = experienceLevel
-          ? Object.values(experienceLevel)
-              .map((experienceLevel) => `experience_level=${experienceLevel}`)
+          ? serviceType
+              .map((serviceType) => `service_types=${serviceType}`)
               .join("&")
-          : "experience_level=";
-        const sortParam = `sort=${sort}`;
-        const keywordParam = `keyword=${keyword}`;
-
-        console.log(
+          : null;
+        const serviceStatusParam = serviceStatus
+          ? `service_status=${serviceStatus}`
+          : null;
+        const jobsParam = jobs ? `jobs=${jobs}` : null;
+        const locationsParam = locations
+          ? locations
+              .map((location) => {
+                return `locations=${location.district},${location.cities.join(
+                  ","
+                )}`;
+              })
+              .join("&")
+          : null;
+        const educationLevelParam = educationLevel
+          ? `education_level=${educationLevel}`
+          : null;
+        const experienceLevelParam = experienceLevel
+          ? experienceLevel
+            ? Object.values(experienceLevel)
+                .map((experienceLevel) => `experience_level=${experienceLevel}`)
+                .join("&")
+            : "experience_level="
+          : null;
+        const sortParam = sort !== "최신순" ? `sort=${sort}` : null;
+        const keywordParam = keyword ? `keyword=${keyword}` : null;
+        const queryParams = [
           serviceTypeParam,
           serviceStatusParam,
+          jobsParam,
+          locationsParam,
           educationLevelParam,
           experienceLevelParam,
           sortParam,
-          keywordParam
-        );
-        const response = await https.get(
-          `${RECRUITMENT_URL}?${serviceTypeParam}&${serviceStatusParam}&jobs=${jobs}&locations=${locations}&${educationLevelParam}&${experienceLevelParam}&${sortParam}&${keywordParam}`
-        );
+          keywordParam,
+        ]
+          .filter((param) => param)
+          .join("&");
+
+        const requestUrl = queryParams
+          ? `${RECRUITMENT_URL}?${queryParams}`
+          : RECRUITMENT_URL;
+
+        console.log(requestUrl);
+
+        const response = await https.get(requestUrl);
 
         if (!response.ok) {
           throw new Error("Failed to fetch data");

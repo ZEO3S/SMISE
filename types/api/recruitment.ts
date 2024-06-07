@@ -1,3 +1,5 @@
+import { LOCATIONS } from "@/constants/components/location";
+
 export interface Recruitment {
   id: number;
   serviceType: string;
@@ -14,7 +16,11 @@ export interface Recruitment {
 export type ServiceType = "산업기능요원" | "전문연구요원" | "승선근무예비역";
 export type ServiceStatus = "보충역" | "현역";
 type Jobs = Array<string>;
-export type Locations = Array<string>;
+export type District = keyof typeof LOCATIONS;
+export interface Location {
+  district: District;
+  cities: Array<string>;
+}
 export interface ExperienceLevel {
   start: "신입" | "1년" | "2년" | "3년" | "4년" | "5년";
   end: "신입" | "1년" | "2년" | "3년" | "4년" | "5년";
@@ -27,7 +33,7 @@ export interface RequestRecruitmentParams {
   serviceType: Array<ServiceType> | null;
   serviceStatus: ServiceStatus | null;
   jobs: Jobs | null;
-  locations: Locations | null;
+  locations: Array<Location> | null;
   experienceLevel: ExperienceLevel | null;
   educationLevel: EducationLevel | null;
   sort: Sort | null;
@@ -38,7 +44,7 @@ export interface DefaultRequestRecruitmentParams {
   SERVICE_TYPE: Array<ServiceType> | null;
   SERVICE_STATUS: ServiceStatus | null;
   JOBS: Jobs | null;
-  LOCATIONS: Locations | null;
+  LOCATIONS: Array<Location> | null;
   EXPERIENCE_LEVEL: ExperienceLevel | null;
   EDUCATION_LEVEL: EducationLevel | null;
   SORT: Sort | null;

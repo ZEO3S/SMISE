@@ -8,16 +8,18 @@ import SelectContextProvider from "./context";
 import ArrowSVG from "@/assets/svgs/arrow.svg";
 import { SelectOption } from "@/types/components/select";
 import { useSelectToggle } from "@/hooks/useSelectToggle";
+import { useClickOutsideHandler } from "@/hooks/useClickOutsideHandler";
 
 interface Props extends PropsWithChildren {
   selectedOption: SelectOption;
 }
 
 export default function Select({ selectedOption, children }: Props) {
-  const { isOpen, sectionRef, closeSelect, toggleSelect } = useSelectToggle();
+  const { isOpen, closeSelect, toggleSelect } = useSelectToggle();
+  const FieldsetRef = useClickOutsideHandler<HTMLFieldSetElement>(closeSelect);
 
   return (
-    <fieldset className='relative' ref={sectionRef} role='combobox'>
+    <fieldset className='relative' ref={FieldsetRef} role='combobox'>
       <Button
         className='flex justify-between gap-1 w-full p-2 border border-default-color border-opacity-10 select-none'
         onClick={toggleSelect}

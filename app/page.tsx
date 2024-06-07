@@ -39,6 +39,7 @@ export default function Home() {
     <div className='flex gap-10 flex-1'>
       <div className='w-80'>
         <Filter
+          locations={locations}
           setServiceType={setServiceType}
           setServiceStatus={setServiceStatus}
           setLocations={setLocations}

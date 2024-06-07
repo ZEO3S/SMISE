@@ -1,13 +1,24 @@
 import { ComponentPropsWithoutRef } from "react";
 
-type Variant = "title" | "semi-title" | "middle-title" | "base" | "semi-base";
+export type Variant =
+  | "title"
+  | "middle-title"
+  | "semi-title"
+  | "full-base"
+  | "base"
+  | "semi-base";
+
+type Color = "default-color" | "white";
 
 interface Props extends ComponentPropsWithoutRef<"p"> {
   content: string;
   variant?: Variant;
+  color?: Color;
+  opacity?: number;
 }
 
 const OPACITY = {
+  "full-base": "",
   base: "",
   "semi-base": "text-opacity-70",
   title: "",
@@ -16,6 +27,7 @@ const OPACITY = {
 };
 
 const WEIGHT = {
+  "full-base": "font-medium",
   base: "font-medium",
   "semi-base": "font-medium",
   title: "font-black",
@@ -24,6 +36,7 @@ const WEIGHT = {
 };
 
 const SIZE = {
+  "full-base": "text-lg",
   base: "text-sm",
   "semi-base": "text-sm",
   title: "text-2xl",
@@ -31,10 +44,15 @@ const SIZE = {
   "semi-title": "text-base",
 };
 
-export default function Text({ variant = "base", content }: Props) {
+export default function Text({
+  variant = "base",
+  color = "default-color",
+  opacity = 100,
+  content,
+}: Props) {
   return (
     <p
-      className={`text-default-color select-none ${SIZE[variant]} ${WEIGHT[variant]} ${OPACITY[variant]}`}
+      className={`text-${color} select-none ${SIZE[variant]} ${WEIGHT[variant]} ${OPACITY[variant]} text-opacity-${opacity}`}
     >
       {content}
     </p>
