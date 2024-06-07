@@ -33,7 +33,7 @@ export type Sort = "최신순" | "마감순";
 export type Keyword = string;
 
 export interface RequestRecruitmentParams {
-  serviceType: Array<ServiceType> | null;
+  serviceType: ServiceType | null;
   serviceStatus: ServiceStatus | null;
   jobs: Array<Job> | null;
   locations: Array<Location> | null;
@@ -44,7 +44,7 @@ export interface RequestRecruitmentParams {
 }
 
 export interface DefaultRequestRecruitmentParams {
-  SERVICE_TYPE: Array<ServiceType> | null;
+  SERVICE_TYPE: ServiceType | null;
   SERVICE_STATUS: ServiceStatus | null;
   JOBS: Array<Job> | null;
   LOCATIONS: Array<Location> | null;

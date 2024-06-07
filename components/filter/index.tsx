@@ -19,7 +19,7 @@ import {
 interface Props {
   jobs: Array<Job> | null;
   locations: Array<Location> | null;
-  setServiceType: Dispatch<SetStateAction<Array<ServiceType> | null>>;
+  setServiceType: Dispatch<SetStateAction<ServiceType | null>>;
   setServiceStatus: Dispatch<SetStateAction<ServiceStatus | null>>;
   setJobs: Dispatch<SetStateAction<Array<Job> | null>>;
   setLocations: Dispatch<SetStateAction<Array<Location> | null>>;

@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 
-import Checkbox from "@/components/common/checkbox";
+import Radio from "@/components/common/radio";
 import Text from "@/components/common/text";
 
 import { ServiceType } from "@/types/api/recruitment";
@@ -13,7 +13,7 @@ const SERVICE_TYPES: Array<ServiceType> = [
 ];
 
 interface Props {
-  setServiceType: Dispatch<SetStateAction<Array<ServiceType> | null>>;
+  setServiceType: Dispatch<SetStateAction<ServiceType | null>>;
 }
 
 export default function ServiceTypesFilter({ setServiceType }: Props) {
@@ -24,19 +24,21 @@ export default function ServiceTypesFilter({ setServiceType }: Props) {
       <div className='pb-2'>
         <Text variant='semi-title' content='복무형태' />
       </div>
-      <ul>
-        {SERVICE_TYPES!.map((serviceType) => {
-          return (
-            <li key={serviceType}>
-              <Checkbox
-                value={serviceType}
-                label={serviceType}
-                onToggle={() => updateServiceTypes(serviceType)}
-              />
-            </li>
-          );
-        })}
-      </ul>
+      <Radio>
+        <ul>
+          {SERVICE_TYPES.map((serviceTypes) => {
+            return (
+              <li key={serviceTypes}>
+                <Radio.Option
+                  value={serviceTypes}
+                  label={serviceTypes}
+                  onChecked={() => updateServiceTypes(serviceTypes)}
+                />
+              </li>
+            );
+          })}
+        </ul>
+      </Radio>
     </div>
   );
 }

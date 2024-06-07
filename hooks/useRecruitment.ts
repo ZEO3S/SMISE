@@ -27,9 +27,7 @@ export const useRecruitment = ({
       try {
         setIsLoading(true);
         const serviceTypeParam = serviceType
-          ? serviceType
-              .map((serviceType) => `service_types=${serviceType}`)
-              .join("&")
+          ? `service_types=${serviceType}`
           : null;
         const serviceStatusParam = serviceStatus
           ? `service_status=${serviceStatus}`
