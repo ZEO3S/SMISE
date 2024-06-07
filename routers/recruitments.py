@@ -40,10 +40,10 @@ async def retrieve_all_recruitments(
         for j in job:
             job_info = j.split(',')
             category = job_info.pop(0)
-            if job_info[0] == '전체':
+            details = job_info
+            if details[0] == '전체':
                 conditions.append(and_(Recruitment.job == category))
             else:
-                details = job_info
                 conditions.append(
                     and_(
                         Recruitment.job == category,
@@ -53,7 +53,23 @@ async def retrieve_all_recruitments(
         query = query.where(or_(*conditions))
         
     if locations:
-        query = query.where(Recruitment.locations == locations)
+        conditions = []
+        for location in locations:
+            loc_info = location.split(',')
+            state = loc_info.pop(0)
+            cities = loc_info
+            if cities[0] == '전체':
+                conditions.append(and_(Recruitment.location.contains(state)))
+            else:
+                city_conditions = [Recruitment.location.contains(city) for city in cities]
+                conditions.append(
+                    and_(
+                        Recruitment.location.contains(state),
+                        or_(*city_conditions)
+                    )
+                )
+        query = query.where(or_(*conditions))
+        
     if experience_level:
         query = query.where(Recruitment.experience_level == experience_level)
     if education_level:
