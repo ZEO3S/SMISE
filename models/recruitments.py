@@ -1,6 +1,5 @@
 from typing import Optional
-from pydantic import BaseModel
-from sqlmodel import JSON, SQLModel, Field, Column
+from sqlmodel import SQLModel, Field
 
 class Recruitment(SQLModel, table=True):
     id: int = Field(default=None, primary_key=True)

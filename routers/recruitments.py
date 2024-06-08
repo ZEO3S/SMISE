@@ -1,8 +1,7 @@
 from typing import List, Union
 from fastapi import APIRouter, HTTPException, status, Query, Depends
 from models.recruitments import Recruitment
-from datas.military_data import cached_recruitments
-from datas.connection import get_session
+from data.connection import get_session
 from sqlmodel import select
 from sqlalchemy import and_, or_
 from typing_extensions import Annotated

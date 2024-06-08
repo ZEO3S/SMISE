@@ -3,8 +3,8 @@ from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 from routers.recruitments import recruitment_router
 from routers.job import job_router
-from datas.military_data import military_router
-from datas.connection import conn
+from data.military_data import military_router
+from data.connection import conn
 
 app = FastAPI()
 
