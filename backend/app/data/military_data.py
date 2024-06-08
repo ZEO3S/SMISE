@@ -2,10 +2,9 @@ import requests
 import xmltodict
 import asyncio
 from fastapi import Depends
-from models.recruitments import Recruitment
-from data.connection import get_session
-from routers.job import detail_to_job
-
+from app.models.recruitments import Recruitment
+from app.data.connection import get_session
+from app.routers.job import detail_to_job
 from fastapi import APIRouter
 
 military_router = APIRouter(
@@ -48,7 +47,7 @@ def recruitment_name_casting(recruitment: dict) -> dict:
         
 async def fetch_recruitments():
     url = 'http://apis.data.go.kr/1300000/CyJeongBo/list'
-    with open('datas/apikey.txt', 'r') as f:
+    with open('app/data/apikey.txt', 'r') as f:
         serviceKey = f.read()
     params = {'serviceKey': serviceKey, 'numOfRows': '1000', 'pageNo': '1'}
 

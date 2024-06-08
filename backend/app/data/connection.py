@@ -1,5 +1,5 @@
 from sqlmodel import SQLModel, Session, create_engine
-from models.recruitments import Recruitment
+from app.models.recruitments import Recruitment
 
 database_file = "recruitment.db"
 database_connection_string = f"sqlite:///{database_file}"

@@ -1,10 +1,10 @@
 import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
-from routers.recruitments import recruitment_router
-from routers.job import job_router
-from data.military_data import military_router
-from data.connection import conn
+from app.data.military_data import military_router
+from app.data.connection import conn
+from app.routers.recruitments import recruitment_router
+from app.routers.job import job_router
 
 app = FastAPI()
 
