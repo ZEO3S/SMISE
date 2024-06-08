@@ -78,7 +78,10 @@ export default function Slider({
   };
 
   return (
-    <div className='flex items-center relative w-full mt-3' ref={sliderRef}>
+    <div
+      className='flex items-center relative w-full h-16 mt-3'
+      ref={sliderRef}
+    >
       <div className='relative w-full h-[6px] rounded-sm bg-default-color bg-opacity-10' />
       <div
         className='absolute h-[6px] bg-default-color'

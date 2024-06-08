@@ -15,7 +15,7 @@ export default function EducationLevelFilter({ setEducationLevel }: Props) {
     useUpdateEducationLevel(setEducationLevel);
 
   return (
-    <div className='flex-1 pt-2 pb-4'>
+    <div className='pt-2 pb-4'>
       <div className='py-2'>
         <Text variant='semi-title' content='학력' />
       </div>

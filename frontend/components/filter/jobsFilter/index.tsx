@@ -134,7 +134,7 @@ export default function JobsFilter({ jobs, setJobs }: Props) {
             </Button>
           </div>
           <div className='flex gap-2 h-[360px]'>
-            <ul className='overflow-y-scroll'>
+            <ul>
               <li key='전체'>
                 <Button
                   className='flex justify-between w-60 p-4 cursor-pointer rounded hover:bg-default-color hover:bg-opacity-10'
@@ -162,7 +162,7 @@ export default function JobsFilter({ jobs, setJobs }: Props) {
               })}
             </ul>
             {selectedCategory ? (
-              <ul className='flex-1 overflow-y-scroll'>
+              <ul className='flex-1'>
                 {FETCHED_JOBS.find(
                   (job) => job.category === selectedCategory
                 )?.details.map((job) => {

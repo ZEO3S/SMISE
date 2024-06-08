@@ -37,19 +37,17 @@ export default function Home() {
   const [keyword, setKeyword] = useState(DEFAULT_PARAMS.KEYWORD);
 
   return (
-    <div className='flex gap-10 flex-1'>
-      <div className='w-80'>
-        <Filter
-          jobs={jobs}
-          locations={locations}
-          setServiceType={setServiceType}
-          setServiceStatus={setServiceStatus}
-          setJobs={setJobs}
-          setLocations={setLocations}
-          setEducationLevel={setEducationLevel}
-          setExperienceLevel={setExperienceLevel}
-        />
-      </div>
+    <div className='flex w-full gap-10 px-40 py-10'>
+      <Filter
+        jobs={jobs}
+        locations={locations}
+        setServiceType={setServiceType}
+        setServiceStatus={setServiceStatus}
+        setJobs={setJobs}
+        setLocations={setLocations}
+        setEducationLevel={setEducationLevel}
+        setExperienceLevel={setExperienceLevel}
+      />
       <div className='flex flex-col flex-1'>
         <div className='mb-6'>
           <SearchBar setKeyword={setKeyword} />
@@ -57,7 +55,7 @@ export default function Home() {
         <div className='flex justify-end mb-2'>
           <SortTypeSelect setSort={setSort} />
         </div>
-        <div className='flex-1 overflow-y-scroll'>
+        <div className='flex-1'>
           <RecruitmentList
             serviceType={serviceType}
             serviceStatus={serviceStatus}
