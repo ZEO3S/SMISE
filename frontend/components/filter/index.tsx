@@ -41,7 +41,7 @@ export default function Filter({
     <div className='flex flex-col w-80 [&>*]:border-b [&>*]:border-default-color [&>*]:border-opacity-10'>
       <ServiceTypesFilter setServiceType={setServiceType} />
       <ServiceStatusFilter setServiceStatus={setServiceStatus} />
-      <JobsFilter jobs={jobs} setJobs={setJobs} />
+      <JobsFilter selectedDefaultJobs={jobs} setJobs={setJobs} />
       <LocationFilter locations={locations} setLocations={setLocations} />
       <EducationLevelFilter setEducationLevel={setEducationLevel} />
       <ExperienceLevelFilter setExperienceLevel={setExperienceLevel} />
