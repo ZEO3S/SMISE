@@ -7,8 +7,8 @@ export const useSelectedCategory = () => {
     setSelectedCategory(null);
   };
 
-  const updateSelectedCategory = (Category: string) => {
-    setSelectedCategory(Category);
+  const updateSelectedCategory = (category: string) => {
+    setSelectedCategory(category);
   };
 
   return {
