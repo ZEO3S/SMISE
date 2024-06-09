@@ -38,7 +38,7 @@ export default function Filter({
   setExperienceLevel,
 }: Props) {
   return (
-    <div className='flex flex-col w-80 [&>*]:border-b [&>*]:border-default-color [&>*]:border-opacity-10'>
+    <div className='flex flex-col sticky top-16 w-80 h-[724px] [&>*]:border-b [&>*]:border-default-color [&>*]:border-opacity-10'>
       <ServiceTypesFilter setServiceType={setServiceType} />
       <ServiceStatusFilter setServiceStatus={setServiceStatus} />
       <JobsFilter jobs={jobs} setJobs={setJobs} />
