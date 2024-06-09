@@ -7,7 +7,7 @@ import Layout from "@/components/common/layout";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Smise",
+  title: "스미스 - 병역 특례 채용 공고",
   description: "병역 특례 채용 공고를 확인하세요.",
 };
 
