@@ -134,7 +134,7 @@ export default function LocationFilter({ locations, setLocations }: Props) {
             </Button>
           </div>
           <div className='flex gap-2 h-[360px]'>
-            <ul>
+            <ul className='overflow-y-scroll'>
               <li key='전체'>
                 <Button
                   className='flex justify-between w-60 p-4 cursor-pointer rounded hover:bg-default-color hover:bg-opacity-10'
@@ -162,7 +162,7 @@ export default function LocationFilter({ locations, setLocations }: Props) {
               })}
             </ul>
             {selectedDistrict ? (
-              <ul className='flex-1'>
+              <ul className='flex-1 overflow-y-scroll'>
                 {LOCATIONS[selectedDistrict].map((city) => {
                   const key = generateCityKey(selectedDistrict, city);
 

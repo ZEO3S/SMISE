@@ -17,6 +17,45 @@ import { useCheckedDetails } from "@/hooks/useCheckedDetails";
 const FETCHED_JOBS = [
   {
     category: "개발",
+    details: [
+      "프론트엔드",
+      "백엔드",
+      "데이터분석",
+      "데이터분석",
+      "데이터분석",
+      "데이터분석",
+      "데이터분석",
+      "데이터분석",
+      "데이터분석",
+      "데이터분석",
+      "데이터분석",
+      "데이터분석",
+      "데이터분석",
+      "데이터분석",
+    ],
+  },
+  {
+    category: "개발",
+    details: ["프론트엔드", "백엔드", "데이터분석"],
+  },
+  {
+    category: "개발",
+    details: ["프론트엔드", "백엔드", "데이터분석"],
+  },
+  {
+    category: "개발",
+    details: ["프론트엔드", "백엔드", "데이터분석"],
+  },
+  {
+    category: "개발",
+    details: ["프론트엔드", "백엔드", "데이터분석"],
+  },
+  {
+    category: "개발",
+    details: ["프론트엔드", "백엔드", "데이터분석"],
+  },
+  {
+    category: "개발",
     details: ["프론트엔드", "백엔드", "데이터분석"],
   },
   {
@@ -134,7 +173,7 @@ export default function JobsFilter({ jobs, setJobs }: Props) {
             </Button>
           </div>
           <div className='flex gap-2 h-[360px]'>
-            <ul>
+            <ul className='overflow-y-scroll'>
               <li key='전체'>
                 <Button
                   className='flex justify-between w-60 p-4 cursor-pointer rounded hover:bg-default-color hover:bg-opacity-10'
@@ -162,7 +201,7 @@ export default function JobsFilter({ jobs, setJobs }: Props) {
               })}
             </ul>
             {selectedCategory ? (
-              <ul className='flex-1'>
+              <ul className='flex-1 overflow-y-scroll'>
                 {FETCHED_JOBS.find(
                   (job) => job.category === selectedCategory
                 )?.details.map((job) => {
