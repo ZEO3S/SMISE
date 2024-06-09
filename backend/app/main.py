@@ -9,8 +9,8 @@ from app.routers.job import job_router
 app = FastAPI()
 
 app.include_router(military_router)
-app.include_router(recruitment_router, prefix="/recruitment")
-app.include_router(job_router, prefix="/job")
+app.include_router(recruitment_router, prefix="/api/recruitment")
+app.include_router(job_router, prefix="/api/job")
 
 @app.on_event("startup")
 def on_startup():
@@ -18,7 +18,7 @@ def on_startup():
     
 @app.get("/")
 async def home():
-    return RedirectResponse(url="/recruitment/")
+    return RedirectResponse(url="api/recruitment/")
 
 if __name__ == '__main__':
     uvicorn.run("main:app", host="0.0.0.0", port=8080)
