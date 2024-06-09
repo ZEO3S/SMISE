@@ -52,7 +52,10 @@ export default function Text({
 }: Props) {
   return (
     <p
-      className={`text-${color} select-none ${SIZE[variant]} ${WEIGHT[variant]} ${OPACITY[variant]} text-opacity-${opacity}`}
+      className={`text-default-color select-none ${SIZE[variant]} ${WEIGHT[variant]} ${OPACITY[variant]} text-opacity-${opacity}`}
+      style={{
+        color,
+      }}
     >
       {content}
     </p>
