@@ -55,7 +55,7 @@ export default function Home() {
         <div className='flex justify-end mb-2'>
           <SortTypeSelect setSort={setSort} />
         </div>
-        <div className='flex-1'>
+        <div className='flex flex-1'>
           <RecruitmentList
             serviceType={serviceType}
             serviceStatus={serviceStatus}
