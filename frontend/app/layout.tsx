@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "./globals.css";
 
 import Layout from "@/components/common/layout";
 
-const inter = Inter({ subsets: ["latin"] });
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["100", "300", "400", "500", "700", "900"],
+});
 
 export const metadata: Metadata = {
   title: "스미스 - 병역 특례 채용 공고",
@@ -18,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='ko'>
-      <body className={inter.className}>
+      <body className={roboto.className}>
         <Layout>{children}</Layout>
       </body>
     </html>

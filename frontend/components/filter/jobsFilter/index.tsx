@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Dispatch, SetStateAction } from "react";
 
 import CloseSVG from "@/assets/svgs/close.svg";
 import ArrowSVG from "@/assets/svgs/arrow.svg";
@@ -17,10 +16,10 @@ import { useJobs } from "@/hooks/useJobs";
 
 interface Props {
   selectedDefaultJobs: Array<Job> | null;
-  setJobs: Dispatch<SetStateAction<Array<Job> | null>>;
+  updateJobs: (selectedJob: Array<Job> | null) => void;
 }
 
-export default function JobsFilter({ selectedDefaultJobs, setJobs }: Props) {
+export default function JobsFilter({ selectedDefaultJobs, updateJobs }: Props) {
   const { isOpen, openModal, closeModal } = useModal();
   const { jobs } = useJobs();
   const { selectedCategory, updateSelectedCategory, clearSelectedCategory } =
@@ -75,7 +74,7 @@ export default function JobsFilter({ selectedDefaultJobs, setJobs }: Props) {
 
   const applyKob = () => {
     clearSelectedCategory();
-    setJobs(selectedJobs);
+    updateJobs(selectedJobs);
     closeModal();
   };
 
@@ -138,7 +137,7 @@ export default function JobsFilter({ selectedDefaultJobs, setJobs }: Props) {
                   <Text variant='full-base' content='전체' />
                 </Button>
               </li>
-              {jobs.map(({ category }) => {
+              {jobs?.map(({ category }) => {
                 return (
                   <li key={category}>
                     <Button
@@ -159,7 +158,7 @@ export default function JobsFilter({ selectedDefaultJobs, setJobs }: Props) {
             {selectedCategory ? (
               <ul className='flex-1 overflow-y-scroll'>
                 {jobs
-                  .find((job) => job.category === selectedCategory)
+                  ?.find((job) => job.category === selectedCategory)
                   ?.details.map((job) => {
                     const key = generateDetailKey(selectedCategory, job);
 

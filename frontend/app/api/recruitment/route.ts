@@ -1,130 +1,3 @@
-import { ResponseRecruitment } from "@/types/api/recruitment";
-
-const RECRUITMENT: ResponseRecruitment = {
-  recruitment: [
-    {
-      id: 1,
-      serviceType: "산업기능요원",
-      experienceLevel: "경력무관",
-      educationLevel: "대학졸업",
-      expirationDate: "채용시 마감",
-      title: "머신러닝 엔지니어 채용",
-      company: "샌드버드",
-      location: "경기도 성남시",
-      salary: "8000~9000만원",
-      href: "https://www.google.com",
-    },
-    {
-      id: 2,
-      serviceType: "산업기능요원",
-      experienceLevel: "경력무관",
-      educationLevel: "대학졸업",
-      expirationDate: "채용시 마감",
-      title: "머신러닝 엔지니어 채용",
-      company: "샌드버드",
-      location: "경기도 성남시",
-      salary: "8000~9000만원",
-      href: "https://www.google.com",
-    },
-    {
-      id: 3,
-      serviceType: "산업기능요원",
-      experienceLevel: "경력무관",
-      educationLevel: "대학졸업",
-      expirationDate: "채용시 마감",
-      title: "머신러닝 엔지니어 채용",
-      company: "샌드버드",
-      location: "경기도 성남시",
-      salary: "8000~9000만원",
-      href: "https://www.google.com",
-    },
-    {
-      id: 4,
-      serviceType: "산업기능요원",
-      experienceLevel: "경력무관",
-      educationLevel: "대학졸업",
-      expirationDate: "채용시 마감",
-      title: "머신러닝 엔지니어 채용",
-      company: "샌드버드",
-      location: "경기도 성남시",
-      salary: "8000~9000만원",
-      href: "https://www.google.com",
-    },
-    {
-      id: 5,
-      serviceType: "산업기능요원",
-      experienceLevel: "경력무관",
-      educationLevel: "대학졸업",
-      expirationDate: "채용시 마감",
-      title: "머신러닝 엔지니어 채용",
-      company: "샌드버드",
-      location: "경기도 성남시",
-      salary: "8000~9000만원",
-      href: "https://www.google.com",
-    },
-    {
-      id: 6,
-      serviceType: "산업기능요원",
-      experienceLevel: "경력무관",
-      educationLevel: "대학졸업",
-      expirationDate: "채용시 마감",
-      title: "머신러닝 엔지니어 채용",
-      company: "샌드버드",
-      location: "경기도 성남시",
-      salary: "8000~9000만원",
-      href: "https://www.google.com",
-    },
-    {
-      id: 7,
-      serviceType: "산업기능요원",
-      experienceLevel: "경력무관",
-      educationLevel: "대학졸업",
-      expirationDate: "채용시 마감",
-      title: "머신러닝 엔지니어 채용",
-      company: "샌드버드",
-      location: "경기도 성남시",
-      salary: "8000~9000만원",
-      href: "https://www.google.com",
-    },
-    {
-      id: 8,
-      serviceType: "산업기능요원",
-      experienceLevel: "경력무관",
-      educationLevel: "대학졸업",
-      expirationDate: "채용시 마감",
-      title: "머신러닝 엔지니어 채용",
-      company: "샌드버드",
-      location: "경기도 성남시",
-      salary: "8000~9000만원",
-      href: "https://www.google.com",
-    },
-    {
-      id: 9,
-      serviceType: "산업기능요원",
-      experienceLevel: "경력무관",
-      educationLevel: "대학졸업",
-      expirationDate: "채용시 마감",
-      title: "머신러닝 엔지니어 채용",
-      company: "샌드버드",
-      location: "경기도 성남시",
-      salary: "8000~9000만원",
-      href: "https://www.google.com",
-    },
-    {
-      id: 10,
-      serviceType: "산업기능요원",
-      experienceLevel: "경력무관",
-      educationLevel: "대학졸업",
-      expirationDate: "채용시 마감",
-      title: "머신러닝 엔지니어 채용",
-      company: "샌드버드",
-      location: "경기도 성남시",
-      salary: "8000~9000만원",
-      href: "https://www.google.com",
-    },
-  ],
-};
-
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
 
@@ -136,8 +9,8 @@ export async function GET(request: Request) {
   const experienceLevel = searchParams.get("experienceLevel");
   const educationLevel = searchParams.get("educationLevel");
   const sort = searchParams.get("sort");
-  const limit = searchParams.get("limit");
-  const cursor = searchParams.get("cursor");
+  const size = Number(searchParams.get("size"));
+  const page = Number(searchParams.get("page"));
   const keyword = searchParams.get("keyword");
 
   console.log(
@@ -149,10 +22,31 @@ export async function GET(request: Request) {
     experienceLevel,
     educationLevel,
     sort,
-    limit,
-    cursor,
+    size,
+    page,
     keyword
   );
 
-  return Response.json(RECRUITMENT);
+  const RECRUITMENT = Array.from({ length: 40 }, (_, index) => {
+    return {
+      id: index,
+      serviceType: "산업기능요원",
+      experienceLevel: "경력무관",
+      educationLevel: "대학졸업",
+      expirationDate: "채용시 마감",
+      title: `머신러닝 엔지니어 채용-${index}`,
+      company: "샌드버드",
+      location: "경기도 성남시",
+      salary: "8000~9000만원",
+      href: "https://www.google.com",
+    };
+  });
+
+  const data = {
+    recruitment: RECRUITMENT.slice(page * size, size * (page + 1)),
+    page: page,
+    totalPages: Math.ceil(RECRUITMENT.length / size),
+  };
+
+  return Response.json(data);
 }

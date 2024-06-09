@@ -1,19 +1,14 @@
-import { Dispatch, SetStateAction } from "react";
-
 import Input from "../common/input";
 import MagnifyingGlassSVG from "@/assets/svgs/magnifying_glass.svg";
 
-import { Keyword } from "@/types/api/recruitment";
 import { useControlledInput } from "@/hooks/useControlledInput";
-import { useUpdateKeyword } from "@/hooks/useUpdateKeyword";
 
 interface Props {
-  setKeyword: Dispatch<SetStateAction<Keyword | null>>;
+  updateKeyword: (keyword: string) => void;
 }
 
-export default function SearchBar({ setKeyword }: Props) {
+export default function SearchBar({ updateKeyword }: Props) {
   const { value, onChangeInput } = useControlledInput();
-  const { updateKeyword } = useUpdateKeyword(setKeyword);
 
   return (
     <Input

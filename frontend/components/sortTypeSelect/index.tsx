@@ -1,17 +1,16 @@
-import { Dispatch, SetStateAction } from "react";
+import { useState } from "react";
 
 import Select from "../common/select";
 
-import { Sort } from "@/types/api/recruitment";
 import { SORT_TYPES } from "@/constants/components/sort";
-import { useUpdateSort } from "@/hooks/useUpdateSort";
+import { SelectOption } from "@/types/components/select";
 
 interface Props {
-  setSort: Dispatch<SetStateAction<Sort | null>>;
+  updateSort: (sortType: SelectOption) => void;
 }
 
-export default function SortTypeSelect({ setSort }: Props) {
-  const { selectedSortOption, updateSort } = useUpdateSort(setSort);
+export default function SortTypeSelect({ updateSort }: Props) {
+  const [selectedSortOption, setSelectedSortOption] = useState(SORT_TYPES[0]);
 
   return (
     <Select selectedOption={selectedSortOption}>
@@ -22,7 +21,10 @@ export default function SortTypeSelect({ setSort }: Props) {
               <Select.Option
                 value={sortType.value}
                 label={sortType.label}
-                onSelect={() => updateSort(sortType)}
+                onSelect={() => {
+                  updateSort(sortType);
+                  setSelectedSortOption(sortType);
+                }}
               />
             </li>
           );

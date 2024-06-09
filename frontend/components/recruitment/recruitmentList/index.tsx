@@ -1,45 +1,18 @@
 import Link from "next/link";
 
-import Badge from "../common/badge";
-import Text from "../common/text";
-import Spinner from "../common/spinner";
+import Badge from "../../common/badge";
+import Text from "../../common/text";
 
-import { RequestRecruitmentParams } from "@/types/api/recruitment";
-import { useRecruitment } from "@/hooks/useRecruitment";
+import { Recruitment } from "@/types/api/recruitment";
 
-export default function RecruitmentList({
-  serviceType,
-  serviceStatus,
-  jobs,
-  locations,
-  educationLevel,
-  experienceLevel,
-  sort,
-  keyword,
-}: RequestRecruitmentParams) {
-  const { recruitment, isLoading, error } = useRecruitment({
-    serviceType,
-    serviceStatus,
-    jobs,
-    locations,
-    educationLevel,
-    experienceLevel,
-    sort,
-    keyword,
-  });
+interface Props {
+  recruitment: Recruitment[] | null;
+}
 
-  if (isLoading)
-    return (
-      <div className='flex flex-1 justify-center items-center'>
-        <Spinner />
-      </div>
-    );
-
-  if (error) return <div>에러 발생!</div>;
-
+export default function RecruitmentList({ recruitment }: Props) {
   return (
     <ul className='flex-1'>
-      {recruitment.map(
+      {recruitment?.map(
         ({
           id,
           serviceType,

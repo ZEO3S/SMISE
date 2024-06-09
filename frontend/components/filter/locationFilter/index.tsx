@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Dispatch, SetStateAction } from "react";
 
 import CloseSVG from "@/assets/svgs/close.svg";
 import ArrowSVG from "@/assets/svgs/arrow.svg";
@@ -17,10 +16,10 @@ import { useCheckedCities } from "@/hooks/useCheckedCities";
 
 interface Props {
   locations: Array<Location> | null;
-  setLocations: Dispatch<SetStateAction<Array<Location> | null>>;
+  updateLocations: (selectedLocations: Array<Location> | null) => void;
 }
 
-export default function LocationFilter({ locations, setLocations }: Props) {
+export default function LocationFilter({ locations, updateLocations }: Props) {
   const { isOpen, openModal, closeModal } = useModal();
   const {
     selectedDistrict,
@@ -80,7 +79,7 @@ export default function LocationFilter({ locations, setLocations }: Props) {
 
   const applyLocation = () => {
     clearSelectedDistrict();
-    setLocations(selectedLocations);
+    updateLocations(selectedLocations);
     closeModal();
   };
 

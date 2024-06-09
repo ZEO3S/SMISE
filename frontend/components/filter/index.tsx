@@ -1,5 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
-
 import ServiceTypesFilter from "./serviceTypesFilter";
 import ServiceStatusFilter from "./serviceStatusFilter";
 import JobsFilter from "./jobsFilter";
@@ -7,44 +5,41 @@ import LocationFilter from "./locationFilter";
 import EducationLevelFilter from "./educationLevelFilter";
 import ExperienceLevelFilter from "./experienceLevelFilter";
 
-import {
-  EducationLevel,
-  ExperienceLevel,
-  Job,
-  Location,
-  ServiceStatus,
-  ServiceType,
-} from "@/types/api/recruitment";
+import { Job, Location, ServiceType } from "@/types/api/recruitment";
+import { SelectOption } from "@/types/components/select";
 
 interface Props {
-  jobs: Array<Job> | null;
+  selectedDefaultJobs: Array<Job> | null;
   locations: Array<Location> | null;
-  setServiceType: Dispatch<SetStateAction<ServiceType | null>>;
-  setServiceStatus: Dispatch<SetStateAction<ServiceStatus | null>>;
-  setJobs: Dispatch<SetStateAction<Array<Job> | null>>;
-  setLocations: Dispatch<SetStateAction<Array<Location> | null>>;
-  setEducationLevel: Dispatch<SetStateAction<EducationLevel | null>>;
-  setExperienceLevel: Dispatch<SetStateAction<ExperienceLevel | null>>;
+  updateServiceType: (string: ServiceType) => void;
+  updateServiceStatus: (string: string) => void;
+  updateJobs: (selectedJob: Array<Job> | null) => void;
+  updateLocations: (selectedLocations: Array<Location> | null) => void;
+  updateEducationLevel: (educationLevel: SelectOption) => void;
+  updateExperienceLevel: (min: number, max: number) => void;
 }
 
 export default function Filter({
-  jobs,
+  selectedDefaultJobs,
   locations,
-  setServiceType,
-  setServiceStatus,
-  setJobs,
-  setLocations,
-  setEducationLevel,
-  setExperienceLevel,
+  updateServiceType,
+  updateServiceStatus,
+  updateJobs,
+  updateLocations,
+  updateEducationLevel,
+  updateExperienceLevel,
 }: Props) {
   return (
     <div className='flex flex-col sticky top-16 w-80 h-[724px] [&>*]:border-b [&>*]:border-default-color [&>*]:border-opacity-10'>
-      <ServiceTypesFilter setServiceType={setServiceType} />
-      <ServiceStatusFilter setServiceStatus={setServiceStatus} />
-      <JobsFilter selectedDefaultJobs={jobs} setJobs={setJobs} />
-      <LocationFilter locations={locations} setLocations={setLocations} />
-      <EducationLevelFilter setEducationLevel={setEducationLevel} />
-      <ExperienceLevelFilter setExperienceLevel={setExperienceLevel} />
+      <ServiceTypesFilter updateServiceType={updateServiceType} />
+      <ServiceStatusFilter updateServiceStatus={updateServiceStatus} />
+      <JobsFilter
+        selectedDefaultJobs={selectedDefaultJobs}
+        updateJobs={updateJobs}
+      />
+      <LocationFilter locations={locations} updateLocations={updateLocations} />
+      <EducationLevelFilter updateEducationLevel={updateEducationLevel} />
+      <ExperienceLevelFilter updateExperienceLevel={updateExperienceLevel} />
     </div>
   );
 }

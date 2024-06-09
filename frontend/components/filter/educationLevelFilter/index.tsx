@@ -1,18 +1,19 @@
-import { Dispatch, SetStateAction } from "react";
+import { useState } from "react";
 
 import Select from "@/components/common/select";
 import Text from "@/components/common/text";
-import { EducationLevel } from "@/types/api/recruitment";
-import { useUpdateEducationLevel } from "@/hooks/useUpdateEducationLevel";
+
 import { EDUCATION_LEVELS } from "@/constants/components/educationLevel";
+import { SelectOption } from "@/types/components/select";
 
 interface Props {
-  setEducationLevel: Dispatch<SetStateAction<EducationLevel | null>>;
+  updateEducationLevel: (educationLevel: SelectOption) => void;
 }
 
-export default function EducationLevelFilter({ setEducationLevel }: Props) {
-  const { selectedEducationLevel, updateEducationLevel } =
-    useUpdateEducationLevel(setEducationLevel);
+export default function EducationLevelFilter({ updateEducationLevel }: Props) {
+  const [selectedEducationLevel, setSelectedEducationLevel] = useState(
+    EDUCATION_LEVELS[0]
+  );
 
   return (
     <div className='pt-2 pb-4'>
@@ -27,7 +28,10 @@ export default function EducationLevelFilter({ setEducationLevel }: Props) {
                 <Select.Option
                   value={educationLevel.value}
                   label={educationLevel.label}
-                  onSelect={() => updateEducationLevel(educationLevel)}
+                  onSelect={() => {
+                    updateEducationLevel(educationLevel);
+                    setSelectedEducationLevel(educationLevel);
+                  }}
                 />
               </li>
             );

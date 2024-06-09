@@ -1,72 +1,57 @@
 "use client";
 
-import { useState } from "react";
-
 import Filter from "@/components/filter";
 import SearchBar from "@/components/searchBar";
 import SortTypeSelect from "@/components/sortTypeSelect";
-import RecruitmentList from "@/components/recruitmentList";
+import Recruitment from "@/components/recruitment";
 
-import { DefaultRequestRecruitmentParams } from "@/types/api/recruitment";
-
-const DEFAULT_PARAMS: DefaultRequestRecruitmentParams = {
-  SERVICE_TYPE: null,
-  SERVICE_STATUS: null,
-  JOBS: null,
-  LOCATIONS: null,
-  EDUCATION_LEVEL: null,
-  EXPERIENCE_LEVEL: null,
-  SORT: "최신순",
-  KEYWORD: null,
-};
+import { useRecruitment } from "@/hooks/useRecruitment";
 
 export default function Home() {
-  const [serviceType, setServiceType] = useState(DEFAULT_PARAMS.SERVICE_TYPE);
-  const [serviceStatus, setServiceStatus] = useState(
-    DEFAULT_PARAMS.SERVICE_STATUS
-  );
-  const [jobs, setJobs] = useState(DEFAULT_PARAMS.JOBS);
-  const [locations, setLocations] = useState(DEFAULT_PARAMS.LOCATIONS);
-  const [educationLevel, setEducationLevel] = useState(
-    DEFAULT_PARAMS.EDUCATION_LEVEL
-  );
-  const [experienceLevel, setExperienceLevel] = useState(
-    DEFAULT_PARAMS.EXPERIENCE_LEVEL
-  );
-  const [sort, setSort] = useState(DEFAULT_PARAMS.SORT);
-  const [keyword, setKeyword] = useState(DEFAULT_PARAMS.KEYWORD);
+  const {
+    jobs,
+    locations,
+    recruitment,
+    isLoading,
+    error,
+    hasNext,
+    updateServiceType,
+    updateServiceStatus,
+    updateJobs,
+    updateLocations,
+    updateEducationLevel,
+    updateExperienceLevel,
+    updateKeyword,
+    updateSort,
+    fetchNextPage,
+  } = useRecruitment();
 
   return (
-    <div className='flex w-full gap-10 px-40 py-10'>
+    <div className='flex flex-1 gap-10 px-40 py-10'>
       <Filter
-        jobs={jobs}
+        selectedDefaultJobs={jobs}
         locations={locations}
-        setServiceType={setServiceType}
-        setServiceStatus={setServiceStatus}
-        setJobs={setJobs}
-        setLocations={setLocations}
-        setEducationLevel={setEducationLevel}
-        setExperienceLevel={setExperienceLevel}
+        updateLocations={updateLocations}
+        updateEducationLevel={updateEducationLevel}
+        updateExperienceLevel={updateExperienceLevel}
+        updateServiceType={updateServiceType}
+        updateServiceStatus={updateServiceStatus}
+        updateJobs={updateJobs}
       />
       <div className='flex flex-col flex-1'>
         <div className='sticky top-16 pb-4 bg-white'>
-          <SearchBar setKeyword={setKeyword} />
+          <SearchBar updateKeyword={updateKeyword} />
         </div>
         <div className='flex justify-end sticky top-32 mb-2 bg-white'>
-          <SortTypeSelect setSort={setSort} />
+          <SortTypeSelect updateSort={updateSort} />
         </div>
-        <div className='flex flex-1'>
-          <RecruitmentList
-            serviceType={serviceType}
-            serviceStatus={serviceStatus}
-            jobs={jobs}
-            locations={locations}
-            educationLevel={educationLevel}
-            experienceLevel={experienceLevel}
-            sort={sort}
-            keyword={keyword}
-          />
-        </div>
+        <Recruitment
+          recruitment={recruitment}
+          isLoading={isLoading}
+          error={error}
+          hasNext={hasNext}
+          fetchNextPage={fetchNextPage}
+        />
       </div>
     </div>
   );

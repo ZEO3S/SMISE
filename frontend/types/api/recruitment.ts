@@ -30,6 +30,8 @@ export interface ExperienceLevel {
 }
 export type EducationLevel = string;
 export type Sort = "최신순" | "마감순";
+type Size = number;
+type Page = number;
 export type Keyword = string;
 
 export interface RequestRecruitmentParams {
@@ -40,6 +42,8 @@ export interface RequestRecruitmentParams {
   experienceLevel: ExperienceLevel | null;
   educationLevel: EducationLevel | null;
   sort: Sort | null;
+  size: Size;
+  page: Page;
   keyword: Keyword | null;
 }
 
@@ -51,9 +55,15 @@ export interface DefaultRequestRecruitmentParams {
   EXPERIENCE_LEVEL: ExperienceLevel | null;
   EDUCATION_LEVEL: EducationLevel | null;
   SORT: Sort | null;
+  SIZE: Size;
+  PAGE: Page;
   KEYWORD: Keyword | null;
 }
 
 export interface ResponseRecruitment {
   recruitment: Array<Recruitment>;
+  size: Size;
+  page: Page;
+  totalElements: number;
+  totalPages: number;
 }

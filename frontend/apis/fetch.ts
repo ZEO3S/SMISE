@@ -3,8 +3,11 @@ const headers = {
 };
 
 export const https = {
-  get: (url: string) =>
-    fetch(url, {
+  get: async <Response>(endpoint: string): Promise<Response> => {
+    const response = await fetch(endpoint, {
       headers,
-    }),
+    });
+
+    return await response.json();
+  },
 };
