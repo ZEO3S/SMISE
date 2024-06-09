@@ -1,0 +1,13 @@
+name: myenv
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.8
+  - fastapi
+  - uvicorn
+  - requests
+  - xmltodict
+  - pip
+  - sqlmodel
+  - sqlalchemy
