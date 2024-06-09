@@ -38,7 +38,7 @@ export default function RecruitmentList({
   if (error) return <div>에러 발생!</div>;
 
   return (
-    <ul>
+    <ul className='flex-1'>
       {recruitment.map(
         ({
           id,

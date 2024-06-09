@@ -49,10 +49,10 @@ export default function Home() {
         setExperienceLevel={setExperienceLevel}
       />
       <div className='flex flex-col flex-1'>
-        <div className='mb-6'>
+        <div className='sticky top-16 pb-4 bg-white'>
           <SearchBar setKeyword={setKeyword} />
         </div>
-        <div className='flex justify-end mb-2'>
+        <div className='flex justify-end sticky top-32 mb-2 bg-white'>
           <SortTypeSelect setSort={setSort} />
         </div>
         <div className='flex flex-1'>
