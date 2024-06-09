@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import Badge from "../common/badge";
 import Text from "../common/text";
+import Spinner from "../common/spinner";
 
 import { RequestRecruitmentParams } from "@/types/api/recruitment";
 import { useRecruitment } from "@/hooks/useRecruitment";
@@ -27,7 +28,12 @@ export default function RecruitmentList({
     keyword,
   });
 
-  if (isLoading) return <div>로딩 중...</div>;
+  if (isLoading)
+    return (
+      <div className='flex flex-1 justify-center items-center'>
+        <Spinner />
+      </div>
+    );
 
   if (error) return <div>에러 발생!</div>;
 
