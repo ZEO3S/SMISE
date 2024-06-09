@@ -86,8 +86,6 @@ export default function JobsFilter({ selectedDefaultJobs, setJobs }: Props) {
     closeModal();
   };
 
-  console.log(selectedDefaultJobs);
-
   return (
     <div className='py-2'>
       <div className='py-2'>
