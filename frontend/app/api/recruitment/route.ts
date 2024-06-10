@@ -33,7 +33,7 @@ export async function GET(request: Request) {
       serviceType: "산업기능요원",
       experienceLevel: "경력무관",
       educationLevel: "대학졸업",
-      expirationDate: "채용시 마감",
+      expirationDate: "20240610",
       title: `머신러닝 엔지니어 채용-${index}`,
       company: "샌드버드",
       location: "경기도 성남시",
