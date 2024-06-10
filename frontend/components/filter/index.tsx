@@ -10,6 +10,7 @@ import { SelectOption } from "@/types/components/select";
 
 interface Props {
   selectedDefaultJobs: Array<Job> | null;
+  selectedServiceType: ServiceType | null;
   locations: Array<Location> | null;
   updateServiceType: (string: ServiceType) => void;
   updateServiceStatus: (string: string) => void;
@@ -21,6 +22,7 @@ interface Props {
 
 export default function Filter({
   selectedDefaultJobs,
+  selectedServiceType,
   locations,
   updateServiceType,
   updateServiceStatus,
@@ -35,6 +37,7 @@ export default function Filter({
       <ServiceStatusFilter updateServiceStatus={updateServiceStatus} />
       <JobsFilter
         selectedDefaultJobs={selectedDefaultJobs}
+        selectedServiceType={selectedServiceType}
         updateJobs={updateJobs}
       />
       <LocationFilter locations={locations} updateLocations={updateLocations} />

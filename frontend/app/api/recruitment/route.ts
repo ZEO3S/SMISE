@@ -1,7 +1,7 @@
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
 
-  const serviceType = searchParams.get("service_type");
+  const serviceType = searchParams.get("serviceType");
   const serviceStatus = searchParams.get("serviceStatus");
   const jobs = searchParams.get("jobs");
   const detailedJobs = searchParams.get("detailedJobs");

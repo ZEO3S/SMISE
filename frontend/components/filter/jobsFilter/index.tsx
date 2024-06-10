@@ -7,7 +7,7 @@ import Button from "@/components/common/button";
 import Modal from "@/components/common/modal";
 import Checkbox from "@/components/common/checkbox";
 
-import { Job } from "@/types/api/recruitment";
+import { Job, ServiceType } from "@/types/api/recruitment";
 import { useModal } from "@/hooks/useModal";
 import { useSelectedCategory } from "@/hooks/useSelectedCategory";
 import { useSelectedJobs } from "@/hooks/useSelectedJobs";
@@ -16,12 +16,17 @@ import { useJobs } from "@/hooks/useJobs";
 
 interface Props {
   selectedDefaultJobs: Array<Job> | null;
+  selectedServiceType: ServiceType | null;
   updateJobs: (selectedJob: Array<Job> | null) => void;
 }
 
-export default function JobsFilter({ selectedDefaultJobs, updateJobs }: Props) {
+export default function JobsFilter({
+  selectedDefaultJobs,
+  selectedServiceType,
+  updateJobs,
+}: Props) {
   const { isOpen, openModal, closeModal } = useModal();
-  const { jobs } = useJobs();
+  const { jobs } = useJobs(selectedServiceType);
   const { selectedCategory, updateSelectedCategory, clearSelectedCategory } =
     useSelectedCategory();
   const {

@@ -9,6 +9,7 @@ import { useRecruitment } from "@/hooks/useRecruitment";
 
 export default function Home() {
   const {
+    serviceType,
     jobs,
     locations,
     recruitment,
@@ -30,6 +31,7 @@ export default function Home() {
     <div className='flex flex-1 gap-10 px-40 py-10'>
       <Filter
         selectedDefaultJobs={jobs}
+        selectedServiceType={serviceType}
         locations={locations}
         updateLocations={updateLocations}
         updateEducationLevel={updateEducationLevel}

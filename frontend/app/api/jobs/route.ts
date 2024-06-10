@@ -13,6 +13,12 @@ const RECRUITMENT: ResponseJobs = {
   ],
 };
 
-export async function GET() {
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+
+  const serviceType = searchParams.get("serviceType");
+
+  console.log(serviceType);
+
   return Response.json(RECRUITMENT);
 }
