@@ -70,9 +70,19 @@ async def retrieve_all_recruitments(
         query = query.where(or_(*conditions))
         
     if experienceLevel:
+        print(experienceLevel)
         conditions = []
-        start_level, end_level = map(int, experienceLevel.split(','))
-        
+        start_level, end_level = experienceLevel.split(',')
+        experienceLevelToInt = {
+            "신입": 0,
+            "1년": 1,
+            "2년": 2,
+            "3년": 3,
+            "4년": 4,
+            "5년": 5
+        }
+        start_level = experienceLevelToInt[start_level]
+        end_level = experienceLevelToInt[end_level]
         conditions.append(Recruitment.experienceLevel == "신입/경력")
         if start_level == 0:
             conditions.append(Recruitment.experienceLevel == "신입")
@@ -113,12 +123,12 @@ async def retrieve_all_recruitments(
         elif sort == "latest":
             query = query.order_by(Recruitment.updated_date.desc())
 
-    total_elements = len(session.exec(query).all())
+    totalElements = len(session.exec(query).all())
     query = query.limit(size).offset(page * size)
     recruitments = session.exec(query).all()
-    total_pages = total_elements // size  if total_elements % size == 0 else total_elements // size + 1
+    totalPages = totalElements // size  if totalElements % size == 0 else totalElements // size + 1
     return {"recruitment": recruitments, 
             "page": page,
             "size": size,
-            "total_elements": total_elements,
-            "total_pages": total_pages}
+            "totalElements": totalElements,
+            "totalPages": totalPages}

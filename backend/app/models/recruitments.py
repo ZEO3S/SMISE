@@ -3,14 +3,14 @@ from sqlmodel import SQLModel, Field
 
 class Recruitment(SQLModel, table=True):
     id: int = Field(default=None, primary_key=True)
-    service_type: str
-    service_status: str
+    serviceType: str
+    serviceStatus: str
     job: str
-    job_detail: str
-    experience_level: str
-    education_level: str
-    expiration_date: str
-    updated_date: str
+    jobDetail: str
+    experienceLevel: str
+    educationLevel: str
+    expirationDate: str
+    updatedDate: str
     title: str
     company: str
     location: str
