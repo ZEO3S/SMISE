@@ -7,7 +7,6 @@ connect_args = {"check_same_thread": False}
 engine_url = create_engine(database_connection_string, connect_args=connect_args)
 
 def conn():
-    SQLModel.metadata.drop_all(engine_url)
     SQLModel.metadata.create_all(engine_url)
     
 def get_session():
