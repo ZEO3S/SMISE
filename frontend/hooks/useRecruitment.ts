@@ -228,6 +228,7 @@ export const useRecruitment = () => {
   }, [data]);
 
   return {
+    serviceType,
     jobs,
     locations,
     recruitment,
