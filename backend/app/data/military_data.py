@@ -13,8 +13,8 @@ military_router = APIRouter(
 
 cached_recruitments = []
 
-def get_job(job_detail: str):
-    return detail_to_job[job_detail]
+def get_job(jobDetail: str):
+    return detail_to_job[jobDetail]
 
 def education_name_trans(education: str):
     education_name = {

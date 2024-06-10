@@ -46,7 +46,7 @@ async def retrieve_all_recruitments(
                 conditions.append(
                     and_(
                         Recruitment.job == category,
-                        Recruitment.job_detail.in_(details)
+                        Recruitment.jobDetail.in_(details)
                     )
                 )
         query = query.where(or_(*conditions))
