@@ -15,7 +15,7 @@ async def retrieve_all_recruitments(
     session=Depends(get_session),
     serviceType: Union[str, None] =  Query(default=None),
     serviceStatus: Union[str, None] = Query(default=None),
-    job: Annotated[Union[List[str], None], Query()] = None,
+    jobs: Annotated[Union[List[str], None], Query()] = None,
     locations: Annotated[Union[List[str], None], Query()] = None,
     educationLevel: Union[str, None] = Query(default=None),
     experienceLevel: Union[str, None] = Query(default=None),
@@ -34,9 +34,9 @@ async def retrieve_all_recruitments(
     if serviceStatus:
         query = query.where(Recruitment.serviceStatus == serviceStatus)
 
-    if job:
+    if jobs:
         conditions = []
-        for j in job:
+        for j in jobs:
             job_info = j.split(',')
             category = job_info.pop(0)
             details = job_info
