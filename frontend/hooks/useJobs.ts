@@ -5,7 +5,7 @@ import { ResponseJobs } from "@/types/api/jobs";
 import { ServiceType } from "@/types/api/recruitment";
 
 const generateUrl = (selectedServiceType: ServiceType | null) => {
-  return `${JOBS_URL}?service_type=${selectedServiceType ?? "전체"}`;
+  return `${JOBS_URL}?serviceType=${selectedServiceType ?? "전체"}`;
 };
 export const useJobs = (selectedServiceType: ServiceType | null) => {
   const url = generateUrl(selectedServiceType);

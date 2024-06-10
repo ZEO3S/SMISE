@@ -35,9 +35,9 @@ const generateUrl = ({
   page,
   keyword,
 }: RequestRecruitmentParams) => {
-  const serviceTypeParam = serviceType ? `service_types=${serviceType}` : null;
+  const serviceTypeParam = serviceType ? `serviceType=${serviceType}` : null;
   const serviceStatusParam = serviceStatus
-    ? `service_status=${serviceStatus}`
+    ? `serviceStatus=${serviceStatus}`
     : null;
   const jobsParam = jobs
     ? jobs
@@ -54,16 +54,16 @@ const generateUrl = ({
         .join("&")
     : null;
   const educationLevelParam = educationLevel
-    ? `education_level=${educationLevel}`
+    ? `educationLevel=${educationLevel}`
     : null;
 
   const experienceLevels = experienceLevel
     ? Object.values(experienceLevel)
     : null;
   const experienceLevelParam = experienceLevels
-    ? `experience_level=${experienceLevels.join(",")}`
+    ? `experienceLevel=${experienceLevels.join(",")}`
     : null;
-  const sortParam = sort !== "최신순" ? `sort=${sort}` : null;
+  const sortParam = `sort=${sort}`;
   const sizeParam = `size=${size}`;
   const pageParam = `page=${page}`;
   const keywordParam = keyword ? `keyword=${keyword}` : null;
