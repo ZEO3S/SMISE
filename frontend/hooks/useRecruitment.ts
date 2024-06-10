@@ -18,7 +18,7 @@ import { DEFAULT_PARAMS } from "@/constants/api/recruitment";
 import { SERVICE_STATUSES } from "@/constants/components/serviceStatus";
 import { SelectOption } from "@/types/components/select";
 import {
-  generateMaxText,
+  EXPERIENCE_LEVEL_RANGE,
   generateMinText,
 } from "@/constants/components/experienceLevel";
 import { SORT_TYPES } from "@/constants/components/sort";
@@ -166,7 +166,7 @@ export const useRecruitment = () => {
     setExperienceLevel((prev) => {
       const newExperienceLevel = {
         start: generateMinText(min),
-        end: generateMaxText(max),
+        end: generateMinText(max),
       };
 
       const isExperienceLevel = (obj: unknown): obj is ExperienceLevel => {
@@ -174,13 +174,17 @@ export const useRecruitment = () => {
 
         if (!("start" in obj && "end" in obj)) return false;
 
-        if (typeof obj.start !== "string" || typeof obj.end !== "string")
+        const { start, end } = obj;
+
+        if (typeof start !== "string" || typeof end !== "string") {
           return false;
+        }
 
         const reg = /^(\d+)년$/;
 
         return (
-          (obj.start === "신입" || reg.test(obj.start)) && reg.test(obj.end)
+          (start === "신입" || reg.test(start)) &&
+          (end === "신입" || reg.test(end))
         );
       };
 
