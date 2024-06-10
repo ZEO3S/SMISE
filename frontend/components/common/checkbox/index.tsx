@@ -83,7 +83,7 @@ export default function Checkbox({
           <div className='relative'>
             {checked && (
               <Image
-                className='absolute right-0 w-5 h-5 rounded bg-default-color'
+                className='absolute right-0 w-5 h-5 rounded bg-green-800'
                 src={WhiteCheckSVG}
                 alt='체크'
                 priority

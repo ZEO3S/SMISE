@@ -6,7 +6,7 @@ import Footer from "./footer";
 
 export default function Layout({ children }: PropsWithChildren) {
   return (
-    <div className='flex flex-col h-screen'>
+    <div className='flex flex-col flex-1'>
       <Header />
       <Main>{children}</Main>
       <Footer />

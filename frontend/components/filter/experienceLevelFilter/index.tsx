@@ -1,9 +1,7 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 
 import Text from "@/components/common/text";
 import Slider from "@/components/common/slider";
-import { ExperienceLevel } from "@/types/api/recruitment";
-import { useUpdateExperienceLevel } from "@/hooks/useUpdateExperienceLevel";
 import {
   EXPERIENCE_LEVEL_RANGE,
   generateMaxText,
@@ -11,13 +9,14 @@ import {
 } from "@/constants/components/experienceLevel";
 
 interface Props {
-  setExperienceLevel: Dispatch<SetStateAction<ExperienceLevel | null>>;
+  updateExperienceLevel: (min: number, max: number) => void;
 }
 
-export default function ExperienceLevelFilter({ setExperienceLevel }: Props) {
+export default function ExperienceLevelFilter({
+  updateExperienceLevel,
+}: Props) {
   const [minValue, setMinValue] = useState(EXPERIENCE_LEVEL_RANGE.MIN);
   const [maxValue, setMaxValue] = useState(EXPERIENCE_LEVEL_RANGE.MAX);
-  const updateExperienceLevel = useUpdateExperienceLevel(setExperienceLevel);
   const isRenderMinText = minValue !== EXPERIENCE_LEVEL_RANGE.MAX;
   const isRenderTildeText = minValue !== maxValue;
   const isRenderMaxText =

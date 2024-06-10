@@ -1,10 +1,7 @@
-import { Dispatch, SetStateAction } from "react";
-
 import Radio from "@/components/common/radio";
 import Text from "@/components/common/text";
 
 import { ServiceType } from "@/types/api/recruitment";
-import { useUpdateServiceTypes } from "@/hooks/useUpdateServiceTypes";
 
 const SERVICE_TYPES: Array<ServiceType> = [
   "산업기능요원",
@@ -13,12 +10,10 @@ const SERVICE_TYPES: Array<ServiceType> = [
 ];
 
 interface Props {
-  setServiceType: Dispatch<SetStateAction<ServiceType | null>>;
+  updateServiceType: (string: ServiceType) => void;
 }
 
-export default function ServiceTypesFilter({ setServiceType }: Props) {
-  const updateServiceTypes = useUpdateServiceTypes(setServiceType);
-
+export default function ServiceTypesFilter({ updateServiceType }: Props) {
   return (
     <div className='pb-2'>
       <div className='pb-2'>
@@ -32,7 +27,7 @@ export default function ServiceTypesFilter({ setServiceType }: Props) {
                 <Radio.Option
                   value={serviceTypes}
                   label={serviceTypes}
-                  onChecked={() => updateServiceTypes(serviceTypes)}
+                  onChecked={() => updateServiceType(serviceTypes)}
                 />
               </li>
             );

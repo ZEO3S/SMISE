@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Dispatch, SetStateAction } from "react";
 
 import CloseSVG from "@/assets/svgs/close.svg";
 import ArrowSVG from "@/assets/svgs/arrow.svg";
@@ -17,10 +16,10 @@ import { useJobs } from "@/hooks/useJobs";
 
 interface Props {
   selectedDefaultJobs: Array<Job> | null;
-  setJobs: Dispatch<SetStateAction<Array<Job> | null>>;
+  updateJobs: (selectedJob: Array<Job> | null) => void;
 }
 
-export default function JobsFilter({ selectedDefaultJobs, setJobs }: Props) {
+export default function JobsFilter({ selectedDefaultJobs, updateJobs }: Props) {
   const { isOpen, openModal, closeModal } = useModal();
   const { jobs } = useJobs();
   const { selectedCategory, updateSelectedCategory, clearSelectedCategory } =
@@ -75,7 +74,7 @@ export default function JobsFilter({ selectedDefaultJobs, setJobs }: Props) {
 
   const applyKob = () => {
     clearSelectedCategory();
-    setJobs(selectedJobs);
+    updateJobs(selectedJobs);
     closeModal();
   };
 
@@ -91,8 +90,11 @@ export default function JobsFilter({ selectedDefaultJobs, setJobs }: Props) {
       <div className='py-2'>
         <Text variant='semi-title' content='직무' />
       </div>
-      <Button onClick={openModal}>
-        <div className='flex gap-1 py-2 cursor-pointer'>
+      <Button
+        className='flex gap-1 w-full py-2 hover:bg-default-color hover:bg-opacity-10'
+        onClick={openModal}
+      >
+        <>
           <Text
             content={
               selectedDefaultJobs && Boolean(selectedDefaultJobs.length)
@@ -114,7 +116,7 @@ export default function JobsFilter({ selectedDefaultJobs, setJobs }: Props) {
             src={ArrowSVG}
             alt='모달 열기 버튼'
           />
-        </div>
+        </>
       </Button>
       <Modal openState={isOpen} onClose={onCloseModal}>
         <div className='flex flex-col gap-6 w-[660px] p-6 rounded-lg bg-white'>
@@ -138,7 +140,7 @@ export default function JobsFilter({ selectedDefaultJobs, setJobs }: Props) {
                   <Text variant='full-base' content='전체' />
                 </Button>
               </li>
-              {jobs.map(({ category }) => {
+              {jobs?.map(({ category }) => {
                 return (
                   <li key={category}>
                     <Button
@@ -159,7 +161,7 @@ export default function JobsFilter({ selectedDefaultJobs, setJobs }: Props) {
             {selectedCategory ? (
               <ul className='flex-1 overflow-y-scroll'>
                 {jobs
-                  .find((job) => job.category === selectedCategory)
+                  ?.find((job) => job.category === selectedCategory)
                   ?.details.map((job) => {
                     const key = generateDetailKey(selectedCategory, job);
 

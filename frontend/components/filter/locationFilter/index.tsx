@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Dispatch, SetStateAction } from "react";
 
 import CloseSVG from "@/assets/svgs/close.svg";
 import ArrowSVG from "@/assets/svgs/arrow.svg";
@@ -17,10 +16,10 @@ import { useCheckedCities } from "@/hooks/useCheckedCities";
 
 interface Props {
   locations: Array<Location> | null;
-  setLocations: Dispatch<SetStateAction<Array<Location> | null>>;
+  updateLocations: (selectedLocations: Array<Location> | null) => void;
 }
 
-export default function LocationFilter({ locations, setLocations }: Props) {
+export default function LocationFilter({ locations, updateLocations }: Props) {
   const { isOpen, openModal, closeModal } = useModal();
   const {
     selectedDistrict,
@@ -80,7 +79,7 @@ export default function LocationFilter({ locations, setLocations }: Props) {
 
   const applyLocation = () => {
     clearSelectedDistrict();
-    setLocations(selectedLocations);
+    updateLocations(selectedLocations);
     closeModal();
   };
 
@@ -96,8 +95,11 @@ export default function LocationFilter({ locations, setLocations }: Props) {
       <div className='py-2'>
         <Text variant='semi-title' content='지역' />
       </div>
-      <Button onClick={openModal}>
-        <div className='flex gap-1 py-2 cursor-pointer'>
+      <Button
+        className='flex gap-1 w-full py-2 hover:bg-default-color hover:bg-opacity-10'
+        onClick={openModal}
+      >
+        <>
           <Text
             content={
               locations && Boolean(locations.length)
@@ -119,7 +121,7 @@ export default function LocationFilter({ locations, setLocations }: Props) {
             src={ArrowSVG}
             alt='모달 열기 버튼'
           />
-        </div>
+        </>
       </Button>
       <Modal openState={isOpen} onClose={onCloseModal}>
         <div className='flex flex-col gap-6 w-[660px] p-6 rounded-lg bg-white'>
