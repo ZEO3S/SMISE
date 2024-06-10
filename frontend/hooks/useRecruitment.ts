@@ -17,10 +17,7 @@ import { useFetch } from "./useFetch";
 import { DEFAULT_PARAMS } from "@/constants/api/recruitment";
 import { SERVICE_STATUSES } from "@/constants/components/serviceStatus";
 import { SelectOption } from "@/types/components/select";
-import {
-  EXPERIENCE_LEVEL_RANGE,
-  generateMinText,
-} from "@/constants/components/experienceLevel";
+import { generateMinText } from "@/constants/components/experienceLevel";
 import { SORT_TYPES } from "@/constants/components/sort";
 
 const generateUrl = ({
@@ -56,12 +53,8 @@ const generateUrl = ({
   const educationLevelParam = educationLevel
     ? `educationLevel=${educationLevel}`
     : null;
-
-  const experienceLevels = experienceLevel
-    ? Object.values(experienceLevel)
-    : null;
-  const experienceLevelParam = experienceLevels
-    ? `experienceLevel=${experienceLevels.join(",")}`
+  const experienceLevelParam = experienceLevel
+    ? `experienceLevel=${Object.values(experienceLevel).join(",")}`
     : null;
   const sortParam = `sort=${sort}`;
   const sizeParam = `size=${size}`;

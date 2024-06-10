@@ -4,6 +4,7 @@ import Badge from "../../common/badge";
 import Text from "../../common/text";
 
 import { Recruitment } from "@/types/api/recruitment";
+import { generateExpirationText } from "@/utils/expiration";
 
 interface Props {
   recruitment: Recruitment[] | null;
@@ -43,7 +44,7 @@ export default function RecruitmentList({ recruitment }: Props) {
                     <Badge content={experienceLevel} />
                     <Badge content={educationLevel} />
                   </div>
-                  <Text content={expirationDate} />
+                  <Text content={generateExpirationText(expirationDate)} />
                 </div>
                 <Text variant='middle-title' content={title} />
                 <div className='flex gap-3'>
