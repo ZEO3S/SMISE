@@ -95,8 +95,11 @@ export default function LocationFilter({ locations, updateLocations }: Props) {
       <div className='py-2'>
         <Text variant='semi-title' content='지역' />
       </div>
-      <Button onClick={openModal}>
-        <div className='flex gap-1 py-2 cursor-pointer'>
+      <Button
+        className='flex gap-1 w-full py-2 hover:bg-default-color hover:bg-opacity-10'
+        onClick={openModal}
+      >
+        <>
           <Text
             content={
               locations && Boolean(locations.length)
@@ -118,7 +121,7 @@ export default function LocationFilter({ locations, updateLocations }: Props) {
             src={ArrowSVG}
             alt='모달 열기 버튼'
           />
-        </div>
+        </>
       </Button>
       <Modal openState={isOpen} onClose={onCloseModal}>
         <div className='flex flex-col gap-6 w-[660px] p-6 rounded-lg bg-white'>

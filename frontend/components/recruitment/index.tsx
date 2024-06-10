@@ -1,5 +1,6 @@
 import Button from "../common/button";
 import Spinner from "../common/spinner";
+import Text from "../common/text";
 import RecruitmentList from "./recruitmentList";
 
 import { Recruitment as RecruitmentType } from "@/types/api/recruitment";
@@ -44,15 +45,18 @@ export default function Recruitment({
   }
 
   return (
-    <div className='flex flex-col flex-1'>
+    <div className='flex flex-col flex-1 gap-4'>
       <RecruitmentList recruitment={recruitment} />
       {hasNext && (
-        <Button
-          className='px-4 py-2 border border-default-color'
-          onClick={fetchNextPage}
-        >
-          채용 공고 더 불러오기
-        </Button>
+        <>
+          <Button className='px-4 py-4 bg-green-800' onClick={fetchNextPage}>
+            <Text
+              variant='full-base'
+              color='white'
+              content='채용 공고 더 불러오기'
+            />
+          </Button>
+        </>
       )}
     </div>
   );
