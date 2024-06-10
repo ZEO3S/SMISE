@@ -6,6 +6,8 @@ from app.models.recruitments import Recruitment
 from app.data.connection import get_session
 from app.routers.job import detail_to_job
 from fastapi import APIRouter
+from datetime import datetime, timedelta
+from sqlmodel import select
 
 military_router = APIRouter(
     tags=['Military_data']
@@ -68,17 +70,32 @@ async def fetch_recruitments():
                 session.commit()
                 session.refresh(r)
         except KeyError as k:
+            print(k)
             print("Unexpected response structure from API")
         except Exception as e:
             print(f"Error parsing XML: {e}")
     else:
         print("Failed to fetch data from the API")
+        
+async def expiration_date_remove():
+    session = next(get_session())
+    today = datetime.now()
+    today = today.strftime('%Y%m%d')
+    query = select(Recruitment)
+    query = query.where(Recruitment.expirationDate < today)
+    result = session.exec(query).all()
+    for recruitment in result:
+        session.delete(recruitment)
+    session.commit()
+
 
 
 # 5분 간격으로 데이터 받아옴
 async def periodic_event_fetcher():
     while True:
         await fetch_recruitments()
+        print("fetch recruitments Success")
+        await expiration_date_remove()
         await asyncio.sleep(300)
 
 
