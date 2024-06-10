@@ -118,10 +118,10 @@ async def retrieve_all_recruitments(
             )
 
     if sort:
-        if sort == "deadline":
-            query = query.order_by(Recruitment.expiration_date.asc())
-        elif sort == "latest":
-            query = query.order_by(Recruitment.updated_date.desc())
+        if sort == "마감순":
+            query = query.order_by(Recruitment.expirationDate.asc())
+        elif sort == "최신순":
+            query = query.order_by(Recruitment.updatedDate.desc())
 
     totalElements = len(session.exec(query).all())
     query = query.limit(size).offset(page * size)
