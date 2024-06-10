@@ -23,8 +23,8 @@ app.add_middleware(
         allow_headers=["*"],
         )
 
-# ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-# ssl_context.load_cert_chain('/home/g0520jjw/pems/cert.pem', keyfile='/home/g0520jjw/pems/key.pem')
+ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+ssl_context.load_cert_chain('/home/g0520jjw/pems/cert.pem', keyfile='/home/g0520jjw/pems/key.pem')
 
 app.include_router(military_router)
 app.include_router(recruitment_router, prefix="/recruitment")
