@@ -6,10 +6,12 @@ job_router = APIRouter(
 )
 
 @job_router.get("/")
-def get_job_list(service_type: str):
+def get_job_list(serviceType: str):
     with open("app/data/job.json", 'r') as f:
         job = json.load(f)
-    return job[service_type]
+    if not serviceType:
+        serviceType = "전체"
+    return job[serviceType]
 
 detail_to_job = {}
 

@@ -29,14 +29,14 @@ def recruitment_name_casting(recruitment: dict) -> dict:
     temp = dict()
     
     temp['id'] = recruitment["cygonggoNo"]
-    temp['service_status'] = recruitment['yeokjongBrcdNm']
-    temp['service_type'] = recruitment['yowonGbcdNm']
+    temp['serviceStatus'] = recruitment['yeokjongBrcdNm']
+    temp['serviceType'] = recruitment['yowonGbcdNm']
     temp["job"] = get_job(recruitment['eopjongGbcdNm'])
-    temp["job_detail"] = recruitment['eopjongGbcdNm']
-    temp['experience_level'] = recruitment['gyeongryeokGbcdNm']
-    temp['education_level'] = education_name_trans(recruitment['cjhakryeok'])
-    temp['expiration_date'] = recruitment['magamDt']
-    temp['updated_date'] = recruitment['cjdatabyeongyeongDtm']
+    temp["jobDetail"] = recruitment['eopjongGbcdNm']
+    temp['experienceLevel'] = recruitment['gyeongryeokGbcdNm']
+    temp['educationLevel'] = education_name_trans(recruitment['cjhakryeok'])
+    temp['expirationDate'] = recruitment['magamDt']
+    temp['updatedDate'] = recruitment['cjdatabyeongyeongDtm']
     temp['title'] = recruitment['cyjemokNm']
     temp['company'] = recruitment['eopcheNm']
     temp['location'] = recruitment['geunmujy']

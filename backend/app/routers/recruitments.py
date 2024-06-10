@@ -13,12 +13,12 @@ recruitment_router = APIRouter(
 @recruitment_router.get("/")
 async def retrieve_all_recruitments(
     session=Depends(get_session),
-    service_type: Union[str, None] =  Query(default=None),
-    service_status: Union[str, None] = Query(default=None),
+    serviceType: Union[str, None] =  Query(default=None),
+    serviceStatus: Union[str, None] = Query(default=None),
     job: Annotated[Union[List[str], None], Query()] = None,
     locations: Annotated[Union[List[str], None], Query()] = None,
-    education_level: Union[str, None] = Query(default=None),
-    experience_level: Union[str, None] = Query(default=None),
+    educationLevel: Union[str, None] = Query(default=None),
+    experienceLevel: Union[str, None] = Query(default=None),
     sort: Union[str, None] = Query(default=None),
     keyword: Union[str, None] = Query(default=None),
     page: int = Query(0, description="Page number", ge=0),
@@ -28,11 +28,11 @@ async def retrieve_all_recruitments(
     query = select(Recruitment)
     
     # 필터 조건 추가
-    if service_type:
-        query = query.where(Recruitment.service_type == service_type)
+    if serviceType:
+        query = query.where(Recruitment.serviceType == serviceType)
 
-    if service_status:
-        query = query.where(Recruitment.service_status == service_status)
+    if serviceStatus:
+        query = query.where(Recruitment.serviceStatus == serviceStatus)
 
     if job:
         conditions = []
@@ -69,20 +69,30 @@ async def retrieve_all_recruitments(
                 )
         query = query.where(or_(*conditions))
         
-    if experience_level:
+    if experienceLevel:
+        print(experienceLevel)
         conditions = []
-        start_level, end_level = map(int, experience_level.split(','))
-        
-        conditions.append(Recruitment.experience_level == "신입/경력")
+        start_level, end_level = experienceLevel.split(',')
+        experienceLevelToInt = {
+            "신입": 0,
+            "1년": 1,
+            "2년": 2,
+            "3년": 3,
+            "4년": 4,
+            "5년": 5
+        }
+        start_level = experienceLevelToInt[start_level]
+        end_level = experienceLevelToInt[end_level]
+        conditions.append(Recruitment.experienceLevel == "신입/경력")
         if start_level == 0:
-            conditions.append(Recruitment.experience_level == "신입")
+            conditions.append(Recruitment.experienceLevel == "신입")
         if start_level < 3 and end_level >= 1:
-            conditions.append(Recruitment.experience_level == "경력 (1년이상)")
+            conditions.append(Recruitment.experienceLevel == "경력 (1년이상)")
         if end_level >= 3:
-            conditions.append(Recruitment.experience_level == "경력 (3년이상)")
+            conditions.append(Recruitment.experienceLevel == "경력 (3년이상)")
         query = query.where(or_(*conditions))
         
-    if education_level:
+    if educationLevel:
         educations = {
             0: "고등학교 중퇴",
             1: "고등학교 졸업",
@@ -96,8 +106,8 @@ async def retrieve_all_recruitments(
         }
         conditions = []
         for i in range(9):
-            conditions.append(Recruitment.education_level == educations[i])
-            if education_level == educations[i]:
+            conditions.append(Recruitment.educationLevel == educations[i])
+            if educationLevel == educations[i]:
                 break
         query = query.where(or_(*conditions))
         
@@ -113,12 +123,12 @@ async def retrieve_all_recruitments(
         elif sort == "latest":
             query = query.order_by(Recruitment.updated_date.desc())
 
-    total_elements = len(session.exec(query).all())
+    totalElements = len(session.exec(query).all())
     query = query.limit(size).offset(page * size)
     recruitments = session.exec(query).all()
-    total_pages = total_elements // size  if total_elements % size == 0 else total_elements // size + 1
+    totalPages = totalElements // size  if totalElements % size == 0 else totalElements // size + 1
     return {"recruitment": recruitments, 
             "page": page,
             "size": size,
-            "total_elements": total_elements,
-            "total_pages": total_pages}
+            "totalElements": totalElements,
+            "totalPages": totalPages}
