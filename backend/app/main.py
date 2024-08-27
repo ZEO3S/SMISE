@@ -1,12 +1,11 @@
 import uvicorn
-import ssl
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
-from app.data.military_data import military_router
-from app.data.connection import conn
-from app.routers.recruitments import recruitment_router
-from app.routers.job import job_router
+from data.military_data import military_router
+from data.connection import conn
+from routers.recruitments import recruitment_router
+from routers.job import job_router
 
 app = FastAPI()
 
@@ -22,9 +21,6 @@ app.add_middleware(
         allow_methods=["*"],
         allow_headers=["*"],
         )
-
-ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-ssl_context.load_cert_chain('/home/g0520jjw/pems/cert.pem', keyfile='/home/g0520jjw/pems/key.pem')
 
 app.include_router(military_router)
 app.include_router(recruitment_router, prefix="/recruitment")
