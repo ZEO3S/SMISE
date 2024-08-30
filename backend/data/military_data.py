@@ -2,9 +2,9 @@ import requests
 import xmltodict
 import asyncio
 from fastapi import Depends
-from app.models.recruitments import Recruitment
-from app.data.connection import get_session
-from app.routers.job import detail_to_job
+from models.recruitments import Recruitment
+from data.connection import get_session
+from routers.job import detail_to_job
 from fastapi import APIRouter
 from datetime import datetime, timedelta
 from sqlmodel import select
@@ -49,7 +49,7 @@ def recruitment_name_casting(recruitment: dict) -> dict:
         
 async def fetch_recruitments():
     url = 'http://apis.data.go.kr/1300000/CyJeongBo/list'
-    with open('app/data/apikey.txt', 'r') as f:
+    with open('data/apikey.txt', 'r') as f:
         serviceKey = f.read()
     params = {'serviceKey': serviceKey, 'numOfRows': '1000', 'pageNo': '1'}
 
@@ -95,7 +95,7 @@ async def periodic_event_fetcher():
     while True:
         await fetch_recruitments()
         print("fetch recruitments Success")
-        await expiration_date_remove()
+        # await expiration_date_remove()
         await asyncio.sleep(300)
 
 

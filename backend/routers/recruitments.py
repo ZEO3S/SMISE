@@ -1,7 +1,7 @@
 from typing import List, Union
 from fastapi import APIRouter, HTTPException, status, Query, Depends
-from app.models.recruitments import Recruitment
-from app.data.connection import get_session
+from models.recruitments import Recruitment
+from data.connection import get_session
 from sqlmodel import select
 from sqlalchemy import and_, or_
 from typing_extensions import Annotated
