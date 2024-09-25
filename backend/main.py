@@ -1,5 +1,5 @@
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 from data.military_data import military_router
@@ -21,6 +21,14 @@ app.add_middleware(
         allow_methods=["*"],
         allow_headers=["*"],
         )
+
+@app.middleware("http")
+async def redirect_http_to_https(request: Request, call_next):
+    if request.headers.get('x-forwarded-proto', 'http') == 'http':
+        url = request.url._url.replace("http://", "https://")
+        return RedirectResponse(url=url)
+    return await call_next(request)
+
 
 app.include_router(military_router)
 app.include_router(recruitment_router, prefix="/recruitment")
