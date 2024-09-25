@@ -48,7 +48,7 @@ def recruitment_name_casting(recruitment: dict) -> dict:
     return temp
         
 async def fetch_recruitments():
-    url = 'http://apis.data.go.kr/1300000/CyJeongBo/list'
+    url = 'https://apis.data.go.kr/1300000/CyJeongBo/list'
     with open('keys/military_apikey.txt', 'r') as f:
         serviceKey = f.read()
     params = {'serviceKey': serviceKey, 'numOfRows': '1000', 'pageNo': '1'}
