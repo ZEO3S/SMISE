@@ -1,14 +1,10 @@
-import Image from "next/image";
-import {
-  ComponentPropsWithoutRef,
-  KeyboardEventHandler,
-  MouseEventHandler,
-} from "react";
+import Image from 'next/image';
+import { ComponentPropsWithoutRef, KeyboardEventHandler, MouseEventHandler } from 'react';
 
-import Button from "../button";
-import Text from "../text";
+import Button from '../button';
+import Text from '../text';
 
-interface Props extends ComponentPropsWithoutRef<"input"> {
+interface Props extends ComponentPropsWithoutRef<'input'> {
   label?: string;
   hasButton?: boolean;
   buttonImage?: any;
@@ -17,19 +13,17 @@ interface Props extends ComponentPropsWithoutRef<"input"> {
 }
 
 export default function Input({
-  label = "",
+  label = '',
   value,
   hasButton = false,
-  buttonImage = "",
+  buttonImage = '',
   onChange,
   onEnter,
   onClickButton,
   ...rest
 }: Props) {
-  const handleKeyDownEnter: KeyboardEventHandler<HTMLInputElement> = (
-    event
-  ) => {
-    if (event.key !== "Enter") return;
+  const handleKeyDownEnter: KeyboardEventHandler<HTMLInputElement> = (event) => {
+    if (event.key !== 'Enter') return;
 
     if (onEnter) onEnter();
   };

@@ -1,10 +1,9 @@
-import { ComponentPropsWithoutRef } from "react";
+import { ComponentPropsWithoutRef } from 'react';
 
-import Option from "./option";
+import RadioContextProvider from './context';
+import Option from './option';
 
-import RadioContextProvider from "./context";
-
-export default function Radio({ children }: ComponentPropsWithoutRef<"input">) {
+export default function Radio({ children }: ComponentPropsWithoutRef<'input'>) {
   return (
     <fieldset>
       <RadioContextProvider>

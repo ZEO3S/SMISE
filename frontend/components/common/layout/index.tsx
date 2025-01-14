@@ -1,8 +1,8 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren } from 'react';
 
-import Header from "./header";
-import Main from "./main";
-import Footer from "./footer";
+import Footer from './footer';
+import Header from './header';
+import Main from './main';
 
 export default function Layout({ children }: PropsWithChildren) {
   return (

@@ -1,15 +1,11 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { District, Location } from "@/types/api/recruitment";
+import { District, Location } from '@/types/api/recruitment';
 
 export const useSelectedLocations = (locations: Array<Location> | null) => {
-  const [selectedLocations, setSelectedLocations] =
-    useState<Array<Location> | null>(locations);
+  const [selectedLocations, setSelectedLocations] = useState<Array<Location> | null>(locations);
 
-  const addSelectedLocation = (
-    selectedDistrict: District | null,
-    city: string
-  ) => {
+  const addSelectedLocation = (selectedDistrict: District | null, city: string) => {
     setSelectedLocations((prev) => {
       if (!selectedDistrict) return prev;
 
@@ -22,9 +18,7 @@ export const useSelectedLocations = (locations: Array<Location> | null) => {
         ];
       }
 
-      const targetIndex = prev.findIndex(
-        (prevLocation) => prevLocation.district === selectedDistrict
-      );
+      const targetIndex = prev.findIndex((prevLocation) => prevLocation.district === selectedDistrict);
 
       if (targetIndex === -1) {
         return [
@@ -47,16 +41,11 @@ export const useSelectedLocations = (locations: Array<Location> | null) => {
     });
   };
 
-  const deleteSelectedLocation = (
-    selectedDistrict: District | null,
-    city: string
-  ) => {
+  const deleteSelectedLocation = (selectedDistrict: District | null, city: string) => {
     setSelectedLocations((prev) => {
       if (!selectedDistrict || !prev) return prev;
 
-      const targetIndex = prev.findIndex(
-        (prevLocation) => prevLocation.district === selectedDistrict
-      );
+      const targetIndex = prev.findIndex((prevLocation) => prevLocation.district === selectedDistrict);
 
       if (targetIndex === -1) return prev;
 

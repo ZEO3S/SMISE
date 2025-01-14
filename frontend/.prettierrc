@@ -1,0 +1,22 @@
+{
+  "singleQuote": true,
+  "jsxSingleQuote": true,
+  "printWidth": 120,
+  "endOfLine": "auto",
+  "importOrder": [
+    "^@/app/(.*)$",
+    "^@/assets/(.*)$",
+    "^@/apis/(.*)$",
+    "^@/utils/(.*)$",
+    "^@/types/(.*)$",
+    "^@/constants/(.*)$",
+    "^@/components/(.*)$",
+    "^@/hooks/(.*)$",
+    "^[@/]",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+
+  "plugins": ["@trivago/prettier-plugin-sort-imports"]
+}

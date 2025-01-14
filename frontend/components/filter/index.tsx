@@ -1,12 +1,12 @@
-import ServiceTypesFilter from "./serviceTypesFilter";
-import ServiceStatusFilter from "./serviceStatusFilter";
-import JobsFilter from "./jobsFilter";
-import LocationFilter from "./locationFilter";
-import EducationLevelFilter from "./educationLevelFilter";
-import ExperienceLevelFilter from "./experienceLevelFilter";
+import { Job, Location, ServiceType } from '@/types/api/recruitment';
+import { SelectOption } from '@/types/components/select';
 
-import { Job, Location, ServiceType } from "@/types/api/recruitment";
-import { SelectOption } from "@/types/components/select";
+import EducationLevelFilter from './educationLevelFilter';
+import ExperienceLevelFilter from './experienceLevelFilter';
+import JobsFilter from './jobsFilter';
+import LocationFilter from './locationFilter';
+import ServiceStatusFilter from './serviceStatusFilter';
+import ServiceTypesFilter from './serviceTypesFilter';
 
 interface Props {
   selectedDefaultJobs: Array<Job> | null;

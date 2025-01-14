@@ -1,10 +1,11 @@
-import Image from "next/image";
-import { ChangeEventHandler, useState } from "react";
+import Image from 'next/image';
+import { ChangeEventHandler, useState } from 'react';
 
-import WhiteCheckSVG from "@/assets/svgs/white_check.svg";
-import Text, { Variant as TextVariant } from "../text";
+import WhiteCheckSVG from '@/assets/svgs/white_check.svg';
 
-type BoxPosition = "left" | "right";
+import Text, { Variant as TextVariant } from '../text';
+
+type BoxPosition = 'left' | 'right';
 
 interface Props {
   value?: string;
@@ -21,11 +22,11 @@ interface Props {
 }
 
 export default function Checkbox({
-  value = "",
-  label = "",
+  value = '',
+  label = '',
   defaultChecked = false,
-  boxPosition = "left",
-  textVariant = "base",
+  boxPosition = 'left',
+  textVariant = 'base',
   padding = false,
   hover = false,
   rounded = false,
@@ -51,21 +52,16 @@ export default function Checkbox({
     <label
       className={`
 				flex justify-between items-center gap-2 relative py-2 cursor-pointer
-				${hover ? "hover:bg-default-color hover:bg-opacity-10" : ""}
-				${padding ? "p-2" : ""}
-				${rounded ? "rounded" : ""}
+				${hover ? 'hover:bg-default-color hover:bg-opacity-10' : ''}
+				${padding ? 'p-2' : ''}
+				${rounded ? 'rounded' : ''}
 			`}
     >
-      {boxPosition === "left" ? (
+      {boxPosition === 'left' ? (
         <>
           <div className='relative'>
             {checked && (
-              <Image
-                className='absolute w-5 h-5 rounded bg-default-color'
-                src={WhiteCheckSVG}
-                alt='체크'
-                priority
-              />
+              <Image className='absolute w-5 h-5 rounded bg-default-color' src={WhiteCheckSVG} alt='체크' priority />
             )}
             <input
               className='w-5 h-5 border-default-color border rounded cursor-pointer appearance-none'

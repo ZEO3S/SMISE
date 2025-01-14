@@ -1,4 +1,4 @@
-import { LOCATIONS } from "@/constants/components/location";
+import { LOCATIONS } from '@/constants/components/location';
 
 export interface Recruitment {
   id: number;
@@ -13,8 +13,8 @@ export interface Recruitment {
   href: string;
 }
 
-export type ServiceType = "산업기능요원" | "전문연구요원" | "승선근무예비역";
-export type ServiceStatus = "보충역" | "현역";
+export type ServiceType = '산업기능요원' | '전문연구요원' | '승선근무예비역';
+export type ServiceStatus = '보충역' | '현역';
 export interface Job {
   category: string;
   details: Array<string>;
@@ -25,11 +25,11 @@ export interface Location {
   cities: Array<string>;
 }
 export interface ExperienceLevel {
-  start: "신입" | "1년" | "2년" | "3년" | "4년" | "5년";
-  end: "신입" | "1년" | "2년" | "3년" | "4년" | "5년";
+  start: '신입' | '1년' | '2년' | '3년' | '4년' | '5년';
+  end: '신입' | '1년' | '2년' | '3년' | '4년' | '5년';
 }
 export type EducationLevel = string;
-export type Sort = "최신순" | "마감순";
+export type Sort = '최신순' | '마감순';
 type Size = number;
 type Page = number;
 export type Keyword = string;

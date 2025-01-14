@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 export const useSelectedCategory = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);

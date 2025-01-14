@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { Job } from "@/types/api/recruitment";
+import { Job } from '@/types/api/recruitment';
 
 export const useCheckedDetails = (jobs: Array<Job> | null) => {
   const defaultCheckedDetails = jobs
@@ -10,18 +10,14 @@ export const useCheckedDetails = (jobs: Array<Job> | null) => {
         });
       })
     : null;
-  const [checkedDetails, setCheckedDetails] = useState<Array<string> | null>(
-    defaultCheckedDetails
-  );
+  const [checkedDetails, setCheckedDetails] = useState<Array<string> | null>(defaultCheckedDetails);
 
   const generateDetailKey = (category: string, detail: string) => {
     return `${category}-${detail}`;
   };
 
   const addCheckedDetail = (checkedDetail: string) => {
-    setCheckedDetails((prev) =>
-      prev ? [...prev, checkedDetail] : [checkedDetail]
-    );
+    setCheckedDetails((prev) => (prev ? [...prev, checkedDetail] : [checkedDetail]));
   };
 
   const deleteCheckedDetail = (checkedDetail: string) => {

@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import Select from "../common/select";
+import { SelectOption } from '@/types/components/select';
 
-import { SORT_TYPES } from "@/constants/components/sort";
-import { SelectOption } from "@/types/components/select";
+import { SORT_TYPES } from '@/constants/components/sort';
+
+import Select from '../common/select';
 
 interface Props {
   updateSort: (sortType: SelectOption) => void;
