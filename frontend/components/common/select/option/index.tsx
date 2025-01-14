@@ -1,6 +1,6 @@
-import { useContext } from "react";
+import { useContext } from 'react';
 
-import { SelectContext } from "../context/SelectContext";
+import { SelectContext } from '../context/SelectContext';
 
 interface Props {
   value: string;
@@ -9,12 +9,7 @@ interface Props {
   disabled?: boolean;
 }
 
-export default function Option({
-  value,
-  label,
-  onSelect,
-  disabled = true,
-}: Props) {
+export default function Option({ value, label, onSelect, disabled = true }: Props) {
   const selectedOption = useContext(SelectContext);
 
   return (

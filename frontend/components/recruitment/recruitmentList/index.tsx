@@ -1,10 +1,11 @@
-import Link from "next/link";
+import Link from 'next/link';
 
-import Badge from "../../common/badge";
-import Text from "../../common/text";
+import { generateExpirationText } from '@/utils/expiration';
 
-import { Recruitment } from "@/types/api/recruitment";
-import { generateExpirationText } from "@/utils/expiration";
+import { Recruitment } from '@/types/api/recruitment';
+
+import Badge from '../../common/badge';
+import Text from '../../common/text';
 
 interface Props {
   recruitment: Recruitment[] | null;
@@ -27,10 +28,7 @@ export default function RecruitmentList({ recruitment }: Props) {
           href,
         }) => {
           return (
-            <li
-              key={id}
-              className='border-default-color border-b border-opacity-10 last:border-b-0'
-            >
+            <li key={id} className='border-default-color border-b border-opacity-10 last:border-b-0'>
               <Link
                 className='flex flex-col gap-3 px-4 py-5 hover:bg-default-color hover:bg-opacity-10'
                 href={href}
@@ -55,7 +53,7 @@ export default function RecruitmentList({ recruitment }: Props) {
               </Link>
             </li>
           );
-        }
+        },
       )}
     </ul>
   );

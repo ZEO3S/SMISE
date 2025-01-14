@@ -1,4 +1,4 @@
-import { DefaultRequestRecruitmentParams } from "@/types/api/recruitment";
+import { DefaultRequestRecruitmentParams } from '@/types/api/recruitment';
 
 export const DEFAULT_PARAMS: DefaultRequestRecruitmentParams = {
   SERVICE_TYPE: null,
@@ -7,7 +7,7 @@ export const DEFAULT_PARAMS: DefaultRequestRecruitmentParams = {
   LOCATIONS: null,
   EDUCATION_LEVEL: null,
   EXPERIENCE_LEVEL: null,
-  SORT: "최신순",
+  SORT: '최신순',
   SIZE: 20,
   PAGE: 0,
   KEYWORD: null,

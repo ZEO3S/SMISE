@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { Job } from "@/types/api/recruitment";
+import { Job } from '@/types/api/recruitment';
 
 export const useSelectedJobs = (jobs: Array<Job> | null) => {
   const [selectedJobs, setSelectedJobs] = useState<Array<Job> | null>(jobs);
@@ -18,9 +18,7 @@ export const useSelectedJobs = (jobs: Array<Job> | null) => {
         ];
       }
 
-      const targetIndex = prev.findIndex(
-        (prevJob) => prevJob.category === selectedCategory
-      );
+      const targetIndex = prev.findIndex((prevJob) => prevJob.category === selectedCategory);
 
       if (targetIndex === -1) {
         return [
@@ -43,22 +41,15 @@ export const useSelectedJobs = (jobs: Array<Job> | null) => {
     });
   };
 
-  const deleteSelectedJobs = (
-    selectedCategory: string | null,
-    detail: string
-  ) => {
+  const deleteSelectedJobs = (selectedCategory: string | null, detail: string) => {
     setSelectedJobs((prev) => {
       if (!selectedCategory || !prev) return prev;
 
-      const targetIndex = prev.findIndex(
-        (prevJob) => prevJob.category === selectedCategory
-      );
+      const targetIndex = prev.findIndex((prevJob) => prevJob.category === selectedCategory);
 
       if (targetIndex === -1) return prev;
 
-      const newDetails = prev[targetIndex].details.filter(
-        (prevDetail) => prevDetail !== detail
-      );
+      const newDetails = prev[targetIndex].details.filter((prevDetail) => prevDetail !== detail);
 
       if (newDetails.length === 0) {
         return prev.filter((_, index) => index !== targetIndex);

@@ -1,6 +1,6 @@
-import { createContext } from "react";
+import { createContext } from 'react';
 
-import { SelectOption } from "@/types/components/select";
+import { SelectOption } from '@/types/components/select';
 
 export type SelectContextValue = SelectOption;
 

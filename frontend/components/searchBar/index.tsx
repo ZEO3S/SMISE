@@ -1,7 +1,8 @@
-import Input from "../common/input";
-import MagnifyingGlassSVG from "@/assets/svgs/magnifying_glass.svg";
+import MagnifyingGlassSVG from '@/assets/svgs/magnifying_glass.svg';
 
-import { useControlledInput } from "@/hooks/useControlledInput";
+import { useControlledInput } from '@/hooks/useControlledInput';
+
+import Input from '../common/input';
 
 interface Props {
   updateKeyword: (keyword: string) => void;

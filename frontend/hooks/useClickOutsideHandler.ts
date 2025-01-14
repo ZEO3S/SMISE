@@ -1,8 +1,6 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
-export const useClickOutsideHandler = <ElementType extends HTMLElement>(
-  onClickOutside: () => void
-) => {
+export const useClickOutsideHandler = <ElementType extends HTMLElement>(onClickOutside: () => void) => {
   const ref = useRef<ElementType>(null);
 
   useEffect(() => {
@@ -12,9 +10,9 @@ export const useClickOutsideHandler = <ElementType extends HTMLElement>(
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
 
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [ref, onClickOutside]);
 
   return ref;

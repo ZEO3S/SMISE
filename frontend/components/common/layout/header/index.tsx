@@ -1,7 +1,8 @@
-"use client";
+'use client';
 
-import Button from "@/components/common/button";
-import Text from "../../text";
+import Button from '@/components/common/button';
+
+import Text from '../../text';
 
 export default function Header() {
   const handleTitleClick = () => window.location.reload();

@@ -1,15 +1,14 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { LOCATIONS } from "@/constants/components/location";
-import { District } from "@/types/api/recruitment";
+import { District } from '@/types/api/recruitment';
+
+import { LOCATIONS } from '@/constants/components/location';
 
 export const useSelectedDistrict = () => {
-  const [selectedDistrict, setSelectedDistrict] = useState<District | null>(
-    null
-  );
+  const [selectedDistrict, setSelectedDistrict] = useState<District | null>(null);
 
   const isDistrict = (unknown: unknown): unknown is District => {
-    return typeof unknown === "string" && unknown in LOCATIONS;
+    return typeof unknown === 'string' && unknown in LOCATIONS;
   };
 
   const clearSelectedDistrict = () => {

@@ -1,14 +1,16 @@
-import Image from "next/image";
-import { PropsWithChildren } from "react";
+import Image from 'next/image';
+import { PropsWithChildren } from 'react';
 
-import Button from "../button";
-import Option from "./option";
-import SelectContextProvider from "./context";
+import ArrowSVG from '@/assets/svgs/arrow.svg';
 
-import ArrowSVG from "@/assets/svgs/arrow.svg";
-import { SelectOption } from "@/types/components/select";
-import { useSelectToggle } from "@/hooks/useSelectToggle";
-import { useClickOutsideHandler } from "@/hooks/useClickOutsideHandler";
+import { SelectOption } from '@/types/components/select';
+
+import { useClickOutsideHandler } from '@/hooks/useClickOutsideHandler';
+import { useSelectToggle } from '@/hooks/useSelectToggle';
+
+import Button from '../button';
+import SelectContextProvider from './context';
+import Option from './option';
 
 interface Props extends PropsWithChildren {
   selectedOption: SelectOption;
@@ -25,19 +27,11 @@ export default function Select({ selectedOption, children }: Props) {
         onClick={toggleSelect}
       >
         {selectedOption?.label}
-        <Image
-          className={isOpen ? "rotate-180 " : " " + "select-none"}
-          src={ArrowSVG}
-          alt='토글 버튼'
-        />
+        <Image className={isOpen ? 'rotate-180 ' : ' ' + 'select-none'} src={ArrowSVG} alt='토글 버튼' />
       </Button>
       <SelectContextProvider value={selectedOption}>
         {isOpen && (
-          <legend
-            className='absolute w-full bg-white z-10'
-            role='listbox'
-            onClick={closeSelect}
-          >
+          <legend className='absolute w-full bg-white z-10' role='listbox' onClick={closeSelect}>
             {children}
           </legend>
         )}

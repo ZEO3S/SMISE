@@ -1,7 +1,7 @@
-import Text from "@/components/common/text";
-import Radio from "@/components/common/radio";
+import { SERVICE_STATUSES } from '@/constants/components/serviceStatus';
 
-import { SERVICE_STATUSES } from "@/constants/components/serviceStatus";
+import Radio from '@/components/common/radio';
+import Text from '@/components/common/text';
 
 interface Props {
   updateServiceStatus: (string: string) => void;

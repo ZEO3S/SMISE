@@ -1,18 +1,21 @@
-import Image from "next/image";
+import Image from 'next/image';
 
-import CloseSVG from "@/assets/svgs/close.svg";
-import ArrowSVG from "@/assets/svgs/arrow.svg";
-import Text from "@/components/common/text";
-import Modal from "@/components/common/modal";
-import Button from "@/components/common/button";
-import Checkbox from "@/components/common/checkbox";
+import ArrowSVG from '@/assets/svgs/arrow.svg';
+import CloseSVG from '@/assets/svgs/close.svg';
 
-import { District, Location } from "@/types/api/recruitment";
-import { LOCATIONS } from "@/constants/components/location";
-import { useModal } from "@/hooks/useModal";
-import { useSelectedDistrict } from "@/hooks/useSelectedDistrict";
-import { useSelectedLocations } from "@/hooks/useSelectedLocations";
-import { useCheckedCities } from "@/hooks/useCheckedCities";
+import { District, Location } from '@/types/api/recruitment';
+
+import { LOCATIONS } from '@/constants/components/location';
+
+import Button from '@/components/common/button';
+import Checkbox from '@/components/common/checkbox';
+import Modal from '@/components/common/modal';
+import Text from '@/components/common/text';
+
+import { useCheckedCities } from '@/hooks/useCheckedCities';
+import { useModal } from '@/hooks/useModal';
+import { useSelectedDistrict } from '@/hooks/useSelectedDistrict';
+import { useSelectedLocations } from '@/hooks/useSelectedLocations';
 
 interface Props {
   locations: Array<Location> | null;
@@ -21,12 +24,7 @@ interface Props {
 
 export default function LocationFilter({ locations, updateLocations }: Props) {
   const { isOpen, openModal, closeModal } = useModal();
-  const {
-    selectedDistrict,
-    isDistrict,
-    updateSelectedDistrict,
-    clearSelectedDistrict,
-  } = useSelectedDistrict();
+  const { selectedDistrict, isDistrict, updateSelectedDistrict, clearSelectedDistrict } = useSelectedDistrict();
   const {
     selectedLocations,
     addSelectedLocation,
@@ -95,25 +93,14 @@ export default function LocationFilter({ locations, updateLocations }: Props) {
       <div className='py-2'>
         <Text variant='semi-title' content='지역' />
       </div>
-      <Button
-        className='flex gap-1 w-full py-2 hover:bg-default-color hover:bg-opacity-10'
-        onClick={openModal}
-      >
+      <Button className='flex gap-1 w-full py-2 hover:bg-default-color hover:bg-opacity-10' onClick={openModal}>
         <>
-          <Text
-            content={
-              locations && Boolean(locations.length)
-                ? locations[0].district
-                : "전체"
-            }
-          />
+          <Text content={locations && Boolean(locations.length) ? locations[0].district : '전체'} />
           {locations && Boolean(locations.length) && (
             <>
               <Text content='·' />
               <Text content={locations[0].cities[0]} />
-              {Boolean(citiesLength - 1) && (
-                <Text content={`외 ${citiesLength - 1}`} />
-              )}
+              {Boolean(citiesLength - 1) && <Text content={`외 ${citiesLength - 1}`} />}
             </>
           )}
           <Image
@@ -128,11 +115,7 @@ export default function LocationFilter({ locations, updateLocations }: Props) {
           <div className='flex justify-between'>
             <Text variant='title' content='지역' />
             <Button onClick={closeModal}>
-              <Image
-                className='select-none'
-                src={CloseSVG}
-                alt='모달 닫기 버튼'
-              />
+              <Image className='select-none' src={CloseSVG} alt='모달 닫기 버튼' />
             </Button>
           </div>
           <div className='flex gap-2 h-[360px]'>
@@ -153,11 +136,7 @@ export default function LocationFilter({ locations, updateLocations }: Props) {
                       onClick={() => handleClickButton(location)}
                     >
                       <Text variant='full-base' content={location} />
-                      <Image
-                        className='ml-1 -rotate-90 select-none'
-                        src={ArrowSVG}
-                        alt='상세 행정구역 열기 버튼'
-                      />
+                      <Image className='ml-1 -rotate-90 select-none' src={ArrowSVG} alt='상세 행정구역 열기 버튼' />
                     </Button>
                   </li>
                 );
@@ -188,11 +167,7 @@ export default function LocationFilter({ locations, updateLocations }: Props) {
               </ul>
             ) : (
               <div className='flex flex-col justify-center items-center flex-1'>
-                <Text
-                  variant='full-base'
-                  opacity={70}
-                  content='원하는 지역을 선택하고 적용을 눌러 확인하세요'
-                />
+                <Text variant='full-base' opacity={70} content='원하는 지역을 선택하고 적용을 눌러 확인하세요' />
               </div>
             )}
           </div>
@@ -203,10 +178,7 @@ export default function LocationFilter({ locations, updateLocations }: Props) {
             >
               <Text variant='middle-title' opacity={70} content='초기화' />
             </Button>
-            <Button
-              className='bg-green-800 py-1 px-4 rounded'
-              onClick={applyLocation}
-            >
+            <Button className='bg-green-800 py-1 px-4 rounded' onClick={applyLocation}>
               <Text variant='middle-title' color='white' content='적용' />
             </Button>
           </div>

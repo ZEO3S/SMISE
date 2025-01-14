@@ -1,19 +1,18 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import Select from "@/components/common/select";
-import Text from "@/components/common/text";
+import { SelectOption } from '@/types/components/select';
 
-import { EDUCATION_LEVELS } from "@/constants/components/educationLevel";
-import { SelectOption } from "@/types/components/select";
+import { EDUCATION_LEVELS } from '@/constants/components/educationLevel';
+
+import Select from '@/components/common/select';
+import Text from '@/components/common/text';
 
 interface Props {
   updateEducationLevel: (educationLevel: SelectOption) => void;
 }
 
 export default function EducationLevelFilter({ updateEducationLevel }: Props) {
-  const [selectedEducationLevel, setSelectedEducationLevel] = useState(
-    EDUCATION_LEVELS[0]
-  );
+  const [selectedEducationLevel, setSelectedEducationLevel] = useState(EDUCATION_LEVELS[0]);
 
   return (
     <div className='pt-2 pb-4'>

@@ -1,13 +1,9 @@
-import Radio from "@/components/common/radio";
-import Text from "@/components/common/text";
+import { ServiceType } from '@/types/api/recruitment';
 
-import { ServiceType } from "@/types/api/recruitment";
+import Radio from '@/components/common/radio';
+import Text from '@/components/common/text';
 
-const SERVICE_TYPES: Array<ServiceType> = [
-  "산업기능요원",
-  "전문연구요원",
-  "승선근무예비역",
-];
+const SERVICE_TYPES: Array<ServiceType> = ['산업기능요원', '전문연구요원', '승선근무예비역'];
 
 interface Props {
   updateServiceType: (string: ServiceType) => void;

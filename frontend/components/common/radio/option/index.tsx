@@ -1,10 +1,10 @@
-import Image from "next/image";
-import { ChangeEventHandler, useContext } from "react";
+import Image from 'next/image';
+import { ChangeEventHandler, useContext } from 'react';
 
-import WhiteCheckSVG from "@/assets/svgs/white_check.svg";
-import Text from "../../text";
+import WhiteCheckSVG from '@/assets/svgs/white_check.svg';
 
-import { RadioContext } from "../context/RadioContext";
+import Text from '../../text';
+import { RadioContext } from '../context/RadioContext';
 
 interface Props {
   value: string;
@@ -30,12 +30,7 @@ export default function Option({ value, label, onChecked }: Props) {
         onChange={handleChangeRadio}
       />
       {group?.selectedValue === value && (
-        <Image
-          className='absolute w-5 h-5 rounded-full bg-green-800'
-          src={WhiteCheckSVG}
-          alt='체크'
-          priority
-        />
+        <Image className='absolute w-5 h-5 rounded-full bg-green-800' src={WhiteCheckSVG} alt='체크' priority />
       )}
       <Text content={label} />
     </label>

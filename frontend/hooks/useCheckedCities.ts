@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { District, Location } from "@/types/api/recruitment";
+import { District, Location } from '@/types/api/recruitment';
 
 export const useCheckedCities = (locations: Array<Location> | null) => {
   const defaultCheckedCities = locations
@@ -10,9 +10,7 @@ export const useCheckedCities = (locations: Array<Location> | null) => {
         });
       })
     : null;
-  const [checkedCities, setCheckedCities] = useState<Array<string> | null>(
-    defaultCheckedCities
-  );
+  const [checkedCities, setCheckedCities] = useState<Array<string> | null>(defaultCheckedCities);
 
   const generateCityKey = (district: District, city: string) => {
     return `${district}-${city}`;

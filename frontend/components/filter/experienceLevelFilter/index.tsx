@@ -1,27 +1,21 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import Text from "@/components/common/text";
-import Slider from "@/components/common/slider";
-import {
-  EXPERIENCE_LEVEL_RANGE,
-  generateMaxText,
-  generateMinText,
-} from "@/constants/components/experienceLevel";
+import { EXPERIENCE_LEVEL_RANGE, generateMaxText, generateMinText } from '@/constants/components/experienceLevel';
+
+import Slider from '@/components/common/slider';
+import Text from '@/components/common/text';
 
 interface Props {
   updateExperienceLevel: (min: number, max: number) => void;
 }
 
-export default function ExperienceLevelFilter({
-  updateExperienceLevel,
-}: Props) {
+export default function ExperienceLevelFilter({ updateExperienceLevel }: Props) {
   const [minValue, setMinValue] = useState(EXPERIENCE_LEVEL_RANGE.MIN);
   const [maxValue, setMaxValue] = useState(EXPERIENCE_LEVEL_RANGE.MAX);
   const isRenderMinText = minValue !== EXPERIENCE_LEVEL_RANGE.MAX;
   const isRenderTildeText = minValue !== maxValue;
   const isRenderMaxText =
-    maxValue !== EXPERIENCE_LEVEL_RANGE.MIN &&
-    !(maxValue !== EXPERIENCE_LEVEL_RANGE.MAX && maxValue === minValue);
+    maxValue !== EXPERIENCE_LEVEL_RANGE.MIN && !(maxValue !== EXPERIENCE_LEVEL_RANGE.MAX && maxValue === minValue);
   const isRenderOverText = maxValue === EXPERIENCE_LEVEL_RANGE.MAX;
 
   return (
