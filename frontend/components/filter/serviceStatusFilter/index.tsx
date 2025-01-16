@@ -1,13 +1,13 @@
-import { SERVICE_STATUSES } from '@/constants/components/serviceStatus';
+import { SERVICE_STATUSES } from '@/constants/api/queryParams';
 
 import Radio from '@/components/common/radio';
 import Text from '@/components/common/text';
 
-interface Props {
-  updateServiceStatus: (string: string) => void;
-}
+import { usePushRouteWithQueryParam } from '@/hooks/usePushRouteWithQueryParam';
 
-export default function ServiceStatusFilter({ updateServiceStatus }: Props) {
+export default function ServiceStatusFilter() {
+  const { pushRoute } = usePushRouteWithQueryParam();
+
   return (
     <div className='py-2'>
       <div className='py-2'>
@@ -21,7 +21,7 @@ export default function ServiceStatusFilter({ updateServiceStatus }: Props) {
                 <Radio.Option
                   value={serviceStatus}
                   label={serviceStatus}
-                  onChecked={() => updateServiceStatus(serviceStatus)}
+                  onChecked={() => pushRoute('serviceStatus', serviceStatus)}
                 />
               </li>
             );

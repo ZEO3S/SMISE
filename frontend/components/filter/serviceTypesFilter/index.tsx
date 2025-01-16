@@ -1,25 +1,12 @@
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useCallback } from 'react';
-
 import { SERVICE_TYPES } from '@/constants/api/queryParams';
 
 import Radio from '@/components/common/radio';
 import Text from '@/components/common/text';
 
+import { usePushRouteWithQueryParam } from '@/hooks/usePushRouteWithQueryParam';
+
 export default function ServiceTypesFilter() {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  const createQueryParam = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
-
-      return params.toString();
-    },
-    [searchParams],
-  );
+  const { pushRoute } = usePushRouteWithQueryParam();
 
   return (
     <div className='pb-2'>
@@ -34,7 +21,7 @@ export default function ServiceTypesFilter() {
                 <Radio.Option
                   value={serviceType}
                   label={serviceType}
-                  onChecked={() => router.push(`${pathname}?${createQueryParam('serviceType', serviceType)}`)}
+                  onChecked={() => pushRoute('serviceType', serviceType)}
                 />
               </li>
             );

@@ -10,16 +10,14 @@ import {
   Recruitment,
   RequestRecruitmentParams,
   ResponseRecruitment,
-  ServiceStatus,
   Sort,
 } from '@/types/api/recruitment';
 import { SelectOption } from '@/types/components/select';
-import { isValidServiceType } from '@/types/guards/queryParams';
+import { isValidServiceStatus, isValidServiceType } from '@/types/guards/queryParams';
 
 import { DEFAULT_PARAMS } from '@/constants/api/recruitment';
 import { RECRUITMENT_URL } from '@/constants/api/url';
 import { generateMinText } from '@/constants/components/experienceLevel';
-import { SERVICE_STATUSES } from '@/constants/components/serviceStatus';
 import { SORT_TYPES } from '@/constants/components/sort';
 
 import { useFetch } from './useFetch';
@@ -79,7 +77,7 @@ const generateUrl = ({
 export const useRecruitment = () => {
   const searchParams = useSearchParams();
   const serviceType = searchParams.get('serviceType');
-  const [serviceStatus, setServiceStatus] = useState(DEFAULT_PARAMS.SERVICE_STATUS);
+  const serviceStatus = searchParams.get('serviceStatus');
   const [jobs, setJobs] = useState(DEFAULT_PARAMS.JOBS);
   const [locations, setLocations] = useState(DEFAULT_PARAMS.LOCATIONS);
   const [educationLevel, setEducationLevel] = useState(DEFAULT_PARAMS.EDUCATION_LEVEL);
@@ -90,7 +88,7 @@ export const useRecruitment = () => {
   const [page, setPage] = useState(DEFAULT_PARAMS.PAGE);
   const url = generateUrl({
     serviceType: isValidServiceType(serviceType) ? serviceType : null,
-    serviceStatus,
+    serviceStatus: isValidServiceStatus(serviceStatus) ? serviceStatus : null,
     jobs,
     locations,
     experienceLevel,
@@ -115,17 +113,6 @@ export const useRecruitment = () => {
       top: 0,
       behavior: 'auto',
     });
-  };
-
-  const updateServiceStatus = (serviceStatus: string) => {
-    const isServiceStatus = (value: string): value is ServiceStatus => {
-      return SERVICE_STATUSES.includes(value);
-    };
-
-    if (!isServiceStatus(serviceStatus)) return;
-
-    setServiceStatus(serviceStatus);
-    initialPagination();
   };
 
   const updateJobs = (selectedJobs: Array<Job> | null) => {
@@ -214,7 +201,6 @@ export const useRecruitment = () => {
     isLoading,
     error,
     hasNext,
-    updateServiceStatus,
     updateJobs,
     updateLocations,
     updateEducationLevel,

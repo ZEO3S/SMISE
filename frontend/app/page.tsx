@@ -15,7 +15,6 @@ export default function Home() {
     isLoading,
     error,
     hasNext,
-    updateServiceStatus,
     updateJobs,
     updateLocations,
     updateEducationLevel,
@@ -33,7 +32,6 @@ export default function Home() {
         updateLocations={updateLocations}
         updateEducationLevel={updateEducationLevel}
         updateExperienceLevel={updateExperienceLevel}
-        updateServiceStatus={updateServiceStatus}
         updateJobs={updateJobs}
       />
       <div className='flex flex-col flex-1'>

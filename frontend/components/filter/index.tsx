@@ -11,7 +11,6 @@ import ServiceTypesFilter from './serviceTypesFilter';
 interface Props {
   selectedDefaultJobs: Array<Job> | null;
   locations: Array<Location> | null;
-  updateServiceStatus: (string: string) => void;
   updateJobs: (selectedJob: Array<Job> | null) => void;
   updateLocations: (selectedLocations: Array<Location> | null) => void;
   updateEducationLevel: (educationLevel: SelectOption) => void;
@@ -21,7 +20,6 @@ interface Props {
 export default function Filter({
   selectedDefaultJobs,
   locations,
-  updateServiceStatus,
   updateJobs,
   updateLocations,
   updateEducationLevel,
@@ -30,7 +28,7 @@ export default function Filter({
   return (
     <div className='flex flex-col sticky top-16 w-80 h-[724px] [&>*]:border-b [&>*]:border-default-color [&>*]:border-opacity-10'>
       <ServiceTypesFilter />
-      <ServiceStatusFilter updateServiceStatus={updateServiceStatus} />
+      <ServiceStatusFilter />
       <JobsFilter selectedDefaultJobs={selectedDefaultJobs} updateJobs={updateJobs} />
       <LocationFilter locations={locations} updateLocations={updateLocations} />
       <EducationLevelFilter updateEducationLevel={updateEducationLevel} />
