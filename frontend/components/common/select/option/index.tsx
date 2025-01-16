@@ -13,7 +13,7 @@ export default function Option({ value, label, onSelect, disabled = true }: Prop
   const selectedOption = useContext(SelectContext);
 
   return (
-    <div className='w-full first:border-b-0' role='option'>
+    <div className='w-full first:border-b-0' role='option' aria-selected={selectedOption?.value === value}>
       <button
         className='w-full p-2 border border-default-color border-opacity-10 text-start hover:bg-default-color hover:bg-opacity-10 disabled:bg-default-color disabled:bg-opacity-10 disabled:text-default-color disabled:text-opacity-20'
         value={value}

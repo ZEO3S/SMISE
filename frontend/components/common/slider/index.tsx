@@ -29,7 +29,7 @@ export default function Slider({ minValue, maxValue, min, max, step = 1, setMinV
         onChange(min, max);
       }, 300);
     },
-    [min, max, onChange],
+    [onChange],
   );
 
   const handleMouseDown = (_: MouseEvent, type: 'min' | 'max') => {

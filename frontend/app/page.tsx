@@ -28,11 +28,11 @@ export default function Home() {
     <div className='flex flex-1 gap-10 px-40 py-10'>
       <Filter
         selectedDefaultJobs={jobs}
+        updateJobs={updateJobs}
         locations={locations}
         updateLocations={updateLocations}
         updateEducationLevel={updateEducationLevel}
         updateExperienceLevel={updateExperienceLevel}
-        updateJobs={updateJobs}
       />
       <div className='flex flex-col flex-1'>
         <div className='sticky top-16 pb-4 bg-white'>

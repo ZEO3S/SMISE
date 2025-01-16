@@ -21,7 +21,7 @@ export default function Select({ selectedOption, children }: Props) {
   const FieldsetRef = useClickOutsideHandler<HTMLFieldSetElement>(closeSelect);
 
   return (
-    <fieldset className='relative' ref={FieldsetRef} role='combobox'>
+    <fieldset className='relative' ref={FieldsetRef} role='combobox' aria-controls='select-list' aria-expanded={isOpen}>
       <Button
         className='flex justify-between gap-1 w-full p-2 border border-default-color border-opacity-10 select-none'
         onClick={toggleSelect}

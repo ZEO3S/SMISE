@@ -20,7 +20,7 @@ export const usePushRouteWithQueryParam = () => {
     (name: string, value: string) => {
       router.push(`${pathname}?${createQueryParam(name, value)}`);
     },
-    [searchParams],
+    [router, pathname, createQueryParam],
   );
 
   return { pushRoute };

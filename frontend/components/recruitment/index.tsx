@@ -9,7 +9,7 @@ interface Props {
   recruitment: Array<RecruitmentType>;
   isLoading: boolean;
   error: Error | null;
-  hasNext: Boolean;
+  hasNext: boolean;
   fetchNextPage: () => void;
 }
 

@@ -15,11 +15,6 @@ export const useFetch = <Key, Data>({ fetch, key, suspense = false, enable = tru
   const [data, setData] = useState<Data | null>(null);
   const [error, setError] = useState<Error | null>(null);
 
-  const resolvePromise = (data: Data) => {
-    setStatus('fulfilled');
-    setData(data);
-  };
-
   const rejectPromise = (error: Error) => {
     setStatus('error');
     setError(error);
@@ -28,10 +23,15 @@ export const useFetch = <Key, Data>({ fetch, key, suspense = false, enable = tru
   useEffect(() => {
     if (!enable) return;
 
+    const resolvePromise = (data: Data) => {
+      setStatus('fulfilled');
+      setData(data);
+    };
+
     setStatus('pending');
 
     setSuspender(fetch().then(resolvePromise, rejectPromise));
-  }, [key, enable]);
+  }, [key, enable, fetch]);
 
   if (suspense && status === 'pending' && suspender) throw suspender;
   if (status === 'error') throw error;

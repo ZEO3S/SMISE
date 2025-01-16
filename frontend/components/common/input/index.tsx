@@ -7,7 +7,7 @@ import Text from '../text';
 interface Props extends ComponentPropsWithoutRef<'input'> {
   label?: string;
   hasButton?: boolean;
-  buttonImage?: any;
+  buttonImage?: string;
   onEnter?: () => void;
   onClickButton?: () => void;
 }
