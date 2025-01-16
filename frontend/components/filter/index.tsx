@@ -1,4 +1,4 @@
-import { Job, Location, ServiceType } from '@/types/api/recruitment';
+import { Job, Location } from '@/types/api/recruitment';
 import { SelectOption } from '@/types/components/select';
 
 import EducationLevelFilter from './educationLevelFilter';
@@ -10,9 +10,7 @@ import ServiceTypesFilter from './serviceTypesFilter';
 
 interface Props {
   selectedDefaultJobs: Array<Job> | null;
-  selectedServiceType: ServiceType | null;
   locations: Array<Location> | null;
-  updateServiceType: (string: ServiceType) => void;
   updateServiceStatus: (string: string) => void;
   updateJobs: (selectedJob: Array<Job> | null) => void;
   updateLocations: (selectedLocations: Array<Location> | null) => void;
@@ -22,9 +20,7 @@ interface Props {
 
 export default function Filter({
   selectedDefaultJobs,
-  selectedServiceType,
   locations,
-  updateServiceType,
   updateServiceStatus,
   updateJobs,
   updateLocations,
@@ -33,13 +29,9 @@ export default function Filter({
 }: Props) {
   return (
     <div className='flex flex-col sticky top-16 w-80 h-[724px] [&>*]:border-b [&>*]:border-default-color [&>*]:border-opacity-10'>
-      <ServiceTypesFilter updateServiceType={updateServiceType} />
+      <ServiceTypesFilter />
       <ServiceStatusFilter updateServiceStatus={updateServiceStatus} />
-      <JobsFilter
-        selectedDefaultJobs={selectedDefaultJobs}
-        selectedServiceType={selectedServiceType}
-        updateJobs={updateJobs}
-      />
+      <JobsFilter selectedDefaultJobs={selectedDefaultJobs} updateJobs={updateJobs} />
       <LocationFilter locations={locations} updateLocations={updateLocations} />
       <EducationLevelFilter updateEducationLevel={updateEducationLevel} />
       <ExperienceLevelFilter updateExperienceLevel={updateExperienceLevel} />

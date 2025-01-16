@@ -1,9 +1,11 @@
 import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
 
 import ArrowSVG from '@/assets/svgs/arrow.svg';
 import CloseSVG from '@/assets/svgs/close.svg';
 
-import { Job, ServiceType } from '@/types/api/recruitment';
+import { Job } from '@/types/api/recruitment';
+import { isValidServiceType } from '@/types/guards/queryParams';
 
 import Button from '@/components/common/button';
 import Checkbox from '@/components/common/checkbox';
@@ -18,13 +20,14 @@ import { useSelectedJobs } from '@/hooks/useSelectedJobs';
 
 interface Props {
   selectedDefaultJobs: Array<Job> | null;
-  selectedServiceType: ServiceType | null;
   updateJobs: (selectedJob: Array<Job> | null) => void;
 }
 
-export default function JobsFilter({ selectedDefaultJobs, selectedServiceType, updateJobs }: Props) {
+export default function JobsFilter({ selectedDefaultJobs, updateJobs }: Props) {
   const { isOpen, openModal, closeModal } = useModal();
-  const { jobs } = useJobs(selectedServiceType);
+  const searchParams = useSearchParams();
+  const serviceType = searchParams.get('serviceType');
+  const { jobs } = useJobs(isValidServiceType(serviceType) ? serviceType : null);
   const { selectedCategory, updateSelectedCategory, clearSelectedCategory } = useSelectedCategory();
   const { selectedJobs, addSelectedJobs, deleteSelectedJobs, clearSelectedJobs, initializeSelectedJobs } =
     useSelectedJobs(selectedDefaultJobs);

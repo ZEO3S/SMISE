@@ -1,15 +1,26 @@
-import { ServiceType } from '@/types/api/recruitment';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useCallback } from 'react';
+
+import { SERVICE_TYPES } from '@/constants/api/queryParams';
 
 import Radio from '@/components/common/radio';
 import Text from '@/components/common/text';
 
-const SERVICE_TYPES: Array<ServiceType> = ['산업기능요원', '전문연구요원', '승선근무예비역'];
+export default function ServiceTypesFilter() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-interface Props {
-  updateServiceType: (string: ServiceType) => void;
-}
+  const createQueryParam = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
 
-export default function ServiceTypesFilter({ updateServiceType }: Props) {
+      return params.toString();
+    },
+    [searchParams],
+  );
+
   return (
     <div className='pb-2'>
       <div className='pb-2'>
@@ -17,13 +28,13 @@ export default function ServiceTypesFilter({ updateServiceType }: Props) {
       </div>
       <Radio>
         <ul>
-          {SERVICE_TYPES.map((serviceTypes) => {
+          {SERVICE_TYPES.map((serviceType) => {
             return (
-              <li key={serviceTypes}>
+              <li key={serviceType}>
                 <Radio.Option
-                  value={serviceTypes}
-                  label={serviceTypes}
-                  onChecked={() => updateServiceType(serviceTypes)}
+                  value={serviceType}
+                  label={serviceType}
+                  onChecked={() => router.push(`${pathname}?${createQueryParam('serviceType', serviceType)}`)}
                 />
               </li>
             );

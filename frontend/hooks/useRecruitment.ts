@@ -1,3 +1,4 @@
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { https } from '@/apis/fetch';
@@ -10,10 +11,10 @@ import {
   RequestRecruitmentParams,
   ResponseRecruitment,
   ServiceStatus,
-  ServiceType,
   Sort,
 } from '@/types/api/recruitment';
 import { SelectOption } from '@/types/components/select';
+import { isValidServiceType } from '@/types/guards/queryParams';
 
 import { DEFAULT_PARAMS } from '@/constants/api/recruitment';
 import { RECRUITMENT_URL } from '@/constants/api/url';
@@ -76,7 +77,8 @@ const generateUrl = ({
 };
 
 export const useRecruitment = () => {
-  const [serviceType, setServiceType] = useState(DEFAULT_PARAMS.SERVICE_TYPE);
+  const searchParams = useSearchParams();
+  const serviceType = searchParams.get('serviceType');
   const [serviceStatus, setServiceStatus] = useState(DEFAULT_PARAMS.SERVICE_STATUS);
   const [jobs, setJobs] = useState(DEFAULT_PARAMS.JOBS);
   const [locations, setLocations] = useState(DEFAULT_PARAMS.LOCATIONS);
@@ -87,7 +89,7 @@ export const useRecruitment = () => {
   const [size, setSize] = useState(DEFAULT_PARAMS.SIZE);
   const [page, setPage] = useState(DEFAULT_PARAMS.PAGE);
   const url = generateUrl({
-    serviceType,
+    serviceType: isValidServiceType(serviceType) ? serviceType : null,
     serviceStatus,
     jobs,
     locations,
@@ -113,11 +115,6 @@ export const useRecruitment = () => {
       top: 0,
       behavior: 'auto',
     });
-  };
-
-  const updateServiceType = (serviceType: ServiceType) => {
-    setServiceType(serviceType);
-    initialPagination();
   };
 
   const updateServiceStatus = (serviceStatus: string) => {
@@ -211,14 +208,12 @@ export const useRecruitment = () => {
   }, [data]);
 
   return {
-    serviceType,
     jobs,
     locations,
     recruitment,
     isLoading,
     error,
     hasNext,
-    updateServiceType,
     updateServiceStatus,
     updateJobs,
     updateLocations,
