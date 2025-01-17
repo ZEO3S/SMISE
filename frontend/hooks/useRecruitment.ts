@@ -18,6 +18,7 @@ import { generateMinText } from '@/constants/components/experienceLevel';
 import { SORT_TYPES } from '@/constants/components/sort';
 
 import { useEducationLevel } from '@/hooks/useEducationLevel';
+import { useKeyword } from '@/hooks/useKeyword';
 import { useLocations } from '@/hooks/useLocations';
 import { useServiceStatus } from '@/hooks/useServiceStatus';
 import { useServiceType } from '@/hooks/useServiceType';
@@ -71,11 +72,11 @@ export const useRecruitment = () => {
   const serviceStatus = useServiceStatus();
   const educationLevel = useEducationLevel();
   const locations = useLocations();
+  const keyword = useKeyword();
 
   const [jobs, setJobs] = useState(DEFAULT_PARAMS.JOBS);
   const [experienceLevel, setExperienceLevel] = useState(DEFAULT_PARAMS.EXPERIENCE_LEVEL);
   const [sort, setSort] = useState(DEFAULT_PARAMS.SORT);
-  const [keyword, setKeyword] = useState(DEFAULT_PARAMS.KEYWORD);
   const [size, setSize] = useState(DEFAULT_PARAMS.SIZE);
   const [page, setPage] = useState(DEFAULT_PARAMS.PAGE);
   const url = generateUrl({
@@ -142,11 +143,6 @@ export const useRecruitment = () => {
     initialPagination();
   };
 
-  const updateKeyword = (value: string) => {
-    setKeyword(value);
-    initialPagination();
-  };
-
   const updateSort = (option: SelectOption) => {
     const selectedValue = option.value;
 
@@ -184,7 +180,6 @@ export const useRecruitment = () => {
     hasNext,
     updateJobs,
     updateExperienceLevel,
-    updateKeyword,
     updateSort,
     fetchNextPage,
   };
