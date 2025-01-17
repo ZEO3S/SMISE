@@ -1,5 +1,4 @@
 import { Job, Location } from '@/types/api/recruitment';
-import { SelectOption } from '@/types/components/select';
 
 import EducationLevelFilter from './educationLevelFilter';
 import ExperienceLevelFilter from './experienceLevelFilter';
@@ -13,7 +12,6 @@ interface Props {
   locations: Array<Location> | null;
   updateJobs: (selectedJob: Array<Job> | null) => void;
   updateLocations: (selectedLocations: Array<Location> | null) => void;
-  updateEducationLevel: (educationLevel: SelectOption) => void;
   updateExperienceLevel: (min: number, max: number) => void;
 }
 
@@ -22,7 +20,6 @@ export default function Filter({
   locations,
   updateJobs,
   updateLocations,
-  updateEducationLevel,
   updateExperienceLevel,
 }: Props) {
   return (
@@ -31,7 +28,7 @@ export default function Filter({
       <ServiceStatusFilter />
       <JobsFilter selectedDefaultJobs={selectedDefaultJobs} updateJobs={updateJobs} />
       <LocationFilter locations={locations} updateLocations={updateLocations} />
-      <EducationLevelFilter updateEducationLevel={updateEducationLevel} />
+      <EducationLevelFilter />
       <ExperienceLevelFilter updateExperienceLevel={updateExperienceLevel} />
     </div>
   );

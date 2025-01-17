@@ -1,7 +1,9 @@
 import { createContext } from 'react';
 
-import { SelectOption } from '@/types/components/select';
+import { SelectOption } from '@/types/component/select';
 
-export type SelectContextValue = SelectOption;
+export interface SelectContextValue extends SelectOption {
+  onSelect: (option: SelectOption) => void;
+}
 
 export const SelectContext = createContext<SelectContextValue | null>(null);

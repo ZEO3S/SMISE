@@ -5,19 +5,20 @@ import { https } from '@/apis/fetch';
 import {
   ExperienceLevel,
   Job,
-  Location,
   Recruitment,
   RequestRecruitmentParams,
   ResponseRecruitment,
   Sort,
 } from '@/types/api/recruitment';
-import { SelectOption } from '@/types/components/select';
+import { SelectOption } from '@/types/component/select';
 
 import { DEFAULT_PARAMS } from '@/constants/api/recruitment';
 import { RECRUITMENT_URL } from '@/constants/api/url';
 import { generateMinText } from '@/constants/components/experienceLevel';
 import { SORT_TYPES } from '@/constants/components/sort';
 
+import { useEducationLevel } from '@/hooks/useEducationLevel';
+import { useLocations } from '@/hooks/useLocations';
 import { useServiceStatus } from '@/hooks/useServiceStatus';
 import { useServiceType } from '@/hooks/useServiceType';
 
@@ -37,16 +38,16 @@ const generateUrl = ({
 }: RequestRecruitmentParams) => {
   const serviceTypeParam = serviceType ? `serviceType=${serviceType}` : null;
   const serviceStatusParam = serviceStatus ? `serviceStatus=${serviceStatus}` : null;
-  const jobsParam = jobs ? jobs.map((job) => `jobs=${job.category},${job.details.join(',')}`).join('&') : null;
-  const locationsParam = locations
-    ? locations.map((location) => `locations=${location.district},${location.cities.join(',')}`).join('&')
-    : null;
   const educationLevelParam = educationLevel ? `educationLevel=${educationLevel}` : null;
-  const experienceLevelParam = experienceLevel ? `experienceLevel=${Object.values(experienceLevel).join(',')}` : null;
   const sortParam = `sort=${sort}`;
   const sizeParam = `size=${size}`;
   const pageParam = `page=${page}`;
   const keywordParam = keyword ? `keyword=${keyword}` : null;
+  const experienceLevelParam = experienceLevel ? `experienceLevel=${Object.values(experienceLevel).join(',')}` : null;
+  const jobsParam = jobs ? jobs.map((job) => `jobs=${job.category},${job.details.join(',')}`).join('&') : null;
+  const locationsParam = locations
+    ? locations.map((location) => `locations=${location.district},${location.cities.join(',')}`).join('&')
+    : null;
   const queryParams = [
     serviceTypeParam,
     serviceStatusParam,
@@ -68,10 +69,10 @@ const generateUrl = ({
 export const useRecruitment = () => {
   const serviceType = useServiceType();
   const serviceStatus = useServiceStatus();
+  const educationLevel = useEducationLevel();
+  const locations = useLocations();
 
   const [jobs, setJobs] = useState(DEFAULT_PARAMS.JOBS);
-  const [locations, setLocations] = useState(DEFAULT_PARAMS.LOCATIONS);
-  const [educationLevel, setEducationLevel] = useState(DEFAULT_PARAMS.EDUCATION_LEVEL);
   const [experienceLevel, setExperienceLevel] = useState(DEFAULT_PARAMS.EXPERIENCE_LEVEL);
   const [sort, setSort] = useState(DEFAULT_PARAMS.SORT);
   const [keyword, setKeyword] = useState(DEFAULT_PARAMS.KEYWORD);
@@ -80,10 +81,10 @@ export const useRecruitment = () => {
   const url = generateUrl({
     serviceType,
     serviceStatus,
+    educationLevel,
     jobs,
     locations,
     experienceLevel,
-    educationLevel,
     sort,
     size,
     page,
@@ -108,16 +109,6 @@ export const useRecruitment = () => {
 
   const updateJobs = (selectedJobs: Array<Job> | null) => {
     setJobs(selectedJobs);
-    initialPagination();
-  };
-
-  const updateLocations = (selectedLocations: Array<Location> | null) => {
-    setLocations(selectedLocations);
-    initialPagination();
-  };
-
-  const updateEducationLevel = (educationLevel: SelectOption) => {
-    setEducationLevel(educationLevel.value);
     initialPagination();
   };
 
@@ -187,14 +178,11 @@ export const useRecruitment = () => {
 
   return {
     jobs,
-    locations,
     recruitment,
     isLoading,
     error,
     hasNext,
     updateJobs,
-    updateLocations,
-    updateEducationLevel,
     updateExperienceLevel,
     updateKeyword,
     updateSort,

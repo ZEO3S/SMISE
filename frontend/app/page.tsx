@@ -10,14 +10,11 @@ import { useRecruitment } from '@/hooks/useRecruitment';
 export default function Home() {
   const {
     jobs,
-    locations,
     recruitment,
     isLoading,
     error,
     hasNext,
     updateJobs,
-    updateLocations,
-    updateEducationLevel,
     updateExperienceLevel,
     updateKeyword,
     updateSort,
@@ -26,14 +23,7 @@ export default function Home() {
 
   return (
     <div className='flex flex-1 gap-10 px-40 py-10'>
-      <Filter
-        selectedDefaultJobs={jobs}
-        updateJobs={updateJobs}
-        locations={locations}
-        updateLocations={updateLocations}
-        updateEducationLevel={updateEducationLevel}
-        updateExperienceLevel={updateExperienceLevel}
-      />
+      <Filter selectedDefaultJobs={jobs} updateJobs={updateJobs} updateExperienceLevel={updateExperienceLevel} />
       <div className='flex flex-col flex-1'>
         <div className='sticky top-16 pb-4 bg-white'>
           <SearchBar updateKeyword={updateKeyword} />

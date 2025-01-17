@@ -1,41 +1,54 @@
 import Image from 'next/image';
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useRef } from 'react';
 
 import ArrowSVG from '@/assets/svgs/arrow.svg';
 
-import { SelectOption } from '@/types/components/select';
+import { SelectOption } from '@/types/component/select';
+
+import Button from '@/components/common/button';
+import { Options } from '@/components/common/select/options';
+import Option from '@/components/common/select/options/option';
 
 import { useClickOutsideHandler } from '@/hooks/useClickOutsideHandler';
-import { useSelectToggle } from '@/hooks/useSelectToggle';
-
-import Button from '../button';
-import SelectContextProvider from './context';
-import Option from './option';
+import { useOpenDirection } from '@/hooks/useOpenDirection';
+import { useSelect } from '@/hooks/useSelect';
 
 interface Props extends PropsWithChildren {
-  selectedOption: SelectOption;
+  initialValue?: SelectOption | null;
+  onChange?: (selectedOption?: SelectOption) => void;
 }
 
-export default function Select({ selectedOption, children }: Props) {
-  const { isOpen, closeSelect, toggleSelect } = useSelectToggle();
-  const FieldsetRef = useClickOutsideHandler<HTMLFieldSetElement>(closeSelect);
+export default function Select({ initialValue = null, children, onChange }: Props) {
+  const ref = useRef<HTMLFieldSetElement | null>(null);
+  const { isOpen, selectedOption, closeSelect, toggleSelect, updateSelectedOption } = useSelect(initialValue);
+  const { openDirection, updateOpenDirection } = useOpenDirection<HTMLFieldSetElement>(ref);
+
+  useClickOutsideHandler(ref, closeSelect);
+
+  const handleButtonClick = () => {
+    updateOpenDirection();
+    toggleSelect();
+  };
 
   return (
-    <fieldset className='relative' ref={FieldsetRef} role='combobox' aria-controls='select-list' aria-expanded={isOpen}>
+    <fieldset className='relative' ref={ref} role='combobox' aria-controls='select-list' aria-expanded={isOpen}>
       <Button
         className='flex justify-between gap-1 w-full p-2 border border-default-color border-opacity-10 select-none'
-        onClick={toggleSelect}
+        onClick={handleButtonClick}
       >
         {selectedOption?.label}
-        <Image className={isOpen ? 'rotate-180 ' : ' ' + 'select-none'} src={ArrowSVG} alt='토글 버튼' />
+        <Image className={isOpen ? 'rotate-180 ' : ''} src={ArrowSVG} alt='토글 버튼' />
       </Button>
-      <SelectContextProvider value={selectedOption}>
-        {isOpen && (
-          <legend className='absolute w-full bg-white z-10' role='listbox' onClick={closeSelect}>
-            {children}
-          </legend>
-        )}
-      </SelectContextProvider>
+      <Options
+        selectedOption={selectedOption}
+        openDirection={openDirection ?? 'up'}
+        isOpen={isOpen}
+        updateSelectedOption={updateSelectedOption}
+        closeSelect={closeSelect}
+        onChange={onChange}
+      >
+        {children}
+      </Options>
     </fieldset>
   );
 }

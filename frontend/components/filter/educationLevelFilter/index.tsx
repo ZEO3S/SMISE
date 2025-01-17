@@ -1,40 +1,31 @@
-import { useState } from 'react';
-
-import { SelectOption } from '@/types/components/select';
-
-import { EDUCATION_LEVELS } from '@/constants/components/educationLevel';
+import { EDUCATION_LEVELS } from '@/constants/api/educationLevel';
 
 import Select from '@/components/common/select';
 import Text from '@/components/common/text';
 
-interface Props {
-  updateEducationLevel: (educationLevel: SelectOption) => void;
-}
+import { usePushRouteWithQueryParam } from '@/hooks/usePushRouteWithQueryParam';
 
-export default function EducationLevelFilter({ updateEducationLevel }: Props) {
-  const [selectedEducationLevel, setSelectedEducationLevel] = useState(EDUCATION_LEVELS[0]);
+export default function EducationLevelFilter() {
+  const { pushRoute } = usePushRouteWithQueryParam();
 
   return (
     <div className='pt-2 pb-4'>
       <div className='py-2'>
         <Text variant='semi-title' content='학력' />
       </div>
-      <Select selectedOption={selectedEducationLevel}>
+      <Select
+        initialValue={{
+          value: EDUCATION_LEVELS[0],
+          label: EDUCATION_LEVELS[0],
+        }}
+        onChange={(selectedOption) => pushRoute('educationLevel', selectedOption ? selectedOption.value : '')}
+      >
         <ul>
-          {EDUCATION_LEVELS.map((educationLevel) => {
-            return (
-              <li key={educationLevel.value}>
-                <Select.Option
-                  value={educationLevel.value}
-                  label={educationLevel.label}
-                  onSelect={() => {
-                    updateEducationLevel(educationLevel);
-                    setSelectedEducationLevel(educationLevel);
-                  }}
-                />
-              </li>
-            );
-          })}
+          {EDUCATION_LEVELS.map((educationLevel) => (
+            <li key={educationLevel}>
+              <Select.Option value={educationLevel} label={educationLevel} />
+            </li>
+          ))}
         </ul>
       </Select>
     </div>
