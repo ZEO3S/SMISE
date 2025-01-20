@@ -218,4 +218,4 @@ export const LOCATIONS = {
     '합천군',
   ],
   제주특별자치도: ['제주시', '서귀포시'],
-};
+} as const;

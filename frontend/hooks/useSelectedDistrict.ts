@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { District } from '@/types/api/recruitment';
+import { District } from '@/types/api/location';
 
 import { LOCATIONS } from '@/constants/components/location';
 

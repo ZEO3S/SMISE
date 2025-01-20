@@ -1,5 +1,7 @@
 import { EducationLevel } from '@/types/api/educationLevel';
-import { Location, ServiceStatus, ServiceType } from '@/types/api/recruitment';
+import { Location } from '@/types/api/location';
+import { ServiceStatus } from '@/types/api/serviceStatus';
+import { ServiceType } from '@/types/api/serviceType';
 import { Sort } from '@/types/api/sort';
 
 import { EDUCATION_LEVELS } from '@/constants/api/educationLevel';
@@ -31,4 +33,5 @@ export const isValidLocations = (value: unknown): value is Array<Location> => {
   const locations = value as Array<Location>;
 
   return locations;
+  return locations.every((location) => Object.hasOwn(location, 'district') && Object.hasOwn(location, 'cities'));
 };

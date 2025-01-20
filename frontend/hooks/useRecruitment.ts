@@ -2,13 +2,9 @@ import { useEffect, useState } from 'react';
 
 import { https } from '@/apis/fetch';
 
-import {
-  ExperienceLevel,
-  Job,
-  Recruitment,
-  RequestRecruitmentParams,
-  ResponseRecruitment,
-} from '@/types/api/recruitment';
+import { ExperienceLevel } from '@/types/api/experienceLevel';
+import { Job } from '@/types/api/jobs';
+import { Recruitment, RequestRecruitmentParams, ResponseRecruitment } from '@/types/api/recruitment';
 
 import { DEFAULT_PARAMS } from '@/constants/api/recruitment';
 import { RECRUITMENT_URL } from '@/constants/api/url';

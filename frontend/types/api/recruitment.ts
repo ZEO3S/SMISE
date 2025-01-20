@@ -1,7 +1,10 @@
 import { EducationLevel } from '@/types/api/educationLevel';
+import { ExperienceLevel } from '@/types/api/experienceLevel';
+import { Job } from '@/types/api/jobs';
+import { Location } from '@/types/api/location';
+import { ServiceStatus } from '@/types/api/serviceStatus';
+import { ServiceType } from '@/types/api/serviceType';
 import { Sort } from '@/types/api/sort';
-
-import { LOCATIONS } from '@/constants/components/location';
 
 export interface Recruitment {
   id: number;
@@ -16,26 +19,6 @@ export interface Recruitment {
   href: string;
 }
 
-export type ServiceType = '산업기능요원' | '전문연구요원' | '승선근무예비역';
-export type ServiceStatus = '보충역' | '현역';
-export interface Job {
-  category: string;
-  details: Array<string>;
-}
-export type District = keyof typeof LOCATIONS;
-export interface Location {
-  district: District;
-  cities: Array<string>;
-}
-export interface ExperienceLevel {
-  start: '신입' | '1년' | '2년' | '3년' | '4년' | '5년';
-  end: '신입' | '1년' | '2년' | '3년' | '4년' | '5년';
-}
-
-type Size = number;
-type Page = number;
-export type Keyword = string;
-
 export interface RequestRecruitmentParams {
   serviceType: ServiceType | null;
   serviceStatus: ServiceStatus | null;
@@ -44,9 +27,9 @@ export interface RequestRecruitmentParams {
   experienceLevel: ExperienceLevel | null;
   educationLevel: EducationLevel | null;
   sort: Sort | null;
-  size: Size;
-  page: Page;
-  keyword: Keyword | null;
+  size: number;
+  page: number;
+  keyword: string | null;
 }
 
 export interface DefaultRequestRecruitmentParams {
@@ -57,15 +40,15 @@ export interface DefaultRequestRecruitmentParams {
   EXPERIENCE_LEVEL: ExperienceLevel | null;
   EDUCATION_LEVEL: EducationLevel | null;
   SORT: Sort | null;
-  SIZE: Size;
-  PAGE: Page;
-  KEYWORD: Keyword | null;
+  SIZE: number;
+  PAGE: number;
+  KEYWORD: string | null;
 }
 
 export interface ResponseRecruitment {
   recruitment: Array<Recruitment>;
-  size: Size;
-  page: Page;
+  size: number;
+  page: number;
   totalElements: number;
   totalPages: number;
 }

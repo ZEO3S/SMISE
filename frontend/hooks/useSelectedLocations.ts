@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { District, Location } from '@/types/api/recruitment';
+import { District, Location } from '@/types/api/location';
 
 export const useSelectedLocations = (locations: Array<Location> | null) => {
   const [selectedLocations, setSelectedLocations] = useState<Array<Location> | null>(locations);

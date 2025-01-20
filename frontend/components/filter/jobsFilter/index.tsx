@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import ArrowSVG from '@/assets/svgs/arrow.svg';
 import CloseSVG from '@/assets/svgs/close.svg';
 
-import { Job } from '@/types/api/recruitment';
+import { Job } from '@/types/api/jobs';
 import { isValidServiceType } from '@/types/guards/queryParams';
 
 import Button from '@/components/common/button';

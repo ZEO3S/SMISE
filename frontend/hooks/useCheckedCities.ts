@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { District, Location } from '@/types/api/recruitment';
+import { District, Location } from '@/types/api/location';
 
 export const useCheckedCities = (locations: Array<Location> | null) => {
   const defaultCheckedCities = locations

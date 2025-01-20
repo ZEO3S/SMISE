@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Job } from '@/types/api/recruitment';
+import { Job } from '@/types/api/jobs';
 
 export const useSelectedJobs = (jobs: Array<Job> | null) => {
   const [selectedJobs, setSelectedJobs] = useState<Array<Job> | null>(jobs);

@@ -1,4 +1,4 @@
-interface Job {
+export interface Job {
   category: string;
   details: Array<string>;
 }

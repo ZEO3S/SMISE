@@ -1,4 +1,5 @@
-import { Job, Location } from '@/types/api/recruitment';
+import { Job } from '@/types/api/jobs';
+import { Location } from '@/types/api/location';
 
 import EducationLevelFilter from './educationLevelFilter';
 import ExperienceLevelFilter from './experienceLevelFilter';

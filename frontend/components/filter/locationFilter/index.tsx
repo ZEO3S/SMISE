@@ -3,7 +3,7 @@ import Image from 'next/image';
 import ArrowSVG from '@/assets/svgs/arrow.svg';
 import CloseSVG from '@/assets/svgs/close.svg';
 
-import { District, Location } from '@/types/api/recruitment';
+import { District, Location } from '@/types/api/location';
 
 import { LOCATIONS } from '@/constants/components/location';
 
