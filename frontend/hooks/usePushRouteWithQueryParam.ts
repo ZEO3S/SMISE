@@ -17,9 +17,7 @@ export const usePushRouteWithQueryParam = () => {
   );
 
   const pushRoute = useCallback(
-    (name: string, value: string) => {
-      router.push(`${pathname}?${createQueryParam(name, value)}`);
-    },
+    (name: string, value: string) => router.push(`${pathname}?${createQueryParam(name, value)}`),
     [router, pathname, createQueryParam],
   );
 

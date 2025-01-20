@@ -1,4 +1,5 @@
 import { EducationLevel } from '@/types/api/educationLevel';
+import { Sort } from '@/types/api/sort';
 
 import { LOCATIONS } from '@/constants/components/location';
 
@@ -30,7 +31,7 @@ export interface ExperienceLevel {
   start: '신입' | '1년' | '2년' | '3년' | '4년' | '5년';
   end: '신입' | '1년' | '2년' | '3년' | '4년' | '5년';
 }
-export type Sort = '최신순' | '마감순';
+
 type Size = number;
 type Page = number;
 export type Keyword = string;

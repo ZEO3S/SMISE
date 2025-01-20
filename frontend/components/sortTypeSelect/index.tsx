@@ -1,30 +1,28 @@
-import { useState } from 'react';
-
-import { SelectOption } from '@/types/components/select';
-
 import { SORT_TYPES } from '@/constants/components/sort';
+
+import { usePushRouteWithQueryParam } from '@/hooks/usePushRouteWithQueryParam';
 
 import Select from '../common/select';
 
-interface Props {
-  updateSort: (sortType: SelectOption) => void;
-}
-
-export default function SortTypeSelect({ updateSort }: Props) {
-  const [selectedSortOption, setSelectedSortOption] = useState(SORT_TYPES[0]);
+export default function SortTypeSelect() {
+  const { pushRoute } = usePushRouteWithQueryParam();
 
   return (
-    <Select selectedOption={selectedSortOption}>
+    <Select
+      initialValue={{
+        value: SORT_TYPES[0],
+        label: SORT_TYPES[0],
+      }}
+      onChange={(selectedOption) => pushRoute('sort', selectedOption ? selectedOption.value : '')}
+    >
       <ul>
         {SORT_TYPES.map((sortType) => {
           return (
-            <li key={sortType.value}>
+            <li key={sortType}>
               <Select.Option
-                value={sortType.value}
-                label={sortType.label}
-                onSelect={() => {
-                  updateSort(sortType);
-                  setSelectedSortOption(sortType);
+                option={{
+                  value: sortType,
+                  label: sortType,
                 }}
               />
             </li>

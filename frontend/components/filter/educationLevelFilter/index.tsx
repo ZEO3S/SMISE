@@ -23,7 +23,12 @@ export default function EducationLevelFilter() {
         <ul>
           {EDUCATION_LEVELS.map((educationLevel) => (
             <li key={educationLevel}>
-              <Select.Option value={educationLevel} label={educationLevel} />
+              <Select.Option
+                option={{
+                  value: educationLevel,
+                  label: educationLevel,
+                }}
+              />
             </li>
           ))}
         </ul>

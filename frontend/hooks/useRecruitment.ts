@@ -8,20 +8,18 @@ import {
   Recruitment,
   RequestRecruitmentParams,
   ResponseRecruitment,
-  Sort,
 } from '@/types/api/recruitment';
-import { SelectOption } from '@/types/component/select';
 
 import { DEFAULT_PARAMS } from '@/constants/api/recruitment';
 import { RECRUITMENT_URL } from '@/constants/api/url';
 import { generateMinText } from '@/constants/components/experienceLevel';
-import { SORT_TYPES } from '@/constants/components/sort';
 
 import { useEducationLevel } from '@/hooks/useEducationLevel';
 import { useKeyword } from '@/hooks/useKeyword';
 import { useLocations } from '@/hooks/useLocations';
 import { useServiceStatus } from '@/hooks/useServiceStatus';
 import { useServiceType } from '@/hooks/useServiceType';
+import { useSort } from '@/hooks/useSort';
 
 import { useFetch } from './useFetch';
 
@@ -73,10 +71,10 @@ export const useRecruitment = () => {
   const educationLevel = useEducationLevel();
   const locations = useLocations();
   const keyword = useKeyword();
+  const sort = useSort();
 
   const [jobs, setJobs] = useState(DEFAULT_PARAMS.JOBS);
   const [experienceLevel, setExperienceLevel] = useState(DEFAULT_PARAMS.EXPERIENCE_LEVEL);
-  const [sort, setSort] = useState(DEFAULT_PARAMS.SORT);
   const [size, setSize] = useState(DEFAULT_PARAMS.SIZE);
   const [page, setPage] = useState(DEFAULT_PARAMS.PAGE);
   const url = generateUrl({
@@ -143,19 +141,6 @@ export const useRecruitment = () => {
     initialPagination();
   };
 
-  const updateSort = (option: SelectOption) => {
-    const selectedValue = option.value;
-
-    const isSortType = (value: string): value is Sort => {
-      return Object.values(SORT_TYPES).some((sortType) => sortType.value === value);
-    };
-
-    if (!isSortType(selectedValue)) return;
-
-    setSort(selectedValue);
-    initialPagination();
-  };
-
   const fetchNextPage = () => {
     if (!hasNext || isLoading) return;
 
@@ -180,7 +165,6 @@ export const useRecruitment = () => {
     hasNext,
     updateJobs,
     updateExperienceLevel,
-    updateSort,
     fetchNextPage,
   };
 };

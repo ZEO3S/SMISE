@@ -8,7 +8,7 @@ import SortTypeSelect from '@/components/sortTypeSelect';
 import { useRecruitment } from '@/hooks/useRecruitment';
 
 export default function Home() {
-  const { jobs, recruitment, isLoading, error, hasNext, updateJobs, updateExperienceLevel, updateSort, fetchNextPage } =
+  const { jobs, recruitment, isLoading, error, hasNext, updateJobs, updateExperienceLevel, fetchNextPage } =
     useRecruitment();
 
   return (
@@ -19,7 +19,7 @@ export default function Home() {
           <SearchBar />
         </div>
         <div className='flex justify-end sticky top-32 mb-2 bg-white'>
-          <SortTypeSelect updateSort={updateSort} />
+          <SortTypeSelect />
         </div>
         <Recruitment
           recruitment={recruitment}
