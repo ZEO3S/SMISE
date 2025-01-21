@@ -1,5 +1,4 @@
 import { Job } from '@/types/api/jobs';
-import { Location } from '@/types/api/location';
 
 import EducationLevelFilter from './educationLevelFilter';
 import ExperienceLevelFilter from './experienceLevelFilter';
@@ -10,25 +9,17 @@ import ServiceTypesFilter from './serviceTypesFilter';
 
 interface Props {
   selectedDefaultJobs: Array<Job> | null;
-  locations: Array<Location> | null;
   updateJobs: (selectedJob: Array<Job> | null) => void;
-  updateLocations: (selectedLocations: Array<Location> | null) => void;
   updateExperienceLevel: (min: number, max: number) => void;
 }
 
-export default function Filter({
-  selectedDefaultJobs,
-  locations,
-  updateJobs,
-  updateLocations,
-  updateExperienceLevel,
-}: Props) {
+export default function Filter({ selectedDefaultJobs, updateJobs, updateExperienceLevel }: Props) {
   return (
     <div className='flex flex-col sticky top-16 w-80 h-[724px] [&>*]:border-b [&>*]:border-default-color [&>*]:border-opacity-10'>
       <ServiceTypesFilter />
       <ServiceStatusFilter />
       <JobsFilter selectedDefaultJobs={selectedDefaultJobs} updateJobs={updateJobs} />
-      <LocationFilter locations={locations} updateLocations={updateLocations} />
+      <LocationFilter />
       <EducationLevelFilter />
       <ExperienceLevelFilter updateExperienceLevel={updateExperienceLevel} />
     </div>

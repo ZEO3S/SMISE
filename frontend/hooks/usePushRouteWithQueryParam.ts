@@ -1,25 +1,29 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useCallback } from 'react';
 
 export const usePushRouteWithQueryParam = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams.toString());
 
-  const createQueryParam = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
+  const createQueryParam = (name: string, value: string) => {
+    params.set(name, value);
 
-      return params.toString();
-    },
-    [searchParams],
-  );
+    return params.toString();
+  };
 
-  const pushRoute = useCallback(
-    (name: string, value: string) => router.push(`${pathname}?${createQueryParam(name, value)}`),
-    [router, pathname, createQueryParam],
-  );
+  const pushRoute = (name: string, value: string) => router.push(`${pathname}?${createQueryParam(name, value)}`);
 
-  return { pushRoute };
+  const deleteQueryParam = (name: string) => {
+    params.delete(name);
+
+    if (!params.size) {
+      router.push(`${pathname}`);
+    } else {
+      const queryParams = params.toString();
+      router.push(`${pathname}?${queryParams}`);
+    }
+  };
+
+  return { pushRoute, deleteQueryParam };
 };
