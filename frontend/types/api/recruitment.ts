@@ -20,16 +20,10 @@ export interface Recruitment {
 }
 
 export interface RequestRecruitmentParams {
-  serviceType: ServiceType | null;
-  serviceStatus: ServiceStatus | null;
   jobs: Array<Job> | null;
-  locations: Array<Location> | null;
   experienceLevel: ExperienceLevel | null;
-  educationLevel: EducationLevel | null;
-  sort: Sort | null;
   size: number;
   page: number;
-  keyword: string | null;
 }
 
 export interface DefaultRequestRecruitmentParams {

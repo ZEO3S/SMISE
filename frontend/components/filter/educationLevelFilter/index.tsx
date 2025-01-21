@@ -1,4 +1,5 @@
 import { EDUCATION_LEVELS } from '@/constants/api/educationLevel';
+import { PARAMS } from '@/constants/api/queryParams';
 
 import Select from '@/components/common/select';
 import Text from '@/components/common/text';
@@ -18,7 +19,7 @@ export default function EducationLevelFilter() {
           value: EDUCATION_LEVELS[0],
           label: EDUCATION_LEVELS[0],
         }}
-        onChange={(selectedOption) => pushRoute('educationLevel', selectedOption ? selectedOption.value : '')}
+        onChange={(selectedOption) => pushRoute(PARAMS.EDUCATION_LEVEL, selectedOption ? selectedOption.value : '')}
       >
         <ul>
           {EDUCATION_LEVELS.map((educationLevel) => (

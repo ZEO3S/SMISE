@@ -1,17 +1,19 @@
+import { PARAMS } from '@/constants/api/queryParams';
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
 
-  const serviceType = searchParams.get('serviceType');
-  const serviceStatus = searchParams.get('serviceStatus');
-  const jobs = searchParams.get('jobs');
+  const serviceType = searchParams.get(PARAMS.SERVICE_TYPE);
+  const serviceStatus = searchParams.get(PARAMS.SERVICE_STATUS);
+  const jobs = searchParams.get(PARAMS.JOBS);
   const detailedJobs = searchParams.get('detailedJobs');
-  const locations = searchParams.get('locations');
-  const experienceLevel = searchParams.get('experienceLevel');
-  const educationLevel = searchParams.get('educationLevel');
-  const sort = searchParams.get('sort');
-  const size = Number(searchParams.get('size'));
-  const page = Number(searchParams.get('page'));
-  const keyword = searchParams.get('keyword');
+  const locations = searchParams.get(PARAMS.LOCATIONS);
+  const experienceLevel = searchParams.get(PARAMS.EXPERIENCE_LEVEL);
+  const educationLevel = searchParams.get(PARAMS.EDUCATION_LEVEL);
+  const sort = searchParams.get(PARAMS.SORT);
+  const size = Number(searchParams.get(PARAMS.SIZE));
+  const page = Number(searchParams.get(PARAMS.PAGE));
+  const keyword = searchParams.get(PARAMS.KEYWORD);
 
   console.log(
     serviceType,

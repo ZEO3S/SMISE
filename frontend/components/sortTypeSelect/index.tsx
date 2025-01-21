@@ -1,3 +1,4 @@
+import { PARAMS } from '@/constants/api/queryParams';
 import { SORT_TYPES } from '@/constants/components/sort';
 
 import { usePushRouteWithQueryParam } from '@/hooks/usePushRouteWithQueryParam';
@@ -13,7 +14,7 @@ export default function SortTypeSelect() {
         value: SORT_TYPES[0],
         label: SORT_TYPES[0],
       }}
-      onChange={(selectedOption) => pushRoute('sort', selectedOption ? selectedOption.value : '')}
+      onChange={(selectedOption) => pushRoute(PARAMS.SORT, selectedOption ? selectedOption.value : '')}
     >
       <ul>
         {SORT_TYPES.map((sortType) => {

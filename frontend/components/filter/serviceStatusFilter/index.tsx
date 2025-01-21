@@ -1,4 +1,4 @@
-import { SERVICE_STATUSES } from '@/constants/api/queryParams';
+import { PARAMS, SERVICE_STATUSES } from '@/constants/api/queryParams';
 
 import Radio from '@/components/common/radio';
 import Text from '@/components/common/text';
@@ -21,7 +21,7 @@ export default function ServiceStatusFilter() {
                 <Radio.Option
                   value={serviceStatus}
                   label={serviceStatus}
-                  onChecked={() => pushRoute('serviceStatus', serviceStatus)}
+                  onChecked={() => pushRoute(PARAMS.SERVICE_STATUS, serviceStatus)}
                 />
               </li>
             );

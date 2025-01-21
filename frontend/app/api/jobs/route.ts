@@ -1,5 +1,7 @@
 import { ResponseJobs } from '@/types/api/jobs';
 
+import { PARAMS } from '@/constants/api/queryParams';
+
 const RECRUITMENT: ResponseJobs = {
   jobs: [
     {
@@ -16,7 +18,7 @@ const RECRUITMENT: ResponseJobs = {
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
 
-  const serviceType = searchParams.get('serviceType');
+  const serviceType = searchParams.get(PARAMS.SERVICE_TYPE);
 
   console.log(serviceType);
 

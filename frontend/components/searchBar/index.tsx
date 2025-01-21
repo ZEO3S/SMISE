@@ -1,5 +1,7 @@
 import MagnifyingGlassSVG from '@/assets/svgs/magnifying_glass.svg';
 
+import { PARAMS } from '@/constants/api/queryParams';
+
 import Input from '@/components/common/input';
 
 import { useControlledInput } from '@/hooks/useControlledInput';
@@ -9,7 +11,7 @@ export default function SearchBar() {
   const { value, onChangeInput } = useControlledInput();
   const { pushRoute } = usePushRouteWithQueryParam();
 
-  const updateKeyword = () => pushRoute('keyword', value);
+  const updateKeyword = () => pushRoute(PARAMS.KEYWORD, value);
 
   return (
     <Input

@@ -1,4 +1,4 @@
-import { SERVICE_TYPES } from '@/constants/api/queryParams';
+import { PARAMS, SERVICE_TYPES } from '@/constants/api/queryParams';
 
 import Radio from '@/components/common/radio';
 import Text from '@/components/common/text';
@@ -21,7 +21,7 @@ export default function ServiceTypesFilter() {
                 <Radio.Option
                   value={serviceType}
                   label={serviceType}
-                  onChecked={() => pushRoute('serviceType', serviceType)}
+                  onChecked={() => pushRoute(PARAMS.SERVICE_TYPE, serviceType)}
                 />
               </li>
             );

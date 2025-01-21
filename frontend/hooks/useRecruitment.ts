@@ -11,84 +11,32 @@ import { DEFAULT_PARAMS } from '@/constants/api/recruitment';
 import { RECRUITMENT_URL } from '@/constants/api/url';
 import { generateMinText } from '@/constants/components/experienceLevel';
 
-import { useEducationLevel } from '@/hooks/useEducationLevel';
-import { useKeyword } from '@/hooks/useKeyword';
-import { useLocations } from '@/hooks/useLocations';
-import { useServiceStatus } from '@/hooks/useServiceStatus';
-import { useServiceType } from '@/hooks/useServiceType';
-import { useSort } from '@/hooks/useSort';
-
 import { useFetch } from './useFetch';
 
 export const useRecruitment = () => {
-  const serviceType = useServiceType();
-  const serviceStatus = useServiceStatus();
-  const educationLevel = useEducationLevel();
-  const locations = useLocations();
-  const keyword = useKeyword();
-  const sort = useSort();
-
   const [jobs, setJobs] = useState(DEFAULT_PARAMS.JOBS);
   const [experienceLevel, setExperienceLevel] = useState(DEFAULT_PARAMS.EXPERIENCE_LEVEL);
   const [size, setSize] = useState(DEFAULT_PARAMS.SIZE);
   const [page, setPage] = useState(DEFAULT_PARAMS.PAGE);
-  const generateUrl = ({
-    serviceType,
-    serviceStatus,
-    jobs,
-    locations,
-    experienceLevel,
-    educationLevel,
-    sort,
-    size,
-    page,
-    keyword,
-  }: RequestRecruitmentParams) => {
-    // const searchParams = useSearchParams();
-    // const params = new URLSearchParams(searchParams.toString());
-    const serviceTypeParam = serviceType ? `serviceType=${serviceType}` : null;
-    const serviceStatusParam = serviceStatus ? `serviceStatus=${serviceStatus}` : null;
-    const educationLevelParam = educationLevel ? `educationLevel=${educationLevel}` : null;
-    const sortParam = `sort=${sort}`;
+  const generateUrl = ({ jobs, experienceLevel, size, page }: RequestRecruitmentParams) => {
+    const searchParams = useSearchParams();
+    const params = new URLSearchParams(searchParams.toString());
     const sizeParam = `size=${size}`;
     const pageParam = `page=${page}`;
-    const keywordParam = keyword ? `keyword=${keyword}` : null;
     const experienceLevelParam = experienceLevel ? `experienceLevel=${Object.values(experienceLevel).join(',')}` : null;
     const jobsParam = jobs ? jobs.map((job) => `jobs=${job.category},${job.details.join(',')}`).join('&') : null;
-    const locationsParam = locations
-      ? locations.map((location) => `locations=${location.district},${location.cities.join(',')}`).join('&')
-      : null;
-    const queryParams = [
-      serviceTypeParam,
-      serviceStatusParam,
-      jobsParam,
-      locationsParam,
-      educationLevelParam,
-      experienceLevelParam,
-      sortParam,
-      sizeParam,
-      pageParam,
-      keywordParam,
-    ]
-      .filter((param) => param)
-      .join('&');
-
-    // console.log(params.toString());
+    const tempParams = [jobsParam, experienceLevelParam, sizeParam, pageParam].filter((param) => param).join('&');
+    const _queryParams = params.toString();
+    const queryParams = _queryParams ? `${tempParams}&${_queryParams}` : tempParams;
 
     return queryParams ? `${RECRUITMENT_URL}?${queryParams}` : RECRUITMENT_URL;
   };
 
   const url = generateUrl({
-    serviceType,
-    serviceStatus,
-    educationLevel,
     jobs,
-    locations,
     experienceLevel,
-    sort,
     size,
     page,
-    keyword,
   });
   const { data, isLoading, error } = useFetch<string, ResponseRecruitment>({
     fetch: () => https.get<ResponseRecruitment>(url),

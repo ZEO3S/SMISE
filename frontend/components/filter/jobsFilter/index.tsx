@@ -7,6 +7,8 @@ import CloseSVG from '@/assets/svgs/close.svg';
 import { Job } from '@/types/api/jobs';
 import { isValidServiceType } from '@/types/guards/queryParams';
 
+import { PARAMS } from '@/constants/api/queryParams';
+
 import Button from '@/components/common/button';
 import Checkbox from '@/components/common/checkbox';
 import Modal from '@/components/common/modal';
@@ -26,7 +28,7 @@ interface Props {
 export default function JobsFilter({ selectedDefaultJobs, updateJobs }: Props) {
   const { isOpen, openModal, closeModal } = useModal();
   const searchParams = useSearchParams();
-  const serviceType = searchParams.get('serviceType');
+  const serviceType = searchParams.get(PARAMS.SERVICE_TYPE);
   const { jobs } = useJobs(isValidServiceType(serviceType) ? serviceType : null);
   const { selectedCategory, updateSelectedCategory, clearSelectedCategory } = useSelectedCategory();
   const { selectedJobs, addSelectedJobs, deleteSelectedJobs, clearSelectedJobs, initializeSelectedJobs } =
