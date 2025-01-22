@@ -22,8 +22,6 @@ export interface Recruitment {
 export interface RequestRecruitmentParams {
   jobs: Array<Job> | null;
   experienceLevel: ExperienceLevel | null;
-  size: number;
-  page: number;
 }
 
 export interface DefaultRequestRecruitmentParams {

@@ -7,26 +7,28 @@ import { ExperienceLevel } from '@/types/api/experienceLevel';
 import { Job } from '@/types/api/jobs';
 import { Recruitment, RequestRecruitmentParams, ResponseRecruitment } from '@/types/api/recruitment';
 
+import { PARAMS } from '@/constants/api/queryParams';
 import { DEFAULT_PARAMS } from '@/constants/api/recruitment';
 import { RECRUITMENT_URL } from '@/constants/api/url';
 import { generateMinText } from '@/constants/components/experienceLevel';
 
-import { useFetch } from './useFetch';
+import { useFetch } from '@/hooks/useFetch';
+import { usePage } from '@/hooks/usePage';
+import { usePushRouteWithQueryParam } from '@/hooks/usePushRouteWithQueryParam';
 
 export const useRecruitment = () => {
+  const { pushRoute, deleteQueryParam } = usePushRouteWithQueryParam();
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams.toString());
+  const page = usePage();
   const [jobs, setJobs] = useState(DEFAULT_PARAMS.JOBS);
   const [experienceLevel, setExperienceLevel] = useState(DEFAULT_PARAMS.EXPERIENCE_LEVEL);
-  const [size, setSize] = useState(DEFAULT_PARAMS.SIZE);
-  const [page, setPage] = useState(DEFAULT_PARAMS.PAGE);
-  const generateUrl = ({ jobs, experienceLevel, size, page }: RequestRecruitmentParams) => {
-    const searchParams = useSearchParams();
-    const params = new URLSearchParams(searchParams.toString());
-    const sizeParam = `size=${size}`;
-    const pageParam = `page=${page}`;
+
+  const generateUrl = ({ jobs, experienceLevel }: RequestRecruitmentParams) => {
+    const _queryParams = params.toString();
     const experienceLevelParam = experienceLevel ? `experienceLevel=${Object.values(experienceLevel).join(',')}` : null;
     const jobsParam = jobs ? jobs.map((job) => `jobs=${job.category},${job.details.join(',')}`).join('&') : null;
-    const tempParams = [jobsParam, experienceLevelParam, sizeParam, pageParam].filter((param) => param).join('&');
-    const _queryParams = params.toString();
+    const tempParams = [jobsParam, experienceLevelParam].filter((param) => param).join('&');
     const queryParams = _queryParams ? `${tempParams}&${_queryParams}` : tempParams;
 
     return queryParams ? `${RECRUITMENT_URL}?${queryParams}` : RECRUITMENT_URL;
@@ -35,8 +37,6 @@ export const useRecruitment = () => {
   const url = generateUrl({
     jobs,
     experienceLevel,
-    size,
-    page,
   });
   const { data, isLoading, error } = useFetch<string, ResponseRecruitment>({
     fetch: () => https.get<ResponseRecruitment>(url),
@@ -44,15 +44,14 @@ export const useRecruitment = () => {
     suspense: true,
   });
   const [recruitment, setRecruitment] = useState<Array<Recruitment>>([]);
-  const hasNext = data ? data.totalPages - data.page > 1 : false;
+
+  const initialQueryParams = () => {
+    Object.values(PARAMS).forEach((name) => deleteQueryParam(name));
+  };
 
   const initialPagination = () => {
-    setSize(DEFAULT_PARAMS.SIZE);
-    setPage(DEFAULT_PARAMS.PAGE);
-    window.scrollTo({
-      top: 0,
-      behavior: 'auto',
-    });
+    pushRoute(PARAMS.SIZE, String(DEFAULT_PARAMS.SIZE));
+    pushRoute(PARAMS.PAGE, String(DEFAULT_PARAMS.PAGE));
   };
 
   const updateJobs = (selectedJobs: Array<Job> | null) => {
@@ -90,21 +89,26 @@ export const useRecruitment = () => {
     initialPagination();
   };
 
+  const hasNext = data ? data.totalPages - data.page > 1 : false;
   const fetchNextPage = () => {
     if (!hasNext || isLoading) return;
 
-    setPage((page) => page + 1);
+    pushRoute(PARAMS.PAGE, String(Number(page) + 1));
   };
 
   useEffect(() => {
     setRecruitment((prev) => {
       if (!data) return [];
-
-      if (page === 0) return data.recruitment;
+      if (page === '0' && DEFAULT_PARAMS.SIZE === data.recruitment.length) return data.recruitment;
 
       return [...prev, ...data.recruitment];
     });
-  }, [data, page]);
+  }, [data]);
+
+  useEffect(() => {
+    initialQueryParams();
+    initialPagination();
+  }, []);
 
   return {
     jobs,
