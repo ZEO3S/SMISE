@@ -1,22 +1,32 @@
 import { useState } from 'react';
 
-import { EXPERIENCE_LEVEL_RANGE, generateMaxText, generateMinText } from '@/constants/components/experienceLevel';
+import { PARAMS } from '@/constants/api/queryParams';
+import { EXPERIENCE_LEVEL_RANGE, generateExperienceLevelText } from '@/constants/components/experienceLevel';
 
 import Slider from '@/components/common/slider';
 import Text from '@/components/common/text';
 
-interface Props {
-  updateExperienceLevel: (min: number, max: number) => void;
-}
+import { usePushRouteWithQueryParam } from '@/hooks/usePushRouteWithQueryParam';
 
-export default function ExperienceLevelFilter({ updateExperienceLevel }: Props) {
-  const [minValue, setMinValue] = useState(EXPERIENCE_LEVEL_RANGE.MIN);
-  const [maxValue, setMaxValue] = useState(EXPERIENCE_LEVEL_RANGE.MAX);
-  const isRenderMinText = minValue !== EXPERIENCE_LEVEL_RANGE.MAX;
-  const isRenderTildeText = minValue !== maxValue;
+export default function ExperienceLevelFilter() {
+  const [value, setValue] = useState({
+    start: EXPERIENCE_LEVEL_RANGE.MIN,
+    end: EXPERIENCE_LEVEL_RANGE.MAX,
+  });
+  const { pushRoute } = usePushRouteWithQueryParam();
+  const isRenderMinText = value.start !== EXPERIENCE_LEVEL_RANGE.MAX;
+  const isRenderTildeText = value.start !== value.end;
   const isRenderMaxText =
-    maxValue !== EXPERIENCE_LEVEL_RANGE.MIN && !(maxValue !== EXPERIENCE_LEVEL_RANGE.MAX && maxValue === minValue);
-  const isRenderOverText = maxValue === EXPERIENCE_LEVEL_RANGE.MAX;
+    value.end !== EXPERIENCE_LEVEL_RANGE.MIN &&
+    !(value.end !== EXPERIENCE_LEVEL_RANGE.MAX && value.end === value.start);
+  const isRenderOverText = value.end === EXPERIENCE_LEVEL_RANGE.MAX;
+
+  const updateExperienceLevel = () => {
+    pushRoute(
+      PARAMS.EXPERIENCE_LEVEL,
+      `${generateExperienceLevelText(value.start)},${generateExperienceLevelText(value.end)}`,
+    );
+  };
 
   return (
     <div className='flex flex-col py-2'>
@@ -24,20 +34,19 @@ export default function ExperienceLevelFilter({ updateExperienceLevel }: Props) 
         <Text variant='semi-title' content='경력' />
       </div>
       <div className='flex gap-1'>
-        {isRenderMinText && <Text content={generateMinText(minValue)} />}
+        {isRenderMinText && <Text content={generateExperienceLevelText(value.start)} />}
         {isRenderTildeText && <Text content='~' />}
-        {isRenderMaxText && <Text content={generateMaxText(maxValue)} />}
+        {isRenderMaxText && <Text content={generateExperienceLevelText(value.end)} />}
         {isRenderOverText && <Text content='이상' />}
       </div>
       <Slider
-        minValue={minValue}
-        maxValue={maxValue}
+        value={value}
         min={EXPERIENCE_LEVEL_RANGE.MIN}
         max={EXPERIENCE_LEVEL_RANGE.MAX}
         step={1}
-        setMinValue={setMinValue}
-        setMaxValue={setMaxValue}
-        onChange={updateExperienceLevel}
+        onMouseUp={updateExperienceLevel}
+        onStartChange={(start) => setValue((prev) => ({ ...prev, start }))}
+        onEndChange={(end) => setValue((prev) => ({ ...prev, end }))}
       />
     </div>
   );

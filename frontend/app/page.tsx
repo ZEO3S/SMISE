@@ -8,12 +8,11 @@ import SortTypeSelect from '@/components/sortTypeSelect';
 import { useRecruitment } from '@/hooks/useRecruitment';
 
 export default function Home() {
-  const { jobs, recruitment, isLoading, error, hasNext, updateJobs, updateExperienceLevel, fetchNextPage } =
-    useRecruitment();
+  const { jobs, recruitment, isLoading, error, hasNext, updateJobs, fetchNextPage } = useRecruitment();
 
   return (
     <div className='flex flex-1 gap-10 px-40 py-10'>
-      <Filter selectedDefaultJobs={jobs} updateJobs={updateJobs} updateExperienceLevel={updateExperienceLevel} />
+      <Filter selectedDefaultJobs={jobs} updateJobs={updateJobs} />
       <div className='flex flex-col flex-1'>
         <div className='sticky top-16 pb-4 bg-white'>
           <SearchBar />

@@ -3,14 +3,12 @@ import { useEffect, useState } from 'react';
 
 import { https } from '@/apis/fetch';
 
-import { ExperienceLevel } from '@/types/api/experienceLevel';
 import { Job } from '@/types/api/jobs';
 import { Recruitment, RequestRecruitmentParams, ResponseRecruitment } from '@/types/api/recruitment';
 
 import { PARAMS } from '@/constants/api/queryParams';
 import { DEFAULT_PARAMS } from '@/constants/api/recruitment';
 import { RECRUITMENT_URL } from '@/constants/api/url';
-import { generateMinText } from '@/constants/components/experienceLevel';
 
 import { useFetch } from '@/hooks/useFetch';
 import { usePage } from '@/hooks/usePage';
@@ -22,13 +20,11 @@ export const useRecruitment = () => {
   const params = new URLSearchParams(searchParams.toString());
   const page = usePage();
   const [jobs, setJobs] = useState(DEFAULT_PARAMS.JOBS);
-  const [experienceLevel, setExperienceLevel] = useState(DEFAULT_PARAMS.EXPERIENCE_LEVEL);
 
-  const generateUrl = ({ jobs, experienceLevel }: RequestRecruitmentParams) => {
+  const generateUrl = ({ jobs }: RequestRecruitmentParams) => {
     const _queryParams = params.toString();
-    const experienceLevelParam = experienceLevel ? `experienceLevel=${Object.values(experienceLevel).join(',')}` : null;
     const jobsParam = jobs ? jobs.map((job) => `jobs=${job.category},${job.details.join(',')}`).join('&') : null;
-    const tempParams = [jobsParam, experienceLevelParam].filter((param) => param).join('&');
+    const tempParams = [jobsParam].filter((param) => param).join('&');
     const queryParams = _queryParams ? `${tempParams}&${_queryParams}` : tempParams;
 
     return queryParams ? `${RECRUITMENT_URL}?${queryParams}` : RECRUITMENT_URL;
@@ -36,7 +32,6 @@ export const useRecruitment = () => {
 
   const url = generateUrl({
     jobs,
-    experienceLevel,
   });
   const { data, isLoading, error } = useFetch<string, ResponseRecruitment>({
     fetch: () => https.get<ResponseRecruitment>(url),
@@ -56,36 +51,6 @@ export const useRecruitment = () => {
 
   const updateJobs = (selectedJobs: Array<Job> | null) => {
     setJobs(selectedJobs);
-    initialPagination();
-  };
-
-  const updateExperienceLevel = (min: number, max: number) => {
-    setExperienceLevel((prev) => {
-      const newExperienceLevel = {
-        start: generateMinText(min),
-        end: generateMinText(max),
-      };
-
-      const isExperienceLevel = (obj: unknown): obj is ExperienceLevel => {
-        if (typeof obj !== 'object' || obj === null) return false;
-
-        if (!('start' in obj && 'end' in obj)) return false;
-
-        const { start, end } = obj;
-
-        if (typeof start !== 'string' || typeof end !== 'string') {
-          return false;
-        }
-
-        const reg = /^(\d+)년$/;
-
-        return (start === '신입' || reg.test(start)) && (end === '신입' || reg.test(end));
-      };
-
-      if (!isExperienceLevel(newExperienceLevel)) return prev;
-
-      return newExperienceLevel;
-    });
     initialPagination();
   };
 
@@ -117,7 +82,6 @@ export const useRecruitment = () => {
     error,
     hasNext,
     updateJobs,
-    updateExperienceLevel,
     fetchNextPage,
   };
 };

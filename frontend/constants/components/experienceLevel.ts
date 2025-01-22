@@ -3,6 +3,5 @@ export const EXPERIENCE_LEVEL_RANGE = {
   MAX: 5,
 };
 
-export const generateMinText = (min: number) => (min === EXPERIENCE_LEVEL_RANGE.MIN ? '신입' : `${min}년`);
-
-export const generateMaxText = (max: number) => `${max}년`;
+export const generateExperienceLevelText = (experienceLevel: number) =>
+  experienceLevel === EXPERIENCE_LEVEL_RANGE.MIN ? '신입' : `${experienceLevel}년`;

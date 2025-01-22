@@ -10,10 +10,9 @@ import ServiceTypesFilter from './serviceTypesFilter';
 interface Props {
   selectedDefaultJobs: Array<Job> | null;
   updateJobs: (selectedJob: Array<Job> | null) => void;
-  updateExperienceLevel: (min: number, max: number) => void;
 }
 
-export default function Filter({ selectedDefaultJobs, updateJobs, updateExperienceLevel }: Props) {
+export default function Filter({ selectedDefaultJobs, updateJobs }: Props) {
   return (
     <div className='flex flex-col sticky top-16 w-80 h-[724px] [&>*]:border-b [&>*]:border-default-color [&>*]:border-opacity-10'>
       <ServiceTypesFilter />
@@ -21,7 +20,7 @@ export default function Filter({ selectedDefaultJobs, updateJobs, updateExperien
       <JobsFilter selectedDefaultJobs={selectedDefaultJobs} updateJobs={updateJobs} />
       <LocationFilter />
       <EducationLevelFilter />
-      <ExperienceLevelFilter updateExperienceLevel={updateExperienceLevel} />
+      <ExperienceLevelFilter />
     </div>
   );
 }
